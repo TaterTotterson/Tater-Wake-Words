@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.cache/
+tmp/
+logs/
+
+# Local trainer/output scratch. Wake-word catalog artifacts are intentionally tracked.
+trained_wake_words/
+trained_models/
+samples/

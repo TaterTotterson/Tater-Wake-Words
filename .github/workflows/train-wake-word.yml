@@ -1,0 +1,36 @@
+name: Train Wake Word Request
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: tater-wake-word-training
+  cancel-in-progress: false
+
+jobs:
+  train:
+    if: ${{ github.event.issue.pull_request == null }}
+    runs-on: [self-hosted, macOS, ARM64]
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
+      TATER_WAKE_TRAINER_DIR: ${{ vars.TATER_WAKE_TRAINER_DIR }}
+    steps:
+      - name: Checkout catalog
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Train requested wake word
+        run: scripts/train_issue_wake_word.sh

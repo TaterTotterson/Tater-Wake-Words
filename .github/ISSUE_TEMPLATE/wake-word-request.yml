@@ -1,0 +1,21 @@
+name: Wake Word Request
+description: Request a generated wake word for Tater Native satellites.
+title: "mww: "
+labels: ["wake-word-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Put the wake phrase after `mww:` in the issue title.
+
+        Example: `mww: hey potato`
+
+        The automation only trains issues whose title starts with `mww:`.
+  - type: input
+    id: phrase
+    attributes:
+      label: Wake phrase
+      description: The phrase you want generated. Keep the issue title in `mww: phrase` format.
+      placeholder: hey potato
+    validations:
+      required: false
