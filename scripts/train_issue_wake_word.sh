@@ -69,8 +69,8 @@ comment_wake_word_links() {
   {
     printf "## %s\n\n" "$heading"
     printf "**Wake word:** \`%s\`\n\n" "$SAFE_WORD"
-    printf "- [JSON package](%s)\n" "$json_url"
-    printf "- [TFLite model](%s)\n\n" "$model_url"
+    printf '%s\n' "- [JSON package](${json_url})"
+    printf '%s\n\n' "- [TFLite model](${model_url})"
     printf "Use the JSON package URL in Tater's satellite wake-word settings.\n"
   } > "$body_file"
   gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
