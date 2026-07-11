@@ -15,7 +15,7 @@ concurrency:
 jobs:
   train:
     if: ${{ github.event.issue.pull_request == null }}
-    runs-on: [self-hosted, macOS, ARM64]
+    runs-on: [self-hosted, macOS, ARM64, tater-wake-words]
     env:
       GH_TOKEN: ${{ github.token }}
       GITHUB_TOKEN: ${{ github.token }}
