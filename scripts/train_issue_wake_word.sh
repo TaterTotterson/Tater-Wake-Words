@@ -52,7 +52,29 @@ ensure_label() {
 comment_issue() {
   local body="$1"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
-  gh issue comment "$ISSUE_NUMBER" --body "$body" >/dev/null 2>&1 || true
+  local body_file
+  body_file="$(mktemp "$TMPDIR/tater-wake-comment.XXXXXX.md")"
+  printf "%s\n" "$body" > "$body_file"
+  gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
+  rm -f "$body_file"
+}
+
+comment_wake_word_links() {
+  local heading="$1"
+  local json_url="$2"
+  local model_url="$3"
+  [[ -n "$ISSUE_NUMBER" ]] || return 0
+  local body_file
+  body_file="$(mktemp "$TMPDIR/tater-wake-comment.XXXXXX.md")"
+  {
+    printf "## %s\n\n" "$heading"
+    printf "**Wake word:** \`%s\`\n\n" "$SAFE_WORD"
+    printf "- [JSON package](%s)\n" "$json_url"
+    printf "- [TFLite model](%s)\n\n" "$model_url"
+    printf "Use the JSON package URL in Tater's satellite wake-word settings.\n"
+  } > "$body_file"
+  gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
+  rm -f "$body_file"
 }
 
 mark_failed() {
@@ -147,7 +169,7 @@ if [[ -f "$json_path" && -f "$tflite_path" ]]; then
   log "Wake word already exists: $SAFE_WORD"
   python3 scripts/generate_wake_word_manifest.py
   raw_base="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main"
-  comment_issue "Wake word already exists: \`${SAFE_WORD}\`\n\nJSON: ${raw_base}/${json_path}"
+  comment_wake_word_links "Wake Word Already Exists" "${raw_base}/${json_path}" "${raw_base}/${tflite_path}"
   gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
   gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
   exit 0
@@ -210,7 +232,7 @@ else
 fi
 
 raw_base="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main"
-comment_issue "Added wake word: \`${SAFE_WORD}\`\n\nJSON: ${raw_base}/${json_path}\nModel: ${raw_base}/${tflite_path}"
+comment_wake_word_links "Wake Word Added" "${raw_base}/${json_path}" "${raw_base}/${tflite_path}"
 gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
 gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
 log "Completed issue #$ISSUE_NUMBER for $SAFE_WORD"
