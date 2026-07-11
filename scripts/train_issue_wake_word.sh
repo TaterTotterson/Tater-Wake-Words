@@ -5,7 +5,9 @@ CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV4}"
 LABEL_PROCESSING="${LABEL_PROCESSING:-mww-processing}"
 LABEL_DONE="${LABEL_DONE:-mww-added}"
 LABEL_FAILED="${LABEL_FAILED:-mww-failed}"
-DEFAULT_TRAINER_DIR="/Users/ahphooey/Scripts/microWakeWord-Trainer-AppleSilicon"
+EXTERNAL_ROOT="${TATER_WAKE_EXTERNAL_ROOT:-/Volumes/Untitled}"
+DEFAULT_TRAINER_DIR="${TATER_WAKE_TRAINER_DIR:-${EXTERNAL_ROOT}/microWakeWord-Trainer-AppleSilicon}"
+DEFAULT_TMP_ROOT="${TATER_WAKE_TMP_ROOT:-${EXTERNAL_ROOT}/tater-wake-tmp}"
 
 ISSUE_NUMBER=""
 SAFE_WORD=""
@@ -13,6 +15,17 @@ RAW_PHRASE=""
 
 log() {
   printf "%s [tater-wake-word] %s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
+}
+
+prepare_external_storage() {
+  if [[ ! -d "$EXTERNAL_ROOT" ]]; then
+    echo "External wake-word volume is not mounted: $EXTERNAL_ROOT"
+    echo "Mount the SD card or set TATER_WAKE_EXTERNAL_ROOT to the mounted volume."
+    exit 1
+  fi
+
+  mkdir -p "$DEFAULT_TMP_ROOT/tmp" "$DEFAULT_TMP_ROOT/outputs" "$DEFAULT_TMP_ROOT/repos"
+  export TMPDIR="$DEFAULT_TMP_ROOT/tmp"
 }
 
 ensure_label() {
@@ -42,12 +55,14 @@ on_error() {
 }
 trap on_error ERR
 
+prepare_external_storage
+
 if [[ -z "${GITHUB_EVENT_PATH:-}" || ! -f "${GITHUB_EVENT_PATH:-}" ]]; then
   echo "GITHUB_EVENT_PATH is required."
   exit 1
 fi
 
-request_env="$(mktemp)"
+request_env="$(mktemp "$TMPDIR/tater-wake-request.XXXXXX")"
 python3 - <<'PY' "$GITHUB_EVENT_PATH" "$request_env"
 from __future__ import annotations
 
@@ -124,34 +139,32 @@ fi
 
 gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_PROCESSING" --remove-label "$LABEL_FAILED" >/dev/null 2>&1 || true
 
-trainer_dir="${TATER_WAKE_TRAINER_DIR:-}"
-if [[ -z "$trainer_dir" || ! -x "$trainer_dir/train_microwakeword_macos.sh" ]]; then
-  if [[ -x "$DEFAULT_TRAINER_DIR/train_microwakeword_macos.sh" ]]; then
-    trainer_dir="$DEFAULT_TRAINER_DIR"
-  elif [[ -x "$HOME/Scripts/microWakeWord-Trainer-AppleSilicon/train_microwakeword_macos.sh" ]]; then
-    trainer_dir="$HOME/Scripts/microWakeWord-Trainer-AppleSilicon"
+trainer_dir="$DEFAULT_TRAINER_DIR"
+if [[ ! -x "$trainer_dir/train_microwakeword_macos.sh" ]]; then
+  if [[ "$trainer_dir" == "${EXTERNAL_ROOT}/"* && ! -e "$trainer_dir" ]]; then
+    mkdir -p "$(dirname "$trainer_dir")"
+    gh repo clone TaterTotterson/microWakeWord-Trainer-AppleSilicon "$trainer_dir"
   else
-    trainer_dir="${RUNNER_TEMP:-/tmp}/microWakeWord-Trainer-AppleSilicon"
-    if [[ ! -x "$trainer_dir/train_microwakeword_macos.sh" ]]; then
-      rm -rf "$trainer_dir"
-      gh repo clone TaterTotterson/microWakeWord-Trainer-AppleSilicon "$trainer_dir"
-    fi
+    echo "Trainer script not found at: $trainer_dir"
+    echo "Set TATER_WAKE_TRAINER_DIR to an external-volume trainer checkout."
+    exit 1
   fi
 fi
 
 if [[ ! -x "$trainer_dir/train_microwakeword_macos.sh" ]]; then
-  echo "Trainer script not found. Set TATER_WAKE_TRAINER_DIR on the self-hosted runner."
+  echo "Trainer script not found at: $trainer_dir"
   exit 1
 fi
 
-output_dir="${RUNNER_TEMP:-/tmp}/tater-wake-words/$SAFE_WORD"
+output_dir="$DEFAULT_TMP_ROOT/outputs/$SAFE_WORD"
 rm -rf "$output_dir"
 mkdir -p "$output_dir"
 
 log "Training '$RAW_PHRASE' as '$SAFE_WORD' with $trainer_dir"
+log "Using external temp root: $DEFAULT_TMP_ROOT"
 (
   cd "$trainer_dir"
-  TRAINED_WAKE_WORDS_DIR="$output_dir" ./train_microwakeword_macos.sh "$SAFE_WORD"
+  TMPDIR="$TMPDIR" TRAINED_WAKE_WORDS_DIR="$output_dir" ./train_microwakeword_macos.sh "$SAFE_WORD"
 )
 
 cp "$output_dir/$SAFE_WORD.json" "$json_path"

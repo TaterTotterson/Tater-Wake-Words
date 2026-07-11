@@ -19,8 +19,20 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GITHUB_TOKEN: ${{ github.token }}
+      TATER_WAKE_EXTERNAL_ROOT: ${{ vars.TATER_WAKE_EXTERNAL_ROOT }}
       TATER_WAKE_TRAINER_DIR: ${{ vars.TATER_WAKE_TRAINER_DIR }}
+      TATER_WAKE_TMP_ROOT: ${{ vars.TATER_WAKE_TMP_ROOT }}
     steps:
+      - name: Prepare external trainer storage
+        run: |
+          external_root="${TATER_WAKE_EXTERNAL_ROOT:-/Volumes/Untitled}"
+          tmp_root="${TATER_WAKE_TMP_ROOT:-${external_root}/tater-wake-tmp}"
+          if [[ ! -d "$external_root" ]]; then
+            echo "External wake-word volume is not mounted: $external_root"
+            exit 1
+          fi
+          mkdir -p "$tmp_root/tmp" "$tmp_root/outputs" "$tmp_root/repos"
+
       - name: Checkout catalog
         uses: actions/checkout@v4
         with:

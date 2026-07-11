@@ -68,4 +68,23 @@ Register the runner from the Mac that has the trainer/cache:
 scripts/setup_self_hosted_runner_macos.sh
 ```
 
+The default runner setup expects the external SD card mounted at `/Volumes/Untitled` and keeps the large training data off the internal disk:
+
+```text
+/Volumes/Untitled/Tater-Wake-Words
+/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon
+/Volumes/Untitled/tater-wake-tmp
+/Volumes/Untitled/actions-runners/tater-wake-words
+```
+
+The GitHub workflow uses these repo variables:
+
+```text
+TATER_WAKE_EXTERNAL_ROOT=/Volumes/Untitled
+TATER_WAKE_TRAINER_DIR=/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon
+TATER_WAKE_TMP_ROOT=/Volumes/Untitled/tater-wake-tmp
+```
+
+If the external volume is not mounted, the training job fails instead of filling the Mac's internal disk.
+
 By default, generated words are written to `microWakeWordsV4`.

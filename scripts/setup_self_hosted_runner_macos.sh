@@ -2,7 +2,8 @@
 set -euo pipefail
 
 REPO="${1:-TaterTotterson/Tater-Wake-Words}"
-RUNNER_ROOT="${RUNNER_ROOT:-$HOME/actions-runners/tater-wake-words}"
+EXTERNAL_ROOT="${TATER_WAKE_EXTERNAL_ROOT:-/Volumes/Untitled}"
+RUNNER_ROOT="${RUNNER_ROOT:-$EXTERNAL_ROOT/actions-runners/tater-wake-words}"
 RUNNER_NAME="${RUNNER_NAME:-$(hostname -s)-tater-wake-words}"
 RUNNER_LABELS="${RUNNER_LABELS:-tater-wake-words}"
 
@@ -17,6 +18,12 @@ command -v gh >/dev/null 2>&1 || {
 }
 
 gh auth status >/dev/null
+
+if [[ ! -d "$EXTERNAL_ROOT" ]]; then
+  echo "External wake-word volume is not mounted: $EXTERNAL_ROOT"
+  echo "Mount the SD card or set TATER_WAKE_EXTERNAL_ROOT to the mounted volume."
+  exit 1
+fi
 
 mkdir -p "$RUNNER_ROOT"
 cd "$RUNNER_ROOT"
