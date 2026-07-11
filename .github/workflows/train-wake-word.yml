@@ -31,7 +31,16 @@ jobs:
             echo "External wake-word volume is not mounted: $external_root"
             exit 1
           fi
-          mkdir -p "$tmp_root/tmp" "$tmp_root/outputs" "$tmp_root/repos"
+          mkdir -p \
+            "$tmp_root/tmp" \
+            "$tmp_root/outputs" \
+            "$tmp_root/repos" \
+            "$tmp_root/cache/pip" \
+            "$tmp_root/cache/xdg" \
+            "$tmp_root/cache/huggingface" \
+            "$tmp_root/cache/torch" \
+            "$tmp_root/cache/nltk" \
+            "$tmp_root/cache/matplotlib"
 
       - name: Checkout catalog
         uses: actions/checkout@v4

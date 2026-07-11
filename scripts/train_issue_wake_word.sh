@@ -24,8 +24,24 @@ prepare_external_storage() {
     exit 1
   fi
 
-  mkdir -p "$DEFAULT_TMP_ROOT/tmp" "$DEFAULT_TMP_ROOT/outputs" "$DEFAULT_TMP_ROOT/repos"
+  mkdir -p \
+    "$DEFAULT_TMP_ROOT/tmp" \
+    "$DEFAULT_TMP_ROOT/outputs" \
+    "$DEFAULT_TMP_ROOT/repos" \
+    "$DEFAULT_TMP_ROOT/cache/pip" \
+    "$DEFAULT_TMP_ROOT/cache/xdg" \
+    "$DEFAULT_TMP_ROOT/cache/huggingface" \
+    "$DEFAULT_TMP_ROOT/cache/torch" \
+    "$DEFAULT_TMP_ROOT/cache/nltk" \
+    "$DEFAULT_TMP_ROOT/cache/matplotlib"
+
   export TMPDIR="$DEFAULT_TMP_ROOT/tmp"
+  export PIP_CACHE_DIR="$DEFAULT_TMP_ROOT/cache/pip"
+  export XDG_CACHE_HOME="$DEFAULT_TMP_ROOT/cache/xdg"
+  export HF_HOME="$DEFAULT_TMP_ROOT/cache/huggingface"
+  export TORCH_HOME="$DEFAULT_TMP_ROOT/cache/torch"
+  export NLTK_DATA="$DEFAULT_TMP_ROOT/cache/nltk"
+  export MPLCONFIGDIR="$DEFAULT_TMP_ROOT/cache/matplotlib"
 }
 
 ensure_label() {

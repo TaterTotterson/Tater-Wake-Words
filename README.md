@@ -77,6 +77,8 @@ The default runner setup expects the external SD card mounted at `/Volumes/Untit
 /Volumes/Untitled/actions-runners/tater-wake-words
 ```
 
+`tater-wake-tmp` is used for generated output, temporary files, and training caches such as pip, Hugging Face, Torch, NLTK, and matplotlib.
+
 The GitHub workflow uses these repo variables:
 
 ```text
