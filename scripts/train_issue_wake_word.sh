@@ -53,7 +53,7 @@ comment_issue() {
   local body="$1"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
   local body_file
-  body_file="$(mktemp "$TMPDIR/tater-wake-comment.XXXXXX.md")"
+  body_file="$(mktemp "${TMPDIR%/}/tater-wake-comment.XXXXXX")"
   printf "%s\n" "$body" > "$body_file"
   gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
   rm -f "$body_file"
@@ -65,7 +65,7 @@ comment_wake_word_links() {
   local model_url="$3"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
   local body_file
-  body_file="$(mktemp "$TMPDIR/tater-wake-comment.XXXXXX.md")"
+  body_file="$(mktemp "${TMPDIR%/}/tater-wake-comment.XXXXXX")"
   {
     printf "## %s\n\n" "$heading"
     printf "**Wake word:** \`%s\`\n\n" "$SAFE_WORD"
