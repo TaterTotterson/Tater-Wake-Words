@@ -20,10 +20,10 @@
     {
       "key": "microWakeWordsV4",
       "label": "microWakeWordsV4",
-      "count": 3
+      "count": 4
     }
   ],
-  "count": 641,
+  "count": 642,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -13502,6 +13502,33 @@
       "close_miss_threshold": 0.5,
       "calibration_recall": 0.9993,
       "calibration_false_accepts_per_hour": 0.930673,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV4:totty_totterson",
+      "source": "microWakeWordsV4",
+      "source_label": "microWakeWordsV4",
+      "slug": "totty_totterson",
+      "name": "totty_totterson",
+      "label": "Totty Totterson",
+      "path": "microWakeWordsV4/totty_totterson.json",
+      "model_path": "microWakeWordsV4/totty_totterson.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV4/totty_totterson.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV4/totty_totterson.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV4/totty_totterson.tflite",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.08,
+      "wake_sliding_window": 3,
+      "close_miss_threshold": 0.01,
+      "calibration_recall": 0.99934,
+      "calibration_false_accepts_per_hour": 0.723857,
       "minimum_esphome_version": "2024.7.0"
     }
   ]
