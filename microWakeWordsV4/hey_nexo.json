@@ -1,0 +1,54 @@
+{
+  "type": "micro",
+  "wake_word": "hey_nexo",
+  "label": "Hey Nexo",
+  "author": "Tater Totterson",
+  "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+  "model": "hey_nexo.tflite",
+  "trained_languages": [
+    "en"
+  ],
+  "version": 2,
+  "model_format": "tflite_stream_state_internal_quant",
+  "quantization": "int8",
+  "sample_rate": 16000,
+  "micro": {
+    "probability_cutoff": 0.88,
+    "sliding_window_size": 4,
+    "feature_step_size": 10,
+    "tensor_arena_size": 30000,
+    "minimum_esphome_version": "2024.7.0"
+  },
+  "tater_native": {
+    "format_version": 1,
+    "wake_threshold": 0.88,
+    "wake_sliding_window": 4,
+    "close_miss_threshold": 0.71,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "recommended_for": [
+      "tater-native-satellite",
+      "voice-pe"
+    ]
+  },
+  "calibration": {
+    "target_false_accepts_per_hour": 0.25,
+    "selected_false_accepts_per_hour_limit": 0.25,
+    "recall": 0.99936,
+    "false_accepts_per_hour": 0.0,
+    "ambient_hours": 9.6704,
+    "positive_dataset": "validation",
+    "ambient_dataset": "validation_ambient",
+    "positive_tracks": 50000,
+    "ambient_tracks": 4,
+    "generated_at": "2026-07-14T01:28:45.125369+00:00"
+  }
+}
