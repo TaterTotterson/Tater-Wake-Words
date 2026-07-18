@@ -17,6 +17,7 @@ jobs:
     if: ${{ github.event.issue.pull_request == null }}
     runs-on: [self-hosted, macOS, ARM64, tater-wake-words]
     env:
+      CATALOG_DIR: microWakeWordsV6
       GH_TOKEN: ${{ github.token }}
       GITHUB_TOKEN: ${{ github.token }}
       TATER_WAKE_EXTERNAL_ROOT: ${{ vars.TATER_WAKE_EXTERNAL_ROOT }}
