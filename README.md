@@ -18,7 +18,7 @@ The historical catalog folders are seeded from the original Tater wake-word coll
 - `microWakeWordsV2`
 - `microWakeWordsV3`
 
-New issue-generated wake words are added to `microWakeWordsV6`.
+New issue-generated wake words are added to `microWakeWordsV5`.
 
 ## Use A Wake Word
 

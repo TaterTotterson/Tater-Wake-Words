@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV6}"
+CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV5}"
 LABEL_PROCESSING="${LABEL_PROCESSING:-mww-processing}"
 LABEL_DONE="${LABEL_DONE:-mww-added}"
 LABEL_FAILED="${LABEL_FAILED:-mww-failed}"
