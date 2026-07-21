@@ -25,10 +25,10 @@
     {
       "key": "microWakeWordsV5",
       "label": "microWakeWordsV5",
-      "count": 3
+      "count": 4
     }
   ],
-  "count": 647,
+  "count": 648,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -13615,6 +13615,33 @@
       "close_miss_threshold": 0.81,
       "calibration_recall": 0.99172,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV5:hey_layuh",
+      "source": "microWakeWordsV5",
+      "source_label": "microWakeWordsV5",
+      "slug": "hey_layuh",
+      "name": "hey_layuh",
+      "label": "Hey Layuh",
+      "path": "microWakeWordsV5/hey_layuh.json",
+      "model_path": "microWakeWordsV5/hey_layuh.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hey_layuh.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hey_layuh.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hey_layuh.tflite",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.98866,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
