@@ -25,10 +25,10 @@
     {
       "key": "microWakeWordsV5",
       "label": "microWakeWordsV5",
-      "count": 4
+      "count": 5
     }
   ],
-  "count": 648,
+  "count": 649,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -13588,6 +13588,33 @@
       "close_miss_threshold": 0.8,
       "calibration_recall": 0.99808,
       "calibration_false_accepts_per_hour": 0.103408,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV5:hello_general",
+      "source": "microWakeWordsV5",
+      "source_label": "microWakeWordsV5",
+      "slug": "hello_general",
+      "name": "hello_general",
+      "label": "Hello General",
+      "path": "microWakeWordsV5/hello_general.json",
+      "model_path": "microWakeWordsV5/hello_general.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hello_general.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hello_general.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hello_general.tflite",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.97,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.8,
+      "calibration_recall": 0.98486,
+      "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },
     {
