@@ -25,10 +25,10 @@
     {
       "key": "microWakeWordsV5",
       "label": "microWakeWordsV5",
-      "count": 8
+      "count": 9
     }
   ],
-  "count": 652,
+  "count": 653,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -13641,6 +13641,33 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.99182,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV5:hallo_klara",
+      "source": "microWakeWordsV5",
+      "source_label": "microWakeWordsV5",
+      "slug": "hallo_klara",
+      "name": "hallo_klara",
+      "label": "Hallo Klara",
+      "path": "microWakeWordsV5/hallo_klara.json",
+      "model_path": "microWakeWordsV5/hallo_klara.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hallo_klara.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hallo_klara.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV5/hallo_klara.tflite",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.98,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.81,
+      "calibration_recall": 0.99124,
       "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },
