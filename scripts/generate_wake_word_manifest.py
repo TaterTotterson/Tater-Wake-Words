@@ -65,6 +65,8 @@ def build_entries() -> list[dict[str, Any]]:
         source_key = source_dir.name
         source_label = source_key
         for json_path in sorted(source_dir.glob("*.json")):
+            if json_path.name.endswith(".esphome.json"):
+                continue
             model_path = json_path.with_suffix(".tflite")
             if not model_path.is_file():
                 continue
@@ -93,6 +95,12 @@ def build_entries() -> list[dict[str, Any]]:
                 "download_url": raw_url(json_path),
                 "model_url": raw_url(model_path),
             }
+            esphome_path = json_path.with_name(f"{json_path.stem}.esphome.json")
+            if esphome_path.is_file():
+                entry["esphome_path"] = esphome_path.relative_to(
+                    REPO_ROOT
+                ).as_posix()
+                entry["esphome_url"] = raw_url(esphome_path)
 
             for key in ("author", "model_format", "quantization", "sample_rate", "version"):
                 if payload.get(key) not in (None, ""):

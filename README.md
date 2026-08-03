@@ -8,7 +8,8 @@ Tater wake-word catalog for Tater Native satellites.
 
 This repo stores ready-to-use microWakeWord model packages:
 
-- `.json` metadata files
+- `.json` Tater Native metadata files
+- `.esphome.json` ESPHome-compatible metadata files
 - `.tflite` model files
 - `wake_word_manifest.json` for app/catalog discovery
 
@@ -18,7 +19,7 @@ The historical catalog folders are seeded from the original Tater wake-word coll
 - `microWakeWordsV2`
 - `microWakeWordsV3`
 
-New issue-generated wake words are added to `microWakeWordsV5`.
+New issue-generated wake words are added to `microWakeWordsV6`.
 
 ## Use A Wake Word
 
@@ -42,4 +43,4 @@ mww: hey potato
 
 Only issues whose title starts with `mww:` are handled by automation.
 
-When the self-hosted trainer runner completes successfully, it adds the generated `.json` and `.tflite` files, updates the manifest, comments on the issue, and closes it.
+When the self-hosted trainer runner completes successfully, it adds the Tater JSON, ESPHome JSON, and `.tflite` model to `microWakeWordsV6`, updates the manifest, comments on the issue, and closes it.
