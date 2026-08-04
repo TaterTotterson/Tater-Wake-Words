@@ -53,6 +53,8 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV6}"', runner)
         self.assertIn("CATALOG_DIR: microWakeWordsV6", workflow)
         self.assertIn('git -C "$trainer_dir" merge --ff-only FETCH_HEAD', runner)
+        self.assertIn("MWW_TTS_MODE=piper", runner)
+        self.assertNotIn("MWW_TTS_MODE=hybrid", runner)
         self.assertIn('$SAFE_WORD.esphome.json', runner)
         self.assertIn('git add "$json_path" "$esphome_json_path" "$tflite_path"', runner)
         self.assertIn("ESPHome JSON package", runner)

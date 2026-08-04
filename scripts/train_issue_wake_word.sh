@@ -213,9 +213,13 @@ mkdir -p "$output_dir"
 
 log "Training '$RAW_PHRASE' as '$SAFE_WORD' with $trainer_dir"
 log "Using external temp root: $DEFAULT_TMP_ROOT"
+log "Using Piper-only TTS for the resource-limited automation runner"
 (
   cd "$trainer_dir"
-  TMPDIR="$TMPDIR" TRAINED_WAKE_WORDS_DIR="$output_dir" ./train_microwakeword_macos.sh "$SAFE_WORD"
+  MWW_TTS_MODE=piper \
+    TMPDIR="$TMPDIR" \
+    TRAINED_WAKE_WORDS_DIR="$output_dir" \
+    ./train_microwakeword_macos.sh "$SAFE_WORD"
 )
 
 for artifact in \
