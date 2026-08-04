@@ -211,12 +211,25 @@ output_dir="$DEFAULT_TMP_ROOT/outputs/$SAFE_WORD"
 rm -rf "$output_dir"
 mkdir -p "$output_dir"
 
+# The desktop app deliberately keeps its data under ~/.taterwakewordtrainer,
+# but this headless runner has a persistent external trainer checkout. Keep the
+# runner's datasets and generated training data with that checkout so reruns can
+# reuse them and never fill the runner account's home directory.
+trainer_data_dir="${TATER_WAKE_DATA_DIR:-$trainer_dir}"
+trainer_support_dir="${TATER_WAKE_SUPPORT_DIR:-$trainer_dir}"
+qa_venv_dir="${MWW_CLI_QA_VENV_DIR:-$DEFAULT_TMP_ROOT/cli-reference-qa-venv}"
+mkdir -p "$trainer_data_dir" "$trainer_support_dir" "$(dirname "$qa_venv_dir")"
+
 log "Training '$RAW_PHRASE' as '$SAFE_WORD' with $trainer_dir"
 log "Using external temp root: $DEFAULT_TMP_ROOT"
+log "Using persistent trainer data: $trainer_data_dir"
 log "Using Piper-only TTS for the resource-limited automation runner"
 (
   cd "$trainer_dir"
   MWW_TTS_MODE=piper \
+    WAKEWORD_TRAINER_SUPPORT_DIR="$trainer_support_dir" \
+    WAKEWORD_TRAINER_DATA_DIR="$trainer_data_dir" \
+    MWW_CLI_QA_VENV_DIR="$qa_venv_dir" \
     TMPDIR="$TMPDIR" \
     TRAINED_WAKE_WORDS_DIR="$output_dir" \
     ./train_microwakeword_macos.sh "$SAFE_WORD"

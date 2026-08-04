@@ -55,6 +55,15 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertIn('git -C "$trainer_dir" merge --ff-only FETCH_HEAD', runner)
         self.assertIn("MWW_TTS_MODE=piper", runner)
         self.assertNotIn("MWW_TTS_MODE=hybrid", runner)
+        self.assertIn(
+            'trainer_data_dir="${TATER_WAKE_DATA_DIR:-$trainer_dir}"', runner
+        )
+        self.assertIn(
+            'WAKEWORD_TRAINER_DATA_DIR="$trainer_data_dir"', runner
+        )
+        self.assertIn(
+            'WAKEWORD_TRAINER_SUPPORT_DIR="$trainer_support_dir"', runner
+        )
         self.assertIn('$SAFE_WORD.esphome.json', runner)
         self.assertIn('git add "$json_path" "$esphome_json_path" "$tflite_path"', runner)
         self.assertIn("ESPHome JSON package", runner)
