@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 29
+      "count": 30
     }
   ],
-  "count": 685,
+  "count": 686,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -14122,6 +14122,35 @@
       "close_miss_threshold": 0.82,
       "calibration_recall": 0.98772,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hey_eve",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hey_eve",
+      "name": "hey_eve",
+      "label": "Hey Eve",
+      "path": "microWakeWordsV6/hey_eve.json",
+      "model_path": "microWakeWordsV6/hey_eve.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_eve.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_eve.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_eve.tflite",
+      "esphome_path": "microWakeWordsV6/hey_eve.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_eve.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.97824,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
