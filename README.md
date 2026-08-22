@@ -1,5 +1,16 @@
+<div align="center">
+  <a href="https://taterassistant.com">
+    <img src="images/tater-wake-words-logo.png" alt="Tater Wake Words" width="460"/>
+  </a>
+</div>
+
 <p align="center">
-  <img src="images/tater-repo-logo.png" alt="Tater" width="460"/>
+  <a href="https://taterassistant.com">
+    <img alt="Visit Tater Assistant" src="https://img.shields.io/badge/Tater%20Assistant-Visit%20Website-F28C28?style=for-the-badge&logo=googlechrome&logoColor=white" />
+  </a>
+  <a href="https://discord.gg/w52namKyXT">
+    <img alt="Join the Tater Assistant Discord" src="https://img.shields.io/badge/Discord-Join%20the%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" />
+  </a>
 </p>
 
 # Tater Wake Words
