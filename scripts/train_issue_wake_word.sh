@@ -8,6 +8,8 @@ LABEL_FAILED="${LABEL_FAILED:-mww-failed}"
 EXTERNAL_ROOT="${TATER_WAKE_EXTERNAL_ROOT:-/Volumes/Untitled}"
 DEFAULT_TRAINER_DIR="${TATER_WAKE_TRAINER_DIR:-${EXTERNAL_ROOT}/microWakeWord-Trainer-AppleSilicon}"
 DEFAULT_TMP_ROOT="${TATER_WAKE_TMP_ROOT:-${EXTERNAL_ROOT}/tater-wake-tmp}"
+REQUESTED_ISSUE_NUMBER="${WAKE_WORD_ISSUE_NUMBER:-}"
+BOOTSTRAP_TMPDIR="${RUNNER_TEMP:-${TMPDIR:-/tmp}}"
 
 ISSUE_NUMBER=""
 SAFE_WORD=""
@@ -53,7 +55,7 @@ comment_issue() {
   local body="$1"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
   local body_file
-  body_file="$(mktemp "${TMPDIR%/}/tater-wake-comment.XXXXXX")"
+  body_file="$(mktemp "${TMPDIR:-$BOOTSTRAP_TMPDIR}/tater-wake-comment.XXXXXX")"
   printf "%s\n" "$body" > "$body_file"
   gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
   rm -f "$body_file"
@@ -66,7 +68,7 @@ comment_wake_word_links() {
   local model_url="$4"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
   local body_file
-  body_file="$(mktemp "${TMPDIR%/}/tater-wake-comment.XXXXXX")"
+  body_file="$(mktemp "${TMPDIR:-$BOOTSTRAP_TMPDIR}/tater-wake-comment.XXXXXX")"
   {
     printf "## %s\n\n" "$heading"
     printf "**Wake word:** \`%s\`\n\n" "$SAFE_WORD"
@@ -86,68 +88,44 @@ mark_failed() {
   gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_FAILED" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
 }
 
-on_error() {
+on_exit() {
   local rc=$?
+  trap - EXIT
   if [[ $rc -ne 0 ]]; then
     mark_failed "Wake-word training failed for \`${SAFE_WORD:-unknown}\`. Check the workflow logs for details."
   fi
   exit "$rc"
 }
-trap on_error ERR
-
-prepare_external_storage
+trap on_exit EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
 if [[ -z "${GITHUB_EVENT_PATH:-}" || ! -f "${GITHUB_EVENT_PATH:-}" ]]; then
   echo "GITHUB_EVENT_PATH is required."
   exit 1
 fi
 
-request_env="$(mktemp "$TMPDIR/tater-wake-request.XXXXXX")"
-python3 - <<'PY' "$GITHUB_EVENT_PATH" "$request_env"
-from __future__ import annotations
+mkdir -p "$BOOTSTRAP_TMPDIR"
+request_event="$GITHUB_EVENT_PATH"
+manual_event=""
+if [[ -n "$REQUESTED_ISSUE_NUMBER" ]]; then
+  if [[ ! "$REQUESTED_ISSUE_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
+    echo "WAKE_WORD_ISSUE_NUMBER must be a positive issue number."
+    exit 1
+  fi
+  ISSUE_NUMBER="$REQUESTED_ISSUE_NUMBER"
+  manual_event="$(mktemp "$BOOTSTRAP_TMPDIR/tater-wake-event.XXXXXX")"
+  gh api "repos/${GITHUB_REPOSITORY}/issues/${REQUESTED_ISSUE_NUMBER}" > "$manual_event"
+  request_event="$manual_event"
+fi
 
-import json
-import re
-import shlex
-import sys
-from pathlib import Path
-
-event_path = Path(sys.argv[1])
-env_path = Path(sys.argv[2])
-event = json.loads(event_path.read_text(encoding="utf-8"))
-issue = event.get("issue") if isinstance(event, dict) else {}
-title = str(issue.get("title") or "")
-number = str(issue.get("number") or "")
-match = re.match(r"^\s*mww:\s*(.+?)\s*$", title, flags=re.I)
-
-values = {
-    "SHOULD_TRAIN": "0",
-    "ISSUE_NUMBER": number,
-    "RAW_PHRASE": "",
-    "SAFE_WORD": "",
-    "REQUEST_ERROR": "",
-}
-
-if match:
-    phrase = match.group(1).strip()
-    safe = re.sub(r"[^a-z0-9_]+", "", re.sub(r"\s+", "_", phrase.lower())).strip("_")
-    values.update({"SHOULD_TRAIN": "1", "RAW_PHRASE": phrase, "SAFE_WORD": safe})
-    if not safe:
-        values["REQUEST_ERROR"] = "The wake-word request is empty after `mww:`."
-    elif len(safe) < 2:
-        values["REQUEST_ERROR"] = "The wake-word request is too short."
-    elif len(safe) > 64:
-        values["REQUEST_ERROR"] = "The wake-word request is too long. Keep it under 64 slug characters."
-
-env_path.write_text(
-    "".join(f"{key}={shlex.quote(value)}\n" for key, value in values.items()),
-    encoding="utf-8",
-)
-PY
+request_env="$(mktemp "$BOOTSTRAP_TMPDIR/tater-wake-request.XXXXXX")"
+python3 scripts/parse_wake_word_request.py "$request_event" "$request_env"
 
 # shellcheck disable=SC1090
 source "$request_env"
 rm -f "$request_env"
+[[ -z "$manual_event" ]] || rm -f "$manual_event"
 
 if [[ "$SHOULD_TRAIN" != "1" ]]; then
   log "Issue title does not start with mww:. Nothing to do."
@@ -162,6 +140,8 @@ if [[ -n "$REQUEST_ERROR" ]]; then
   mark_failed "$REQUEST_ERROR"
   exit 0
 fi
+
+prepare_external_storage
 
 mkdir -p "$CATALOG_DIR"
 json_path="$CATALOG_DIR/$SAFE_WORD.json"
@@ -227,12 +207,13 @@ log "Using Piper-only TTS for the resource-limited automation runner"
 (
   cd "$trainer_dir"
   MWW_TTS_MODE=piper \
+    MWW_ARTIFACT_SLUG="$SAFE_WORD" \
     WAKEWORD_TRAINER_SUPPORT_DIR="$trainer_support_dir" \
     WAKEWORD_TRAINER_DATA_DIR="$trainer_data_dir" \
     MWW_CLI_QA_VENV_DIR="$qa_venv_dir" \
     TMPDIR="$TMPDIR" \
     TRAINED_WAKE_WORDS_DIR="$output_dir" \
-    ./train_microwakeword_macos.sh "$SAFE_WORD"
+    ./train_microwakeword_macos.sh "$RAW_PHRASE"
 )
 
 for artifact in \

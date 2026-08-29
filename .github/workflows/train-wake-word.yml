@@ -3,19 +3,26 @@ name: Train Wake Word Request
 on:
   issues:
     types: [opened, edited, reopened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Open wake-word request issue number to retry
+        required: true
+        type: string
 
 permissions:
   contents: write
   issues: write
 
 concurrency:
-  group: tater-wake-word-training
+  group: tater-wake-word-${{ github.event.issue.number || inputs.issue_number }}
   cancel-in-progress: false
 
 jobs:
   train:
-    if: ${{ github.event.issue.pull_request == null }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.issue.pull_request == null }}
     runs-on: [self-hosted, macOS, ARM64, tater-wake-words]
+    timeout-minutes: 300
     env:
       CATALOG_DIR: microWakeWordsV6
       GH_TOKEN: ${{ github.token }}
@@ -23,26 +30,8 @@ jobs:
       TATER_WAKE_EXTERNAL_ROOT: ${{ vars.TATER_WAKE_EXTERNAL_ROOT }}
       TATER_WAKE_TRAINER_DIR: ${{ vars.TATER_WAKE_TRAINER_DIR }}
       TATER_WAKE_TMP_ROOT: ${{ vars.TATER_WAKE_TMP_ROOT }}
+      WAKE_WORD_ISSUE_NUMBER: ${{ inputs.issue_number }}
     steps:
-      - name: Prepare external trainer storage
-        run: |
-          external_root="${TATER_WAKE_EXTERNAL_ROOT:-/Volumes/Untitled}"
-          tmp_root="${TATER_WAKE_TMP_ROOT:-${external_root}/tater-wake-tmp}"
-          if [[ ! -d "$external_root" ]]; then
-            echo "External wake-word volume is not mounted: $external_root"
-            exit 1
-          fi
-          mkdir -p \
-            "$tmp_root/tmp" \
-            "$tmp_root/outputs" \
-            "$tmp_root/repos" \
-            "$tmp_root/cache/pip" \
-            "$tmp_root/cache/xdg" \
-            "$tmp_root/cache/huggingface" \
-            "$tmp_root/cache/torch" \
-            "$tmp_root/cache/nltk" \
-            "$tmp_root/cache/matplotlib"
-
       - name: Checkout catalog
         uses: actions/checkout@v4
         with:
