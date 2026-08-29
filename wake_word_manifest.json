@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 50
+      "count": 51
     }
   ],
-  "count": 706,
+  "count": 707,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -14934,6 +14934,35 @@
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.97516,
       "calibration_false_accepts_per_hour": 0.206817,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:leia_are_you_there",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "leia_are_you_there",
+      "name": "leia are you there",
+      "label": "Leia Are You There",
+      "path": "microWakeWordsV6/leia_are_you_there.json",
+      "model_path": "microWakeWordsV6/leia_are_you_there.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/leia_are_you_there.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/leia_are_you_there.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/leia_are_you_there.tflite",
+      "esphome_path": "microWakeWordsV6/leia_are_you_there.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/leia_are_you_there.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.98,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.81,
+      "calibration_recall": 0.98528,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
