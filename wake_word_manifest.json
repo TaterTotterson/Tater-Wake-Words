@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 61
+      "count": 62
     }
   ],
-  "count": 717,
+  "count": 718,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -14992,6 +14992,35 @@
       "close_miss_threshold": 0.81,
       "calibration_recall": 0.9897,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hey_vader",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hey_vader",
+      "name": "hey vader",
+      "label": "Hey Vader",
+      "path": "microWakeWordsV6/hey_vader.json",
+      "model_path": "microWakeWordsV6/hey_vader.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_vader.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_vader.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_vader.tflite",
+      "esphome_path": "microWakeWordsV6/hey_vader.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_vader.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.97836,
+      "calibration_false_accepts_per_hour": 0.206817,
       "minimum_esphome_version": "2024.7.0"
     },
     {
