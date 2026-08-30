@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 58
+      "count": 59
     }
   ],
-  "count": 714,
+  "count": 715,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -14209,6 +14209,35 @@
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.98258,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hallo_cleo",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hallo_cleo",
+      "name": "hallo cleo",
+      "label": "Hallo Cleo",
+      "path": "microWakeWordsV6/hallo_cleo.json",
+      "model_path": "microWakeWordsV6/hallo_cleo.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hallo_cleo.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hallo_cleo.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hallo_cleo.tflite",
+      "esphome_path": "microWakeWordsV6/hallo_cleo.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hallo_cleo.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.98,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.81,
+      "calibration_recall": 0.99356,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
