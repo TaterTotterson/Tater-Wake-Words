@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 77
+      "count": 78
     }
   ],
-  "count": 733,
+  "count": 734,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -15948,6 +15948,35 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.82,
       "calibration_recall": 0.99696,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:okay_oskar",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "okay_oskar",
+      "name": "Okay Oskar",
+      "label": "Okay Oskar",
+      "path": "microWakeWordsV6/okay_oskar.json",
+      "model_path": "microWakeWordsV6/okay_oskar.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/okay_oskar.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/okay_oskar.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/okay_oskar.tflite",
+      "esphome_path": "microWakeWordsV6/okay_oskar.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/okay_oskar.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.99676,
       "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },
