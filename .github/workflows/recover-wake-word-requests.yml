@@ -1,0 +1,28 @@
+name: Recover Pending Wake Word Requests
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  actions: write
+  contents: read
+  issues: read
+
+concurrency:
+  group: tater-wake-word-recovery
+  cancel-in-progress: true
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout catalog automation
+        uses: actions/checkout@v4
+
+      - name: Requeue open requests without an active training run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/requeue_pending_wake_words.py

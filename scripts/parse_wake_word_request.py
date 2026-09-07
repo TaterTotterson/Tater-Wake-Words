@@ -40,7 +40,11 @@ def parse_request(event: Any) -> dict[str, str]:
         "REQUEST_ERROR": "",
     }
 
-    if not match or issue.get("pull_request"):
+    if (
+        not match
+        or issue.get("pull_request")
+        or str(issue.get("state") or "open").lower() == "closed"
+    ):
         return values
 
     phrase = match.group(1).strip()

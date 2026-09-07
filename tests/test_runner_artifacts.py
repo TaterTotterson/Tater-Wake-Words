@@ -1,11 +1,13 @@
 import json
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
 from scripts import generate_wake_word_manifest as manifest
 from scripts.parse_wake_word_request import parse_request, safe_slug
+from scripts.requeue_pending_wake_words import retry_issue_numbers
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -56,6 +58,7 @@ class RunnerArtifactTests(unittest.TestCase):
 
         self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV6}"', runner)
         self.assertIn("CATALOG_DIR: microWakeWordsV6", workflow)
+        self.assertIn('run-name: "mww #${{ inputs.issue_number', workflow)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("tater-wake-word-${{ github.event.issue.number", workflow)
         self.assertNotIn("group: tater-wake-word-training", workflow)
@@ -102,6 +105,41 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertEqual(request["RAW_PHRASE"], "Алиса")
         self.assertEqual(request["SAFE_WORD"], "wakeword_d346fb5a")
         self.assertEqual(safe_slug("Алиса"), safe_slug("алиса"))
+
+    def test_closed_manual_retry_exits_without_training(self) -> None:
+        request = parse_request(
+            {"number": 84, "title": "mww: hey louie", "state": "closed"}
+        )
+
+        self.assertEqual(request["SHOULD_TRAIN"], "0")
+
+    def test_recovery_requeues_missing_and_stale_requests(self) -> None:
+        now = datetime(2026, 9, 7, 12, tzinfo=timezone.utc)
+        issues = [
+            {"number": 127, "title": "mww: Hey Mimiir", "labels": []},
+            {"number": 128, "title": "mww: hey chat", "labels": []},
+            {"number": 129, "title": "mww: Wall-E", "labels": []},
+            {
+                "number": 130,
+                "title": "mww: retry later",
+                "labels": [{"name": "mww-failed"}],
+            },
+            {"number": 131, "title": "not a wake word", "labels": []},
+        ]
+        runs = [
+            {
+                "displayTitle": "mww #128",
+                "status": "queued",
+                "createdAt": (now - timedelta(hours=2)).isoformat(),
+            },
+            {
+                "displayTitle": "mww #129",
+                "status": "queued",
+                "createdAt": (now - timedelta(hours=21)).isoformat(),
+            },
+        ]
+
+        self.assertEqual(retry_issue_numbers(issues, runs, now=now), [127, 129])
 
 
 if __name__ == "__main__":

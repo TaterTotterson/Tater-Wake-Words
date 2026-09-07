@@ -1,4 +1,5 @@
 name: Train Wake Word Request
+run-name: "mww #${{ inputs.issue_number || github.event.issue.number }}"
 
 on:
   issues:
