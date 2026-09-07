@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 85
+      "count": 86
     }
   ],
-  "count": 741,
+  "count": 742,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -14499,6 +14499,35 @@
       "close_miss_threshold": 0.81,
       "calibration_recall": 0.9778,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hey_ayva",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hey_ayva",
+      "name": "hey ayva",
+      "label": "Hey Ayva",
+      "path": "microWakeWordsV6/hey_ayva.json",
+      "model_path": "microWakeWordsV6/hey_ayva.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_ayva.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_ayva.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_ayva.tflite",
+      "esphome_path": "microWakeWordsV6/hey_ayva.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_ayva.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.97,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.8,
+      "calibration_recall": 0.9851,
+      "calibration_false_accepts_per_hour": 0.206817,
       "minimum_esphome_version": "2024.7.0"
     },
     {
