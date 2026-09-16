@@ -19,6 +19,29 @@ log() {
   printf "%s [tater-wake-word] %s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }
 
+parse_request_event() {
+  local event_path="$1"
+  local request_env
+  request_env="$(mktemp "$BOOTSTRAP_TMPDIR/tater-wake-request.XXXXXX")"
+  python3 scripts/parse_wake_word_request.py "$event_path" "$request_env"
+  # shellcheck disable=SC1090
+  source "$request_env"
+  rm -f "$request_env"
+}
+
+refresh_request_from_github() {
+  local live_event
+  live_event="$(mktemp "$BOOTSTRAP_TMPDIR/tater-wake-event.XXXXXX")"
+  gh api "repos/${GITHUB_REPOSITORY}/issues/${ISSUE_NUMBER}" > "$live_event"
+  parse_request_event "$live_event"
+  rm -f "$live_event"
+}
+
+clear_processing_label() {
+  [[ -n "$ISSUE_NUMBER" ]] || return 0
+  gh issue edit "$ISSUE_NUMBER" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
+}
+
 prepare_external_storage() {
   if [[ ! -d "$EXTERNAL_ROOT" ]]; then
     echo "External wake-word volume is not mounted: $EXTERNAL_ROOT"
@@ -106,29 +129,22 @@ if [[ -z "${GITHUB_EVENT_PATH:-}" || ! -f "${GITHUB_EVENT_PATH:-}" ]]; then
 fi
 
 mkdir -p "$BOOTSTRAP_TMPDIR"
-request_event="$GITHUB_EVENT_PATH"
-manual_event=""
 if [[ -n "$REQUESTED_ISSUE_NUMBER" ]]; then
   if [[ ! "$REQUESTED_ISSUE_NUMBER" =~ ^[1-9][0-9]*$ ]]; then
     echo "WAKE_WORD_ISSUE_NUMBER must be a positive issue number."
     exit 1
   fi
   ISSUE_NUMBER="$REQUESTED_ISSUE_NUMBER"
-  manual_event="$(mktemp "$BOOTSTRAP_TMPDIR/tater-wake-event.XXXXXX")"
-  gh api "repos/${GITHUB_REPOSITORY}/issues/${REQUESTED_ISSUE_NUMBER}" > "$manual_event"
-  request_event="$manual_event"
+else
+  parse_request_event "$GITHUB_EVENT_PATH"
 fi
 
-request_env="$(mktemp "$BOOTSTRAP_TMPDIR/tater-wake-request.XXXXXX")"
-python3 scripts/parse_wake_word_request.py "$request_event" "$request_env"
-
-# shellcheck disable=SC1090
-source "$request_env"
-rm -f "$request_env"
-[[ -z "$manual_event" ]] || rm -f "$manual_event"
+if [[ -n "$ISSUE_NUMBER" ]]; then
+  refresh_request_from_github
+fi
 
 if [[ "$SHOULD_TRAIN" != "1" ]]; then
-  log "Issue title does not start with mww:. Nothing to do."
+  log "Issue is closed or no longer has a valid mww: title. Nothing to do."
   exit 0
 fi
 
@@ -142,27 +158,6 @@ if [[ -n "$REQUEST_ERROR" ]]; then
 fi
 
 prepare_external_storage
-
-mkdir -p "$CATALOG_DIR"
-json_path="$CATALOG_DIR/$SAFE_WORD.json"
-esphome_json_path="$CATALOG_DIR/$SAFE_WORD.esphome.json"
-tflite_path="$CATALOG_DIR/$SAFE_WORD.tflite"
-
-if [[ -f "$json_path" && -f "$esphome_json_path" && -f "$tflite_path" ]]; then
-  log "Wake word already exists: $SAFE_WORD"
-  python3 scripts/generate_wake_word_manifest.py
-  raw_base="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main"
-  comment_wake_word_links \
-    "Wake Word Already Exists" \
-    "${raw_base}/${json_path}" \
-    "${raw_base}/${esphome_json_path}" \
-    "${raw_base}/${tflite_path}"
-  gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
-  gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
-  exit 0
-fi
-
-gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_PROCESSING" --remove-label "$LABEL_FAILED" >/dev/null 2>&1 || true
 
 trainer_dir="$DEFAULT_TRAINER_DIR"
 if [[ ! -x "$trainer_dir/train_microwakeword_macos.sh" ]]; then
@@ -186,6 +181,41 @@ if git -C "$trainer_dir" remote get-url origin >/dev/null 2>&1; then
   git -C "$trainer_dir" fetch --quiet origin main
   git -C "$trainer_dir" merge --ff-only FETCH_HEAD
 fi
+
+# The event payload may be hours old after runner downtime. Re-read the issue
+# immediately before expensive work so closed requests and edited phrases do
+# not consume the training runner.
+refresh_request_from_github
+if [[ "$SHOULD_TRAIN" != "1" ]]; then
+  log "Issue #$ISSUE_NUMBER was closed or changed before training. Skipping it."
+  clear_processing_label
+  exit 0
+fi
+if [[ -n "$REQUEST_ERROR" ]]; then
+  mark_failed "$REQUEST_ERROR"
+  exit 0
+fi
+
+mkdir -p "$CATALOG_DIR"
+json_path="$CATALOG_DIR/$SAFE_WORD.json"
+esphome_json_path="$CATALOG_DIR/$SAFE_WORD.esphome.json"
+tflite_path="$CATALOG_DIR/$SAFE_WORD.tflite"
+
+if [[ -f "$json_path" && -f "$esphome_json_path" && -f "$tflite_path" ]]; then
+  log "Wake word already exists: $SAFE_WORD"
+  python3 scripts/generate_wake_word_manifest.py
+  raw_base="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main"
+  comment_wake_word_links \
+    "Wake Word Already Exists" \
+    "${raw_base}/${json_path}" \
+    "${raw_base}/${esphome_json_path}" \
+    "${raw_base}/${tflite_path}"
+  gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
+  gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
+  exit 0
+fi
+
+gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_PROCESSING" --remove-label "$LABEL_FAILED" >/dev/null 2>&1 || true
 
 output_dir="$DEFAULT_TMP_ROOT/outputs/$SAFE_WORD"
 rm -rf "$output_dir"

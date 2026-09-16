@@ -77,6 +77,11 @@ class RunnerArtifactTests(unittest.TestCase):
         )
         self.assertIn('MWW_ARTIFACT_SLUG="$SAFE_WORD"', runner)
         self.assertIn('./train_microwakeword_macos.sh "$RAW_PHRASE"', runner)
+        self.assertGreaterEqual(runner.count("refresh_request_from_github"), 3)
+        self.assertIn(
+            "The event payload may be hours old after runner downtime", runner
+        )
+        self.assertIn("clear_processing_label", runner)
         self.assertIn('$SAFE_WORD.esphome.json', runner)
         self.assertIn('git add "$json_path" "$esphome_json_path" "$tflite_path"', runner)
         self.assertIn("ESPHome JSON package", runner)
