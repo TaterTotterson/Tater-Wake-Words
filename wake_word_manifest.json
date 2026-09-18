@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 118
+      "count": 119
     }
   ],
-  "count": 774,
+  "count": 775,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -16035,6 +16035,35 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.81,
       "calibration_recall": 0.9897,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hey_taylor",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hey_taylor",
+      "name": "hey taylor",
+      "label": "Hey Taylor",
+      "path": "microWakeWordsV6/hey_taylor.json",
+      "model_path": "microWakeWordsV6/hey_taylor.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_taylor.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_taylor.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_taylor.tflite",
+      "esphome_path": "microWakeWordsV6/hey_taylor.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_taylor.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.98916,
       "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },
