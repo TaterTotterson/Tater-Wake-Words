@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 135
+      "count": 136
     }
   ],
-  "count": 791,
+  "count": 792,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -17602,6 +17602,35 @@
       "close_miss_threshold": 0.8,
       "calibration_recall": 0.99558,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:skye_prosm_a",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "skye_prosm_a",
+      "name": "skye pros\u00edm \u0165a",
+      "label": "Skye Pros\u00edm \u0164a",
+      "path": "microWakeWordsV6/skye_prosm_a.json",
+      "model_path": "microWakeWordsV6/skye_prosm_a.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/skye_prosm_a.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/skye_prosm_a.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/skye_prosm_a.tflite",
+      "esphome_path": "microWakeWordsV6/skye_prosm_a.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/skye_prosm_a.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.99388,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
