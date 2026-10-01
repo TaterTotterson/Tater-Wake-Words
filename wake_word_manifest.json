@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 144
+      "count": 145
     }
   ],
-  "count": 800,
+  "count": 801,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -16384,6 +16384,35 @@
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.98626,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hey_roberta",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hey_roberta",
+      "name": "hey roberta",
+      "label": "Hey Roberta",
+      "path": "microWakeWordsV6/hey_roberta.json",
+      "model_path": "microWakeWordsV6/hey_roberta.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_roberta.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_roberta.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_roberta.tflite",
+      "esphome_path": "microWakeWordsV6/hey_roberta.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hey_roberta.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.96,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.79,
+      "calibration_recall": 0.97718,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
