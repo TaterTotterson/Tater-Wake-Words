@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 163
+      "count": 164
     }
   ],
-  "count": 819,
+  "count": 820,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -17138,6 +17138,35 @@
       "close_miss_threshold": 0.81,
       "calibration_recall": 0.98952,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:hi_stokes",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "hi_stokes",
+      "name": "Hi Stokes",
+      "label": "Hi Stokes",
+      "path": "microWakeWordsV6/hi_stokes.json",
+      "model_path": "microWakeWordsV6/hi_stokes.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hi_stokes.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hi_stokes.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hi_stokes.tflite",
+      "esphome_path": "microWakeWordsV6/hi_stokes.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/hi_stokes.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.98,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.81,
+      "calibration_recall": 0.99652,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
