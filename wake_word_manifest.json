@@ -30,10 +30,10 @@
     {
       "key": "microWakeWordsV6",
       "label": "microWakeWordsV6",
-      "count": 167
+      "count": 168
     }
   ],
-  "count": 823,
+  "count": 824,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -18704,6 +18704,35 @@
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.99106,
       "calibration_false_accepts_per_hour": 0.206817,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV6:yoh_jarvis",
+      "source": "microWakeWordsV6",
+      "source_label": "microWakeWordsV6",
+      "slug": "yoh_jarvis",
+      "name": "Yoh Jarvis",
+      "label": "Yoh Jarvis",
+      "path": "microWakeWordsV6/yoh_jarvis.json",
+      "model_path": "microWakeWordsV6/yoh_jarvis.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/yoh_jarvis.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/yoh_jarvis.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/yoh_jarvis.tflite",
+      "esphome_path": "microWakeWordsV6/yoh_jarvis.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV6/yoh_jarvis.esphome.json",
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.99,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.82,
+      "calibration_recall": 0.99352,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {
