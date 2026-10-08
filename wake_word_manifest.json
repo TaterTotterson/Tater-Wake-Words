@@ -5,7 +5,7 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 827,
+      "count": 828,
       "url_field": "url"
     },
     "open_wake_word": {
