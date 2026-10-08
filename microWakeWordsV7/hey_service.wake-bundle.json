@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hey service",
+  "key": "hey_service",
+  "created_at": "2026-10-08T19:34:39.653259+00:00",
+  "micro_wake_word": {
+    "manifest": "hey_service.json",
+    "model": "hey_service.tflite",
+    "manifest_sha256": "a43f949b5025743de620f96798895343ae7d6842192df1b881e20438d7f3fa8f",
+    "model_sha256": "33f4b26c34a1054667a130c42d5b49246f99c35f63ef4bcac7891899355aa3b4"
+  },
+  "open_wake_word": {
+    "metadata": "hey_service.oww.json",
+    "metadata_sha256": "87143035ad67d452cd31ad965d6986dc3f3c18e1e26b282ae1422e5d886ab208",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_service.oww.onnx",
+        "sha256": "5bdf3fe3876d4ea8b5890cf1f550cb0be22fd6d7f4d4f7f7d92b5a1258dd1465",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.99,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.93,
+    "recommended_confirmation_patience": 3
+  }
+}
