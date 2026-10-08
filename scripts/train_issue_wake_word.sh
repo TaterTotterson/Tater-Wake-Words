@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV6}"
+CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV7}"
 LABEL_PROCESSING="${LABEL_PROCESSING:-mww-processing}"
 LABEL_DONE="${LABEL_DONE:-mww-added}"
 LABEL_FAILED="${LABEL_FAILED:-mww-failed}"
@@ -88,20 +88,39 @@ comment_wake_word_links() {
   local heading="$1"
   local tater_json_url="$2"
   local esphome_json_url="$3"
-  local model_url="$4"
+  local mww_model_url="$4"
+  local oww_metadata_url="$5"
+  local oww_model_url="$6"
+  local bundle_url="$7"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
   local body_file
   body_file="$(mktemp "${TMPDIR:-$BOOTSTRAP_TMPDIR}/tater-wake-comment.XXXXXX")"
   {
     printf "## %s\n\n" "$heading"
     printf "**Wake word:** \`%s\`\n\n" "$SAFE_WORD"
-    printf '%s\n' "- [Tater JSON package](${tater_json_url})"
-    printf '%s\n' "- [ESPHome JSON package](${esphome_json_url})"
-    printf '%s\n\n' "- [TFLite model](${model_url})"
-    printf "Use the Tater JSON URL in Tater satellite settings or the ESPHome JSON URL with micro_wake_word.\n"
+    printf '%s\n' "- [MWW Tater JSON package](${tater_json_url})"
+    printf '%s\n' "- [MWW ESPHome JSON package](${esphome_json_url})"
+    printf '%s\n' "- [MWW TFLite model](${mww_model_url})"
+    printf '%s\n' "- [OWW metadata JSON](${oww_metadata_url})"
+    printf '%s\n' "- [OWW ONNX model](${oww_model_url})"
+    printf '%s\n\n' "- [Matched dual-model bundle](${bundle_url})"
+    printf "Use the Tater JSON URL for MWW-only satellites, the ESPHome JSON URL with micro_wake_word, or the matched bundle for Echo dual wake-word mode.\n"
   } > "$body_file"
   gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
   rm -f "$body_file"
+}
+
+dual_package_valid() {
+  python3 - "$1" "$2" <<'PY'
+from pathlib import Path
+import sys
+
+from scripts.generate_wake_word_manifest import dual_model_fields
+
+manifest_path = Path(sys.argv[1]).resolve()
+model_path = Path(sys.argv[2]).resolve()
+raise SystemExit(0 if dual_model_fields(manifest_path, model_path) else 1)
+PY
 }
 
 mark_failed() {
@@ -200,8 +219,13 @@ mkdir -p "$CATALOG_DIR"
 json_path="$CATALOG_DIR/$SAFE_WORD.json"
 esphome_json_path="$CATALOG_DIR/$SAFE_WORD.esphome.json"
 tflite_path="$CATALOG_DIR/$SAFE_WORD.tflite"
+oww_metadata_path="$CATALOG_DIR/$SAFE_WORD.oww.json"
+oww_onnx_path="$CATALOG_DIR/$SAFE_WORD.oww.onnx"
+bundle_path="$CATALOG_DIR/$SAFE_WORD.wake-bundle.json"
 
-if [[ -f "$json_path" && -f "$esphome_json_path" && -f "$tflite_path" ]]; then
+if [[ -f "$json_path" && -f "$esphome_json_path" && -f "$tflite_path" && \
+      -f "$oww_metadata_path" && -f "$oww_onnx_path" && -f "$bundle_path" ]] && \
+      dual_package_valid "$json_path" "$tflite_path"; then
   log "Wake word already exists: $SAFE_WORD"
   python3 scripts/generate_wake_word_manifest.py
   raw_base="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main"
@@ -209,7 +233,10 @@ if [[ -f "$json_path" && -f "$esphome_json_path" && -f "$tflite_path" ]]; then
     "Wake Word Already Exists" \
     "${raw_base}/${json_path}" \
     "${raw_base}/${esphome_json_path}" \
-    "${raw_base}/${tflite_path}"
+    "${raw_base}/${tflite_path}" \
+    "${raw_base}/${oww_metadata_path}" \
+    "${raw_base}/${oww_onnx_path}" \
+    "${raw_base}/${bundle_path}"
   gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
   gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
   exit 0
@@ -256,11 +283,7 @@ for artifact in \
   fi
 done
 
-cp "$output_dir/$SAFE_WORD.json" "$json_path"
-cp "$output_dir/$SAFE_WORD.esphome.json" "$esphome_json_path"
-cp "$output_dir/$SAFE_WORD.tflite" "$tflite_path"
-
-python3 - <<'PY' "$json_path" "$esphome_json_path"
+python3 - <<'PY' "$output_dir/$SAFE_WORD.json" "$output_dir/$SAFE_WORD.esphome.json"
 from __future__ import annotations
 
 import json
@@ -274,9 +297,46 @@ for filename in sys.argv[1:]:
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
 PY
 
+log "Training the matched openWakeWord ONNX companion"
+python3 scripts/train_openwakeword_companion.py \
+  --phrase "$RAW_PHRASE" \
+  --safe-word "$SAFE_WORD" \
+  --trainer-dir "$trainer_dir" \
+  --data-dir "$trainer_data_dir" \
+  --trained-dir "$output_dir"
+
+for artifact in \
+  "$output_dir/$SAFE_WORD.oww.onnx" \
+  "$output_dir/$SAFE_WORD.oww.json" \
+  "$output_dir/$SAFE_WORD.wake-bundle.json"; do
+  if [[ ! -f "$artifact" ]]; then
+    echo "Trainer did not produce the required dual-model artifact: $artifact"
+    exit 1
+  fi
+done
+
+cp "$output_dir/$SAFE_WORD.json" "$json_path"
+cp "$output_dir/$SAFE_WORD.esphome.json" "$esphome_json_path"
+cp "$output_dir/$SAFE_WORD.tflite" "$tflite_path"
+cp "$output_dir/$SAFE_WORD.oww.json" "$oww_metadata_path"
+cp "$output_dir/$SAFE_WORD.oww.onnx" "$oww_onnx_path"
+cp "$output_dir/$SAFE_WORD.wake-bundle.json" "$bundle_path"
+
+if ! dual_package_valid "$json_path" "$tflite_path"; then
+  echo "Published dual-model bundle failed filename, size, or SHA-256 validation."
+  exit 1
+fi
+
 python3 scripts/generate_wake_word_manifest.py
 
-git add "$json_path" "$esphome_json_path" "$tflite_path" wake_word_manifest.json
+git add \
+  "$json_path" \
+  "$esphome_json_path" \
+  "$tflite_path" \
+  "$oww_metadata_path" \
+  "$oww_onnx_path" \
+  "$bundle_path" \
+  wake_word_manifest.json
 if git diff --cached --quiet; then
   log "No catalog changes to commit."
 else
@@ -289,7 +349,10 @@ comment_wake_word_links \
   "Wake Word Added" \
   "${raw_base}/${json_path}" \
   "${raw_base}/${esphome_json_path}" \
-  "${raw_base}/${tflite_path}"
+  "${raw_base}/${tflite_path}" \
+  "${raw_base}/${oww_metadata_path}" \
+  "${raw_base}/${oww_onnx_path}" \
+  "${raw_base}/${bundle_path}"
 gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
 gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
 log "Completed issue #$ISSUE_NUMBER for $SAFE_WORD"

@@ -17,12 +17,15 @@
 
 Tater wake-word catalog for Tater Native satellites.
 
-This repo stores ready-to-use microWakeWord model packages:
+This repo stores ready-to-use wake-word packages:
 
-- `.json` Tater Native metadata files
-- `.esphome.json` ESPHome-compatible metadata files
-- `.tflite` model files
-- `wake_word_manifest.json` for app/catalog discovery
+- `.json` Tater Native microWakeWord metadata
+- `.esphome.json` ESPHome-compatible microWakeWord metadata
+- `.tflite` microWakeWord models
+- `.oww.json` openWakeWord metadata
+- `.oww.onnx` openWakeWord models
+- `.wake-bundle.json` matched MWW + OWW dual-model bundles
+- `wake_word_manifest.json` for MWW, OWW, and Dual catalog discovery
 
 The historical catalog folders are seeded from the original Tater wake-word collection:
 
@@ -30,11 +33,14 @@ The historical catalog folders are seeded from the original Tater wake-word coll
 - `microWakeWordsV2`
 - `microWakeWordsV3`
 
-New issue-generated wake words are added to `microWakeWordsV6`.
+New issue-generated wake words are added to `microWakeWordsV7`. Versions 1–6
+remain available for existing MWW-only installations.
 
 ## Use A Wake Word
 
-Use the raw GitHub URL for a wake-word JSON file in Tater's satellite settings.
+Use the raw GitHub URL for a wake-word JSON file in Tater's MWW satellite
+settings, or use the matching `.wake-bundle.json` for an Echo satellite in
+dual wake-word mode.
 
 Example:
 
@@ -43,6 +49,16 @@ https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWake
 ```
 
 Tater Native firmware downloads the JSON and the linked `.tflite` model.
+
+The catalog manifest exposes three views over the verified artifacts:
+
+- **microWakeWord** uses each entry's Tater JSON URL.
+- **openWakeWord** uses the OWW model from each verified V7 bundle.
+- **Dual Wake Word** uses the matching MWW + OWW pair from that same bundle.
+
+OWW and Dual catalogs start empty until the first complete V7 package is
+published. Tater fills their dropdowns automatically as the issue runner adds
+verified wake words.
 
 ## Request A Wake Word
 
@@ -54,4 +70,7 @@ mww: hey potato
 
 Only issues whose title starts with `mww:` are handled by automation.
 
-When the self-hosted trainer runner completes successfully, it adds the Tater JSON, ESPHome JSON, and `.tflite` model to `microWakeWordsV6`, updates the manifest, comments on the issue, and closes it.
+When the self-hosted trainer runner completes successfully, it adds the MWW
+Tater JSON, ESPHome JSON, and TFLite model together with the OWW JSON, ONNX
+model, and matched dual-model bundle to `microWakeWordsV7`. It then updates the
+catalog manifest, comments with all artifact links, and closes the issue.

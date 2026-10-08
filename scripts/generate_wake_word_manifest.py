@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -59,6 +60,74 @@ def optional_number(value: Any) -> int | float | None:
     return int(parsed) if parsed.is_integer() else parsed
 
 
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def dual_model_fields(json_path: Path, model_path: Path) -> dict[str, Any]:
+    slug = json_path.stem
+    bundle_path = json_path.with_name(f"{slug}.wake-bundle.json")
+    metadata_path = json_path.with_name(f"{slug}.oww.json")
+    onnx_path = json_path.with_name(f"{slug}.oww.onnx")
+    if not all(path.is_file() for path in (bundle_path, metadata_path, onnx_path)):
+        return {}
+
+    bundle = load_json(bundle_path)
+    micro = bundle.get("micro_wake_word") if isinstance(bundle.get("micro_wake_word"), dict) else {}
+    oww = bundle.get("open_wake_word") if isinstance(bundle.get("open_wake_word"), dict) else {}
+    artifacts = oww.get("artifacts") if isinstance(oww.get("artifacts"), dict) else {}
+    onnx_artifacts = [
+        row
+        for row in artifacts.values()
+        if isinstance(row, dict) and str(row.get("file") or "").lower().endswith(".onnx")
+    ]
+    if (
+        bundle.get("schema_version") != 1
+        or bundle.get("type") != "tater_wake_word_bundle"
+        or micro.get("manifest") != json_path.name
+        or micro.get("model") != model_path.name
+        or oww.get("metadata") != metadata_path.name
+        or len(onnx_artifacts) != 1
+        or onnx_artifacts[0].get("file") != onnx_path.name
+    ):
+        return {}
+
+    onnx_artifact = onnx_artifacts[0]
+    verified = (
+        str(micro.get("manifest_sha256") or "").lower() == file_sha256(json_path)
+        and str(micro.get("model_sha256") or "").lower() == file_sha256(model_path)
+        and str(oww.get("metadata_sha256") or "").lower() == file_sha256(metadata_path)
+        and str(onnx_artifact.get("sha256") or "").lower() == file_sha256(onnx_path)
+        and optional_number(onnx_artifact.get("size_bytes")) == onnx_path.stat().st_size
+    )
+    if not verified:
+        return {}
+
+    fields: dict[str, Any] = {
+        "dual_model": True,
+        "bundle_path": bundle_path.relative_to(REPO_ROOT).as_posix(),
+        "bundle_url": raw_url(bundle_path),
+        "openwakeword_metadata_path": metadata_path.relative_to(REPO_ROOT).as_posix(),
+        "openwakeword_metadata_url": raw_url(metadata_path),
+        "openwakeword_model_path": onnx_path.relative_to(REPO_ROOT).as_posix(),
+        "openwakeword_model_url": raw_url(onnx_path),
+    }
+    for source_key, target_key in (
+        ("recommended_threshold", "openwakeword_threshold"),
+        ("recommended_patience", "openwakeword_patience"),
+        ("recommended_confirmation_threshold", "openwakeword_confirmation_threshold"),
+        ("recommended_confirmation_patience", "openwakeword_confirmation_patience"),
+    ):
+        value = optional_number(oww.get(source_key))
+        if value is not None:
+            fields[target_key] = value
+    return fields
+
+
 def build_entries() -> list[dict[str, Any]]:
     entries: list[dict[str, Any]] = []
     for source_dir in source_dirs():
@@ -101,6 +170,8 @@ def build_entries() -> list[dict[str, Any]]:
                     REPO_ROOT
                 ).as_posix()
                 entry["esphome_url"] = raw_url(esphome_path)
+
+            entry.update(dual_model_fields(json_path, model_path))
 
             for key in ("author", "model_format", "quantization", "sample_rate", "version"):
                 if payload.get(key) not in (None, ""):
@@ -145,14 +216,35 @@ def build_entries() -> list[dict[str, Any]]:
 
 def build_manifest() -> dict[str, Any]:
     entries = build_entries()
+    paired_entries = [entry for entry in entries if entry.get("dual_model") and entry.get("bundle_url")]
     sources = []
     for source_dir in source_dirs():
         count = sum(1 for entry in entries if entry.get("source") == source_dir.name)
         if count:
             sources.append({"key": source_dir.name, "label": source_dir.name, "count": count})
     return {
+        "schema_version": 2,
         "repository": f"{REPO_OWNER}/{REPO_NAME}",
         "ref": REPO_REF,
+        "catalogs": {
+            "micro_wake_word": {
+                "label": "microWakeWord",
+                "count": len(entries),
+                "url_field": "url",
+            },
+            "open_wake_word": {
+                "label": "openWakeWord",
+                "count": len(paired_entries),
+                "url_field": "bundle_url",
+                "requires": ["dual_model"],
+            },
+            "dual_wake_word": {
+                "label": "Dual Wake Word",
+                "count": len(paired_entries),
+                "url_field": "bundle_url",
+                "requires": ["dual_model"],
+            },
+        },
         "sources": sources,
         "count": len(entries),
         "entries": entries,

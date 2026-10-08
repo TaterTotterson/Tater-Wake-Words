@@ -1,6 +1,30 @@
 {
+  "schema_version": 2,
   "repository": "TaterTotterson/Tater-Wake-Words",
   "ref": "main",
+  "catalogs": {
+    "micro_wake_word": {
+      "label": "microWakeWord",
+      "count": 827,
+      "url_field": "url"
+    },
+    "open_wake_word": {
+      "label": "openWakeWord",
+      "count": 0,
+      "url_field": "bundle_url",
+      "requires": [
+        "dual_model"
+      ]
+    },
+    "dual_wake_word": {
+      "label": "Dual Wake Word",
+      "count": 0,
+      "url_field": "bundle_url",
+      "requires": [
+        "dual_model"
+      ]
+    }
+  },
   "sources": [
     {
       "key": "microWakeWordsV1",

@@ -1,3 +1,4 @@
+import hashlib
 import json
 import tempfile
 import unittest
@@ -45,7 +46,100 @@ class RunnerArtifactTests(unittest.TestCase):
         )
         self.assertTrue(entries[0]["esphome_url"].endswith("/hey_tater.esphome.json"))
 
-    def test_runner_requires_and_uploads_all_three_artifacts_to_v6(self) -> None:
+    def test_manifest_exposes_verified_dual_model_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            catalog = root / "microWakeWordsV7"
+            catalog.mkdir()
+            tater_path = catalog / "hey_tater.json"
+            esphome_path = catalog / "hey_tater.esphome.json"
+            model_path = catalog / "hey_tater.tflite"
+            metadata_path = catalog / "hey_tater.oww.json"
+            onnx_path = catalog / "hey_tater.oww.onnx"
+            bundle_path = catalog / "hey_tater.wake-bundle.json"
+            tater_path.write_text(
+                json.dumps({"type": "micro", "wake_word": "hey tater", "model": model_path.name}),
+                encoding="utf-8",
+            )
+            esphome_path.write_text("{}", encoding="utf-8")
+            model_path.write_bytes(b"mww")
+            metadata_path.write_text('{"type":"open_wake_word"}\n', encoding="utf-8")
+            onnx_path.write_bytes(b"onnx")
+
+            def digest(path: Path) -> str:
+                return hashlib.sha256(path.read_bytes()).hexdigest()
+
+            bundle_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "type": "tater_wake_word_bundle",
+                        "wake_word": "hey tater",
+                        "micro_wake_word": {
+                            "manifest": tater_path.name,
+                            "model": model_path.name,
+                            "manifest_sha256": digest(tater_path),
+                            "model_sha256": digest(model_path),
+                        },
+                        "open_wake_word": {
+                            "metadata": metadata_path.name,
+                            "metadata_sha256": digest(metadata_path),
+                            "artifacts": {
+                                "onnx": {
+                                    "file": onnx_path.name,
+                                    "sha256": digest(onnx_path),
+                                    "size_bytes": onnx_path.stat().st_size,
+                                }
+                            },
+                            "recommended_threshold": 0.96,
+                            "recommended_patience": 3,
+                            "recommended_confirmation_threshold": 0.88,
+                            "recommended_confirmation_patience": 2,
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with patch.object(manifest, "REPO_ROOT", root):
+                entries = manifest.build_entries()
+                catalog_manifest = manifest.build_manifest()
+                onnx_path.write_bytes(b"changed")
+                damaged_entries = manifest.build_entries()
+
+        self.assertEqual(len(entries), 1)
+        entry = entries[0]
+        self.assertTrue(entry["dual_model"])
+        self.assertEqual(entry["source"], "microWakeWordsV7")
+        self.assertEqual(entry["bundle_path"], "microWakeWordsV7/hey_tater.wake-bundle.json")
+        self.assertTrue(entry["bundle_url"].endswith("/hey_tater.wake-bundle.json"))
+        self.assertTrue(entry["openwakeword_model_url"].endswith("/hey_tater.oww.onnx"))
+        self.assertEqual(entry["openwakeword_threshold"], 0.96)
+        self.assertEqual(entry["openwakeword_confirmation_threshold"], 0.88)
+        self.assertEqual(catalog_manifest["schema_version"], 2)
+        self.assertEqual(catalog_manifest["catalogs"]["micro_wake_word"]["count"], 1)
+        self.assertEqual(catalog_manifest["catalogs"]["open_wake_word"]["count"], 1)
+        self.assertEqual(catalog_manifest["catalogs"]["dual_wake_word"]["count"], 1)
+        self.assertEqual(
+            catalog_manifest["catalogs"]["open_wake_word"]["url_field"],
+            "bundle_url",
+        )
+        self.assertNotIn("dual_model", damaged_entries[0])
+
+    def test_empty_v7_publishes_empty_oww_and_dual_catalogs(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            catalog = root / "microWakeWordsV7"
+            catalog.mkdir()
+
+            with patch.object(manifest, "REPO_ROOT", root):
+                catalog_manifest = manifest.build_manifest()
+
+        self.assertEqual(catalog_manifest["catalogs"]["micro_wake_word"]["count"], 0)
+        self.assertEqual(catalog_manifest["catalogs"]["open_wake_word"]["count"], 0)
+        self.assertEqual(catalog_manifest["catalogs"]["dual_wake_word"]["count"], 0)
+
+    def test_runner_requires_and_uploads_complete_dual_package_to_v7(self) -> None:
         runner = (REPO_ROOT / "scripts" / "train_issue_wake_word.sh").read_text(
             encoding="utf-8"
         )
@@ -55,14 +149,17 @@ class RunnerArtifactTests(unittest.TestCase):
         setup = (
             REPO_ROOT / "scripts" / "setup_self_hosted_runner_macos.sh"
         ).read_text(encoding="utf-8")
+        companion = (
+            REPO_ROOT / "scripts" / "train_openwakeword_companion.py"
+        ).read_text(encoding="utf-8")
 
-        self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV6}"', runner)
-        self.assertIn("CATALOG_DIR: microWakeWordsV6", workflow)
+        self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV7}"', runner)
+        self.assertIn("CATALOG_DIR: microWakeWordsV7", workflow)
         self.assertIn('run-name: "mww #${{ inputs.issue_number', workflow)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("tater-wake-word-${{ github.event.issue.number", workflow)
         self.assertNotIn("group: tater-wake-word-training", workflow)
-        self.assertIn("timeout-minutes: 300", workflow)
+        self.assertIn("timeout-minutes: 360", workflow)
         self.assertIn('git -C "$trainer_dir" merge --ff-only FETCH_HEAD', runner)
         self.assertIn("MWW_TTS_MODE=piper", runner)
         self.assertNotIn("MWW_TTS_MODE=hybrid", runner)
@@ -77,14 +174,32 @@ class RunnerArtifactTests(unittest.TestCase):
         )
         self.assertIn('MWW_ARTIFACT_SLUG="$SAFE_WORD"', runner)
         self.assertIn('./train_microwakeword_macos.sh "$RAW_PHRASE"', runner)
+        self.assertIn("python3 scripts/train_openwakeword_companion.py", runner)
+        self.assertLess(
+            runner.index('data["website"]'),
+            runner.index("python3 scripts/train_openwakeword_companion.py"),
+        )
         self.assertGreaterEqual(runner.count("refresh_request_from_github"), 3)
         self.assertIn(
             "The event payload may be hours old after runner downtime", runner
         )
         self.assertIn("clear_processing_label", runner)
         self.assertIn('$SAFE_WORD.esphome.json', runner)
-        self.assertIn('git add "$json_path" "$esphome_json_path" "$tflite_path"', runner)
+        for artifact in (
+            '$SAFE_WORD.oww.json',
+            '$SAFE_WORD.oww.onnx',
+            '$SAFE_WORD.wake-bundle.json',
+            '"$oww_metadata_path"',
+            '"$oww_onnx_path"',
+            '"$bundle_path"',
+        ):
+            self.assertIn(artifact, runner)
         self.assertIn("ESPHome JSON package", runner)
+        self.assertIn("Matched dual-model bundle", runner)
+        self.assertIn("dual_package_valid", runner)
+        self.assertIn("failed filename, size, or SHA-256 validation", runner)
+        self.assertIn("prepare_openwakeword_stage", companion)
+        self.assertIn("publish_openwakeword_artifacts", companion)
         self.assertIn('$HOME/actions-runners/tater-wake-words', setup)
         self.assertIn('RUNNER_NAME="${RUNNER_NAME:-tater-wake-words}"', setup)
 

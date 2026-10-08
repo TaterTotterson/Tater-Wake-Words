@@ -1,5 +1,5 @@
 name: Wake Word Request
-description: Request a generated wake word for Tater Native satellites.
+description: Request matched microWakeWord and openWakeWord models for Tater satellites.
 title: "mww: "
 labels: ["wake-word-request"]
 body:
@@ -10,12 +10,13 @@ body:
 
         Example: `mww: hey potato`
 
-        The automation only trains issues whose title starts with `mww:`.
+        The automation only trains issues whose title starts with `mww:`. A
+        successful request publishes MWW, OWW, and matched dual-model artifacts.
   - type: input
     id: phrase
     attributes:
       label: Wake phrase
-      description: The phrase you want generated. Keep the issue title in `mww: phrase` format.
+      description: "The phrase you want generated. Keep the issue title in `mww: phrase` format."
       placeholder: hey potato
     validations:
       required: false

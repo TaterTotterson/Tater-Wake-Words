@@ -23,9 +23,9 @@ jobs:
   train:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.issue.pull_request == null }}
     runs-on: [self-hosted, macOS, ARM64, tater-wake-words]
-    timeout-minutes: 300
+    timeout-minutes: 360
     env:
-      CATALOG_DIR: microWakeWordsV6
+      CATALOG_DIR: microWakeWordsV7
       GH_TOKEN: ${{ github.token }}
       GITHUB_TOKEN: ${{ github.token }}
       TATER_WAKE_EXTERNAL_ROOT: ${{ vars.TATER_WAKE_EXTERNAL_ROOT }}
