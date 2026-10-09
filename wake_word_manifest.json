@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 831,
+      "count": 832,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 3,
+      "count": 4,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 3,
+      "count": 4,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -59,10 +59,10 @@
     {
       "key": "microWakeWordsV7",
       "label": "microWakeWordsV7",
-      "count": 3
+      "count": 4
     }
   ],
-  "count": 831,
+  "count": 832,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -19056,6 +19056,46 @@
       "close_miss_threshold": 0.82,
       "calibration_recall": 0.99528,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV7:ivy",
+      "source": "microWakeWordsV7",
+      "source_label": "microWakeWordsV7",
+      "slug": "ivy",
+      "name": "Ivy",
+      "label": "Ivy",
+      "path": "microWakeWordsV7/ivy.json",
+      "model_path": "microWakeWordsV7/ivy.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.tflite",
+      "esphome_path": "microWakeWordsV7/ivy.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.esphome.json",
+      "dual_model": true,
+      "bundle_path": "microWakeWordsV7/ivy.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.wake-bundle.json",
+      "openwakeword_metadata_path": "microWakeWordsV7/ivy.oww.json",
+      "openwakeword_metadata_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.oww.json",
+      "openwakeword_model_path": "microWakeWordsV7/ivy.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ivy.oww.onnx",
+      "openwakeword_threshold": 0.98,
+      "openwakeword_patience": 3,
+      "openwakeword_confirmation_threshold": 0.92,
+      "openwakeword_confirmation_patience": 3,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.96,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.79,
+      "calibration_recall": 0.98328,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     }
   ]
