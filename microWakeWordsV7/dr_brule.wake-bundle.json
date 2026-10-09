@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Dr Brule",
+  "key": "dr_brule",
+  "created_at": "2026-10-09T13:05:16.335092+00:00",
+  "micro_wake_word": {
+    "manifest": "dr_brule.json",
+    "model": "dr_brule.tflite",
+    "manifest_sha256": "96154411ea57cdaa46d603d3048c6a2b81603d974120cae7291e45716d6a88e6",
+    "model_sha256": "2cfd010f565a3ad7bce30f556400f91392c3fd61eebcdbbc5c08683ec3806f92"
+  },
+  "open_wake_word": {
+    "metadata": "dr_brule.oww.json",
+    "metadata_sha256": "81283efd1d2648a77be565b363519668a4bb6efbf589131bea7ad6effe49641e",
+    "artifacts": {
+      "onnx": {
+        "file": "dr_brule.oww.onnx",
+        "sha256": "869fc9c3d918bdbb3ecac9f20478f1b4e97d3d2545fe051bcbc977f9b971bb53",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.94,
+    "recommended_confirmation_patience": 3
+  }
+}
