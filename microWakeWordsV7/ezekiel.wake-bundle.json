@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "ezekiel",
+  "key": "ezekiel",
+  "created_at": "2026-10-11T05:10:51.608394+00:00",
+  "micro_wake_word": {
+    "manifest": "ezekiel.json",
+    "model": "ezekiel.tflite",
+    "manifest_sha256": "d420956746b684c423a4a878b71913e23680282b3e4734a165f171a1d4f51231",
+    "model_sha256": "6fe39cb7b1845462c1c515df654379c745c93ec0355157533cc2180b5ca993b5"
+  },
+  "open_wake_word": {
+    "metadata": "ezekiel.oww.json",
+    "metadata_sha256": "c66bf372e9d5ad6460bf1ad9e4f89a74cf0eacb7b226892920c4fdc4f6af5e8b",
+    "artifacts": {
+      "onnx": {
+        "file": "ezekiel.oww.onnx",
+        "sha256": "d25a87505c8f86f38d8395c94d7cdcced0b472865121dd340b5c3ed231440194",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.69,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.94,
+    "recommended_confirmation_patience": 3
+  }
+}
