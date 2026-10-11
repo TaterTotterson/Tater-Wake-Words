@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 836,
+      "count": 837,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 8,
+      "count": 9,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 8,
+      "count": 9,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -59,10 +59,10 @@
     {
       "key": "microWakeWordsV7",
       "label": "microWakeWordsV7",
-      "count": 8
+      "count": 9
     }
   ],
-  "count": 836,
+  "count": 837,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -19215,6 +19215,46 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.79,
       "calibration_recall": 0.98328,
+      "calibration_false_accepts_per_hour": 0.103409,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV7:ok_bode",
+      "source": "microWakeWordsV7",
+      "source_label": "microWakeWordsV7",
+      "slug": "ok_bode",
+      "name": "ok bode",
+      "label": "Ok Bode",
+      "path": "microWakeWordsV7/ok_bode.json",
+      "model_path": "microWakeWordsV7/ok_bode.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.tflite",
+      "esphome_path": "microWakeWordsV7/ok_bode.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.esphome.json",
+      "dual_model": true,
+      "bundle_path": "microWakeWordsV7/ok_bode.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.wake-bundle.json",
+      "openwakeword_metadata_path": "microWakeWordsV7/ok_bode.oww.json",
+      "openwakeword_metadata_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.oww.json",
+      "openwakeword_model_path": "microWakeWordsV7/ok_bode.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/ok_bode.oww.onnx",
+      "openwakeword_threshold": 0.95,
+      "openwakeword_patience": 3,
+      "openwakeword_confirmation_threshold": 0.98,
+      "openwakeword_confirmation_patience": 3,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.9904,
       "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
