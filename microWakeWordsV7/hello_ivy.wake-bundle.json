@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Hello Ivy",
+  "key": "hello_ivy",
+  "created_at": "2026-10-11T01:39:11.186494+00:00",
+  "micro_wake_word": {
+    "manifest": "hello_ivy.json",
+    "model": "hello_ivy.tflite",
+    "manifest_sha256": "0c0d86d9bd36a781b8096e67268a8a3af3c236bfd59046bffbfd68b04d9c7439",
+    "model_sha256": "a1fc020285ba5471120a13d480e40c253f105213c6e461c3d005f747a40e4cfb"
+  },
+  "open_wake_word": {
+    "metadata": "hello_ivy.oww.json",
+    "metadata_sha256": "8a83b2d6deee81bb138c8c8931a656acf261b1bc06e7b489a3534bd2f934cbe5",
+    "artifacts": {
+      "onnx": {
+        "file": "hello_ivy.oww.onnx",
+        "sha256": "4156dfd6636d74d025ae6efd8658a7d7c5a74d581157fadc7e9cbe615ba9c397",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.81,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.97,
+    "recommended_confirmation_patience": 3
+  }
+}
