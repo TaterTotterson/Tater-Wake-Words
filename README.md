@@ -57,8 +57,8 @@ The catalog manifest exposes three views over the verified artifacts:
 - **Dual Wake Word** uses the matching MWW + OWW pair from that same bundle.
 
 OWW and Dual catalogs start empty until the first complete V7 package is
-published. Tater fills their dropdowns automatically as the issue runner adds
-verified wake words.
+published. Tater fills their dropdowns automatically as the Apple trainer
+watcher adds verified wake words.
 
 ## Request A Wake Word
 
@@ -70,7 +70,11 @@ mww: hey potato
 
 Only issues whose title starts with `mww:` are handled by automation.
 
-When the self-hosted trainer runner completes successfully, it adds the MWW
+When the Apple trainer watcher completes successfully, it adds the MWW
 Tater JSON, ESPHome JSON, and TFLite model together with the OWW JSON, ONNX
 model, and matched dual-model bundle to `microWakeWordsV7`. It then updates the
 catalog manifest, comments with all artifact links, and closes the issue.
+
+The GitHub Actions workflow remains available for a manual emergency retry, but
+new issues are processed by the independent watcher so a runner connection loss
+cannot cancel an active local training process.

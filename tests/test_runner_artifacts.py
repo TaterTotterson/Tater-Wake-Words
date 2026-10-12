@@ -146,6 +146,9 @@ class RunnerArtifactTests(unittest.TestCase):
         workflow = (
             REPO_ROOT / ".github" / "workflows" / "train-wake-word.yml"
         ).read_text(encoding="utf-8")
+        recovery_workflow = (
+            REPO_ROOT / ".github" / "workflows" / "recover-wake-word-requests.yml"
+        ).read_text(encoding="utf-8")
         setup = (
             REPO_ROOT / "scripts" / "setup_self_hosted_runner_macos.sh"
         ).read_text(encoding="utf-8")
@@ -157,7 +160,9 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertIn("CATALOG_DIR: microWakeWordsV7", workflow)
         self.assertIn('run-name: "mww #${{ inputs.issue_number', workflow)
         self.assertIn("workflow_dispatch:", workflow)
-        self.assertIn("tater-wake-word-${{ github.event.issue.number", workflow)
+        self.assertNotIn("types: [opened, edited, reopened]", workflow)
+        self.assertIn("tater-wake-word-${{ inputs.issue_number", workflow)
+        self.assertNotIn("schedule:", recovery_workflow)
         self.assertNotIn("group: tater-wake-word-training", workflow)
         self.assertIn("timeout-minutes: 360", workflow)
         self.assertIn('git -C "$trainer_dir" merge --ff-only FETCH_HEAD', runner)

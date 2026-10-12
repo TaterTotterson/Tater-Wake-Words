@@ -1,9 +1,10 @@
 name: Train Wake Word Request
-run-name: "mww #${{ inputs.issue_number || github.event.issue.number }}"
+run-name: "mww #${{ inputs.issue_number }}"
 
+# Automatic requests are handled by watcher.sh in the Apple trainer repository.
+# Keep this workflow as a manual fallback without queuing self-hosted jobs for
+# every new or edited issue.
 on:
-  issues:
-    types: [opened, edited, reopened]
   workflow_dispatch:
     inputs:
       issue_number:
@@ -16,12 +17,11 @@ permissions:
   issues: write
 
 concurrency:
-  group: tater-wake-word-${{ github.event.issue.number || inputs.issue_number }}
+  group: tater-wake-word-${{ inputs.issue_number }}
   cancel-in-progress: false
 
 jobs:
   train:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.issue.pull_request == null }}
     runs-on: [self-hosted, macOS, ARM64, tater-wake-words]
     timeout-minutes: 360
     env:

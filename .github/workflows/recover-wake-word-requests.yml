@@ -1,9 +1,9 @@
 name: Recover Pending Wake Word Requests
 
+# watcher.sh in the Apple trainer repository now recovers pending and
+# mww-processing requests directly. Retain this only as a manual fallback.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 * * * *"
 
 permissions:
   actions: write
