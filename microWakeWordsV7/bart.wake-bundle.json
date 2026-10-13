@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "bart",
+  "key": "bart",
+  "created_at": "2026-10-13T05:17:22.176152+00:00",
+  "micro_wake_word": {
+    "manifest": "bart.json",
+    "model": "bart.tflite",
+    "manifest_sha256": "aee83a985c3c74f63e76df2bfa538b9e5a967f4f7411b9cbcafe7efbf24327d9",
+    "model_sha256": "5944c2a0c985b3545c0df03a11d7855695536a9cbc19007f1bbb304a77953d38"
+  },
+  "open_wake_word": {
+    "metadata": "bart.oww.json",
+    "metadata_sha256": "2282be3eb9070669baabf4c9579884a90e76b89fb3568aa2601931e671922043",
+    "artifacts": {
+      "onnx": {
+        "file": "bart.oww.onnx",
+        "sha256": "eeaeaf1416a978a98bcb09a828a9ddf0f8d9bc09cd112f27dd7606294cb0d406",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.67,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.9,
+    "recommended_confirmation_patience": 3
+  }
+}
