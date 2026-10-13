@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "santa",
+  "key": "santa",
+  "created_at": "2026-10-13T02:07:27.768883+00:00",
+  "micro_wake_word": {
+    "manifest": "santa.json",
+    "model": "santa.tflite",
+    "manifest_sha256": "b7ff8bf6ae4614cffae9a53e5f879a5e28542768f5b13a8cf8c2dda29c963935",
+    "model_sha256": "8f4635ebfc4326cd5f92eb9ecf38275c25091a09a419832a5bd488a744fa632f"
+  },
+  "open_wake_word": {
+    "metadata": "santa.oww.json",
+    "metadata_sha256": "5b643c79174fce77dd51bf11554abc3490557b2078ef9a19f75d93303b5130b1",
+    "artifacts": {
+      "onnx": {
+        "file": "santa.oww.onnx",
+        "sha256": "6cf6db8439b4c4f625f82757745d12d91521197da91f161a5163893074e1f829",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.97,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.88,
+    "recommended_confirmation_patience": 3
+  }
+}
