@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Mr Carson",
+  "key": "mr_carson",
+  "created_at": "2026-10-13T23:14:34.123681+00:00",
+  "micro_wake_word": {
+    "manifest": "mr_carson.json",
+    "model": "mr_carson.tflite",
+    "manifest_sha256": "35560f93d3c3f6ba24dcf7191a690308916a31c6c2c2d4e75de6fe95c3bd0175",
+    "model_sha256": "fc9085c6b4cd8de7753c9baf5d444cc655c7f9efdb5de11bf019dd9ef5e5656b"
+  },
+  "open_wake_word": {
+    "metadata": "mr_carson.oww.json",
+    "metadata_sha256": "b683203b578803cbaf04fe0c8ab9c938adcf8d238f01cc2371f5873b1c20e622",
+    "artifacts": {
+      "onnx": {
+        "file": "mr_carson.oww.onnx",
+        "sha256": "a259d771b64d06634beb492f4b3a86b230533492f71882d0f195bac23ad10607",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.66,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.92,
+    "recommended_confirmation_patience": 3
+  }
+}
