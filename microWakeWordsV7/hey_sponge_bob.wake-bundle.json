@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hey sponge bob",
+  "key": "hey_sponge_bob",
+  "created_at": "2026-10-15T04:47:58.902036+00:00",
+  "micro_wake_word": {
+    "manifest": "hey_sponge_bob.json",
+    "model": "hey_sponge_bob.tflite",
+    "manifest_sha256": "9da903999770a5adbadbf0f77e5ac68e2a4642ce79afd4b94dc8cb67af20bc47",
+    "model_sha256": "9ea30151d403003c6eaeefd9200e18dbc70864aa0e2a77d3a10e4ea81c3a00da"
+  },
+  "open_wake_word": {
+    "metadata": "hey_sponge_bob.oww.json",
+    "metadata_sha256": "224eeb213e38138af34b78bdd3fe27a3772e1a1860d4fa9f9f7e17e0d36530bb",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_sponge_bob.oww.onnx",
+        "sha256": "bfcac317b8a2592d09c02afcb37ea3b4f756130358512342ff140df39e5acefc",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.98,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.99,
+    "recommended_confirmation_patience": 3
+  }
+}
