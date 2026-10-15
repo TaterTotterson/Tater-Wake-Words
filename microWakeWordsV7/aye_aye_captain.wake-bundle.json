@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Aye Aye Captain",
+  "key": "aye_aye_captain",
+  "created_at": "2026-10-15T17:24:26.970104+00:00",
+  "micro_wake_word": {
+    "manifest": "aye_aye_captain.json",
+    "model": "aye_aye_captain.tflite",
+    "manifest_sha256": "be76793da4643869e0ecb0770850c72c590ad258aec52ece2bef42e588749004",
+    "model_sha256": "1a70265841930e6c59d0ae0e3a090a42ee38c76ddc6110a0ba93ed2be1cb4c21"
+  },
+  "open_wake_word": {
+    "metadata": "aye_aye_captain.oww.json",
+    "metadata_sha256": "b8f084259381ec3f3f218bd1b29758816eca222af1ef18e83664ab524dc42240",
+    "artifacts": {
+      "onnx": {
+        "file": "aye_aye_captain.oww.onnx",
+        "sha256": "532f7b7cf0648b0a3d5ef171d957b5ca99da93a74221e48c714ce12303b4b765",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.85,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.98,
+    "recommended_confirmation_patience": 3
+  }
+}
