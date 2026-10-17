@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "okay cloud",
+  "key": "okay_cloud",
+  "created_at": "2026-10-17T21:56:35.404924+00:00",
+  "micro_wake_word": {
+    "manifest": "okay_cloud.json",
+    "model": "okay_cloud.tflite",
+    "manifest_sha256": "fab620b90320e790ee61da76662fe568ed64d5ba921e3f18a5ab576d5577fadf",
+    "model_sha256": "ca72a52f7e1801b751b9faaf058ed267bde5030d01509873b2e855a77653566c"
+  },
+  "open_wake_word": {
+    "metadata": "okay_cloud.oww.json",
+    "metadata_sha256": "337c1a87f085e8cdbfc4a6cc03fb678ad17658a9d103819a5d88a05eb3e8777e",
+    "artifacts": {
+      "onnx": {
+        "file": "okay_cloud.oww.onnx",
+        "sha256": "a8c98bbc1ef9896e326fa2d148fe79e8d768eb06feb1d207c3c76a2d60933036",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.95,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.96,
+    "recommended_confirmation_patience": 3
+  }
+}
