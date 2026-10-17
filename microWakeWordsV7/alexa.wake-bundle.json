@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Alexa",
+  "key": "alexa",
+  "created_at": "2026-10-17T10:30:34.444636+00:00",
+  "micro_wake_word": {
+    "manifest": "alexa.json",
+    "model": "alexa.tflite",
+    "manifest_sha256": "c172bb1fab09da13de4f1eddbb95c78ec7ea23153df1ba1524d55f2393120655",
+    "model_sha256": "bb27a3ba1813252294d414ebdcc968af9a1f78969d3c4a7aa723a4908eb7ef70"
+  },
+  "open_wake_word": {
+    "metadata": "alexa.oww.json",
+    "metadata_sha256": "958f3f36f2ffbdaf687d1e5ec9ccc24075ac24bdb1dcb7753efacb5bfb72106e",
+    "artifacts": {
+      "onnx": {
+        "file": "alexa.oww.onnx",
+        "sha256": "5e11d59e7bdef49ac1a2fc04697be0e7ea2313593f16f403737c6226c94b7e2e",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.92,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.73,
+    "recommended_confirmation_patience": 3
+  }
+}
