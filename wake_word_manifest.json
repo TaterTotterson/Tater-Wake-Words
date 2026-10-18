@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 856,
+      "count": 857,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 28,
+      "count": 29,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 28,
+      "count": 29,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -59,10 +59,10 @@
     {
       "key": "microWakeWordsV7",
       "label": "microWakeWordsV7",
-      "count": 28
+      "count": 29
     }
   ],
-  "count": 856,
+  "count": 857,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -19175,6 +19175,46 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.81,
       "calibration_recall": 0.99406,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV7:hej_nokte",
+      "source": "microWakeWordsV7",
+      "source_label": "microWakeWordsV7",
+      "slug": "hej_nokte",
+      "name": "hej nokte",
+      "label": "Hej Nokte",
+      "path": "microWakeWordsV7/hej_nokte.json",
+      "model_path": "microWakeWordsV7/hej_nokte.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.tflite",
+      "esphome_path": "microWakeWordsV7/hej_nokte.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.esphome.json",
+      "dual_model": true,
+      "bundle_path": "microWakeWordsV7/hej_nokte.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.wake-bundle.json",
+      "openwakeword_metadata_path": "microWakeWordsV7/hej_nokte.oww.json",
+      "openwakeword_metadata_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.oww.json",
+      "openwakeword_model_path": "microWakeWordsV7/hej_nokte.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hej_nokte.oww.onnx",
+      "openwakeword_threshold": 0.95,
+      "openwakeword_patience": 3,
+      "openwakeword_confirmation_threshold": 0.89,
+      "openwakeword_confirmation_patience": 3,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.98,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.81,
+      "calibration_recall": 0.98928,
       "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },

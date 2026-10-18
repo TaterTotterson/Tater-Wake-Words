@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hej nokte",
+  "key": "hej_nokte",
+  "created_at": "2026-10-18T18:39:48.324084+00:00",
+  "micro_wake_word": {
+    "manifest": "hej_nokte.json",
+    "model": "hej_nokte.tflite",
+    "manifest_sha256": "dfa1b7881fb2cd10f3201cf8dd4d225447a780b2ca91ec5b8849a47d062c89f2",
+    "model_sha256": "ba7fe8d73eeaaec2023b42474932f869fb1169f39a2473c5442f153926f3ca96"
+  },
+  "open_wake_word": {
+    "metadata": "hej_nokte.oww.json",
+    "metadata_sha256": "c824eead1982ece174f9cc283e2785bc8fe97b332fa9a211387ef2391c12cb87",
+    "artifacts": {
+      "onnx": {
+        "file": "hej_nokte.oww.onnx",
+        "sha256": "4380ac9d351a5adcb06f7ec7e83be3fe56c4b37efc6ab95be58121eb0b940e73",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.95,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.89,
+    "recommended_confirmation_patience": 3
+  }
+}
