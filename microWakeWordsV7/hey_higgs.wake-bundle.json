@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hey higgs",
+  "key": "hey_higgs",
+  "created_at": "2026-10-19T21:50:05.478109+00:00",
+  "micro_wake_word": {
+    "manifest": "hey_higgs.json",
+    "model": "hey_higgs.tflite",
+    "manifest_sha256": "e3dec229fa1978beb9b2bda3c55111d45a99186efb136688ccd24b6c561e828a",
+    "model_sha256": "80677ba530619e798a45dc869e118da8445a4d92c8750a5409c2ae4f8f00c561"
+  },
+  "open_wake_word": {
+    "metadata": "hey_higgs.oww.json",
+    "metadata_sha256": "bc1b1e87dfd6a60022c0bce8f1e3bbafdcb8dc6d7f5d52640d15de568de17438",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_higgs.oww.onnx",
+        "sha256": "346f6eef425fd33d80db22132bcdbe2f75b7acdca3e75a63f0780b45d64b2232",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.99,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.97,
+    "recommended_confirmation_patience": 3
+  }
+}
