@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 860,
+      "count": 861,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 32,
+      "count": 33,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 32,
+      "count": 33,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -59,10 +59,10 @@
     {
       "key": "microWakeWordsV7",
       "label": "microWakeWordsV7",
-      "count": 32
+      "count": 33
     }
   ],
-  "count": 860,
+  "count": 861,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -19495,6 +19495,46 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.8,
       "calibration_recall": 0.98718,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV7:hey_grok",
+      "source": "microWakeWordsV7",
+      "source_label": "microWakeWordsV7",
+      "slug": "hey_grok",
+      "name": "hey grok",
+      "label": "Hey Grok",
+      "path": "microWakeWordsV7/hey_grok.json",
+      "model_path": "microWakeWordsV7/hey_grok.tflite",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.json",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.tflite",
+      "esphome_path": "microWakeWordsV7/hey_grok.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.esphome.json",
+      "dual_model": true,
+      "bundle_path": "microWakeWordsV7/hey_grok.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.wake-bundle.json",
+      "openwakeword_metadata_path": "microWakeWordsV7/hey_grok.oww.json",
+      "openwakeword_metadata_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.oww.json",
+      "openwakeword_model_path": "microWakeWordsV7/hey_grok.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV7/hey_grok.oww.onnx",
+      "openwakeword_threshold": 0.92,
+      "openwakeword_patience": 3,
+      "openwakeword_confirmation_threshold": 0.88,
+      "openwakeword_confirmation_patience": 3,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.99,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.82,
+      "calibration_recall": 0.98942,
       "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },

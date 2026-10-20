@@ -1,0 +1,798 @@
+{
+  "model_name": "hey_grok",
+  "phrase": "hey grok",
+  "created_at": "2026-10-20T00:13:29.387561+00:00",
+  "config_path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok.yaml",
+  "config": {
+    "model_name": "hey_grok",
+    "target_phrase": [
+      "hey grok"
+    ],
+    "custom_negative_phrases": [],
+    "n_samples": 20000,
+    "n_samples_val": 2000,
+    "tts_batch_size": 50,
+    "negative_tts_batch_divisor": 7,
+    "augmentation_batch_size": 16,
+    "piper_sample_generator_path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/vendor/piper-sample-generator",
+    "output_dir": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok",
+    "rir_paths": [
+      "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/assets/mit_rirs"
+    ],
+    "background_paths": [
+      "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/assets/fma"
+    ],
+    "background_paths_duplication_rate": [
+      1
+    ],
+    "false_positive_validation_data_path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/assets/validation_set_features.npy",
+    "validation_batch_size": 2048,
+    "augmentation_rounds": 1,
+    "feature_data_files": {
+      "ACAV100M_sample": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/assets/openwakeword_features_ACAV100M_2000_hrs_16bit.npy"
+    },
+    "batch_n_per_class": {
+      "positive": 50,
+      "adversarial_negative": 50,
+      "ACAV100M_sample": 256
+    },
+    "model_type": "dnn",
+    "layer_size": 32,
+    "steps": 50000,
+    "target_accuracy": 0.7,
+    "target_recall": 0.5,
+    "max_negative_weight": 1500,
+    "target_false_positives_per_hour": 0.2
+  },
+  "artifacts": {
+    "onnx": {
+      "file": "hey_grok.oww.onnx",
+      "sha256": "2f61a196621ad01e914c8863e8f0706d3b662122f849f2f8fdc80d11e4439e27",
+      "size_bytes": 205430
+    }
+  },
+  "synced_at": "2026-10-20T01:24:19.961645+00:00",
+  "calibration": {
+    "created_at": "2026-10-20T01:25:56.331411+00:00",
+    "model": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/publish-staging/hey_grok/hey_grok.onnx",
+    "framework": "onnx",
+    "recommended_threshold": 0.92,
+    "recommended_patience": 3,
+    "recommendation_reason": "meets_false_positive_and_recall_targets",
+    "recommended_confirmation_threshold": 0.88,
+    "recommended_confirmation_patience": 3,
+    "confirmation_recommendation_reason": "meets_dual_confirmation_recall_target",
+    "confirmation_min_positive_recall": 0.8,
+    "confirmation_ready": true,
+    "deployment_ready": true,
+    "positive_clip_count": 200,
+    "negative_clip_count": 500,
+    "positive_score_summary": {
+      "max": 0.9955407381057739,
+      "median": 0.9874865710735321,
+      "p05": 0.9132647424936295
+    },
+    "negative_score_summary": {
+      "max": 0.9804781675338745,
+      "median": 0.2896599769592285,
+      "p95": 0.5831291973590851,
+      "p99": 0.8200766557455063
+    },
+    "recommended_metrics": {
+      "threshold": 0.92,
+      "patience": 3,
+      "false_positive_clips": 0,
+      "false_positive_rate": 0.0,
+      "false_positives_per_hour": 0.0,
+      "positive_clips_detected": 147,
+      "positive_recall": 0.735
+    },
+    "recommended_confirmation_metrics": {
+      "threshold": 0.88,
+      "patience": 3,
+      "false_positive_clips": 2,
+      "false_positive_rate": 0.004,
+      "false_positives_per_hour": 13.228301537755604,
+      "positive_clips_detected": 164,
+      "positive_recall": 0.82
+    },
+    "threshold_metrics": [
+      {
+        "threshold": 0.5,
+        "patience": 3,
+        "false_positive_clips": 6,
+        "false_positive_rate": 0.012,
+        "false_positives_per_hour": 39.68490461326681,
+        "positive_clips_detected": 192,
+        "positive_recall": 0.96
+      },
+      {
+        "threshold": 0.51,
+        "patience": 3,
+        "false_positive_clips": 6,
+        "false_positive_rate": 0.012,
+        "false_positives_per_hour": 39.68490461326681,
+        "positive_clips_detected": 192,
+        "positive_recall": 0.96
+      },
+      {
+        "threshold": 0.52,
+        "patience": 3,
+        "false_positive_clips": 5,
+        "false_positive_rate": 0.01,
+        "false_positives_per_hour": 33.07075384438901,
+        "positive_clips_detected": 192,
+        "positive_recall": 0.96
+      },
+      {
+        "threshold": 0.53,
+        "patience": 3,
+        "false_positive_clips": 4,
+        "false_positive_rate": 0.008,
+        "false_positives_per_hour": 26.456603075511207,
+        "positive_clips_detected": 191,
+        "positive_recall": 0.955
+      },
+      {
+        "threshold": 0.54,
+        "patience": 3,
+        "false_positive_clips": 4,
+        "false_positive_rate": 0.008,
+        "false_positives_per_hour": 26.456603075511207,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.55,
+        "patience": 3,
+        "false_positive_clips": 4,
+        "false_positive_rate": 0.008,
+        "false_positives_per_hour": 26.456603075511207,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.56,
+        "patience": 3,
+        "false_positive_clips": 4,
+        "false_positive_rate": 0.008,
+        "false_positives_per_hour": 26.456603075511207,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.57,
+        "patience": 3,
+        "false_positive_clips": 3,
+        "false_positive_rate": 0.006,
+        "false_positives_per_hour": 19.842452306633405,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.58,
+        "patience": 3,
+        "false_positive_clips": 3,
+        "false_positive_rate": 0.006,
+        "false_positives_per_hour": 19.842452306633405,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.59,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.6,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.61,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.62,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.63,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.64,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.65,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.66,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 190,
+        "positive_recall": 0.95
+      },
+      {
+        "threshold": 0.67,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 189,
+        "positive_recall": 0.945
+      },
+      {
+        "threshold": 0.68,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.69,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.7,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.71,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.72,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.73,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.74,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 188,
+        "positive_recall": 0.94
+      },
+      {
+        "threshold": 0.75,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 187,
+        "positive_recall": 0.935
+      },
+      {
+        "threshold": 0.76,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 186,
+        "positive_recall": 0.93
+      },
+      {
+        "threshold": 0.77,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 186,
+        "positive_recall": 0.93
+      },
+      {
+        "threshold": 0.78,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 185,
+        "positive_recall": 0.925
+      },
+      {
+        "threshold": 0.79,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 184,
+        "positive_recall": 0.92
+      },
+      {
+        "threshold": 0.8,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 184,
+        "positive_recall": 0.92
+      },
+      {
+        "threshold": 0.81,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 181,
+        "positive_recall": 0.905
+      },
+      {
+        "threshold": 0.82,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 180,
+        "positive_recall": 0.9
+      },
+      {
+        "threshold": 0.83,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 180,
+        "positive_recall": 0.9
+      },
+      {
+        "threshold": 0.84,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 179,
+        "positive_recall": 0.895
+      },
+      {
+        "threshold": 0.85,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 175,
+        "positive_recall": 0.875
+      },
+      {
+        "threshold": 0.86,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 174,
+        "positive_recall": 0.87
+      },
+      {
+        "threshold": 0.87,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 169,
+        "positive_recall": 0.845
+      },
+      {
+        "threshold": 0.88,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 164,
+        "positive_recall": 0.82
+      },
+      {
+        "threshold": 0.89,
+        "patience": 3,
+        "false_positive_clips": 2,
+        "false_positive_rate": 0.004,
+        "false_positives_per_hour": 13.228301537755604,
+        "positive_clips_detected": 159,
+        "positive_recall": 0.795
+      },
+      {
+        "threshold": 0.9,
+        "patience": 3,
+        "false_positive_clips": 1,
+        "false_positive_rate": 0.002,
+        "false_positives_per_hour": 6.614150768877802,
+        "positive_clips_detected": 156,
+        "positive_recall": 0.78
+      },
+      {
+        "threshold": 0.91,
+        "patience": 3,
+        "false_positive_clips": 1,
+        "false_positive_rate": 0.002,
+        "false_positives_per_hour": 6.614150768877802,
+        "positive_clips_detected": 154,
+        "positive_recall": 0.77
+      },
+      {
+        "threshold": 0.92,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 147,
+        "positive_recall": 0.735
+      },
+      {
+        "threshold": 0.93,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 140,
+        "positive_recall": 0.7
+      },
+      {
+        "threshold": 0.94,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 134,
+        "positive_recall": 0.67
+      },
+      {
+        "threshold": 0.95,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 124,
+        "positive_recall": 0.62
+      },
+      {
+        "threshold": 0.96,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 107,
+        "positive_recall": 0.535
+      },
+      {
+        "threshold": 0.97,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 86,
+        "positive_recall": 0.43
+      },
+      {
+        "threshold": 0.98,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 65,
+        "positive_recall": 0.325
+      },
+      {
+        "threshold": 0.99,
+        "patience": 3,
+        "false_positive_clips": 0,
+        "false_positive_rate": 0.0,
+        "false_positives_per_hour": 0.0,
+        "positive_clips_detected": 9,
+        "positive_recall": 0.045
+      }
+    ],
+    "top_negative_clips": [
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1147.wav",
+        "label": "hey_grok",
+        "max_score": 0.9804781675338745,
+        "duration_s": 1.02175
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1641.wav",
+        "label": "hey_grok",
+        "max_score": 0.9008138179779053,
+        "duration_s": 1.12625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/670.wav",
+        "label": "hey_grok",
+        "max_score": 0.8787689208984375,
+        "duration_s": 1.0565625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/364.wav",
+        "label": "hey_grok",
+        "max_score": 0.8420006036758423,
+        "duration_s": 1.12625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1094.wav",
+        "label": "hey_grok",
+        "max_score": 0.8234648704528809,
+        "duration_s": 0.8591875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/792.wav",
+        "label": "hey_grok",
+        "max_score": 0.8200424313545227,
+        "duration_s": 1.033375
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/956.wav",
+        "label": "hey_grok",
+        "max_score": 0.7454782724380493,
+        "duration_s": 1.358375
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1904.wav",
+        "label": "hey_grok",
+        "max_score": 0.7276929616928101,
+        "duration_s": 1.195875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1839.wav",
+        "label": "hey_grok",
+        "max_score": 0.7174099087715149,
+        "duration_s": 0.952125
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/841.wav",
+        "label": "hey_grok",
+        "max_score": 0.7019830346107483,
+        "duration_s": 0.6385625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1862.wav",
+        "label": "hey_grok",
+        "max_score": 0.6335128545761108,
+        "duration_s": 1.695125
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/883.wav",
+        "label": "hey_grok",
+        "max_score": 0.6264563202857971,
+        "duration_s": 0.627
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/472.wav",
+        "label": "hey_grok",
+        "max_score": 0.6157432198524475,
+        "duration_s": 0.905625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1741.wav",
+        "label": "hey_grok",
+        "max_score": 0.5982710719108582,
+        "duration_s": 0.719875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/277.wav",
+        "label": "hey_grok",
+        "max_score": 0.5959396362304688,
+        "duration_s": 0.91725
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1638.wav",
+        "label": "hey_grok",
+        "max_score": 0.5958273410797119,
+        "duration_s": 1.195875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1648.wav",
+        "label": "hey_grok",
+        "max_score": 0.5956144332885742,
+        "duration_s": 1.300375
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/664.wav",
+        "label": "hey_grok",
+        "max_score": 0.5946117043495178,
+        "duration_s": 1.381625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1803.wav",
+        "label": "hey_grok",
+        "max_score": 0.5932937860488892,
+        "duration_s": 1.045
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/negative_test/1078.wav",
+        "label": "hey_grok",
+        "max_score": 0.5928745269775391,
+        "duration_s": 1.33525
+      }
+    ],
+    "top_positive_clips": [
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1480.wav",
+        "label": "hey_grok",
+        "max_score": 0.9955407381057739,
+        "duration_s": 1.1610625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1451.wav",
+        "label": "hey_grok",
+        "max_score": 0.9953503608703613,
+        "duration_s": 0.91725
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/102.wav",
+        "label": "hey_grok",
+        "max_score": 0.9953421354293823,
+        "duration_s": 0.905625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/136.wav",
+        "label": "hey_grok",
+        "max_score": 0.995166540145874,
+        "duration_s": 0.91725
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/250.wav",
+        "label": "hey_grok",
+        "max_score": 0.9951484203338623,
+        "duration_s": 0.81275
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1790.wav",
+        "label": "hey_grok",
+        "max_score": 0.9951343536376953,
+        "duration_s": 0.9636875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1732.wav",
+        "label": "hey_grok",
+        "max_score": 0.9950484037399292,
+        "duration_s": 0.6850625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/898.wav",
+        "label": "hey_grok",
+        "max_score": 0.9950282573699951,
+        "duration_s": 0.9405
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/446.wav",
+        "label": "hey_grok",
+        "max_score": 0.9947270154953003,
+        "duration_s": 1.02175
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/409.wav",
+        "label": "hey_grok",
+        "max_score": 0.9946153163909912,
+        "duration_s": 0.75475
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1096.wav",
+        "label": "hey_grok",
+        "max_score": 0.994464635848999,
+        "duration_s": 0.5921875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/654.wav",
+        "label": "hey_grok",
+        "max_score": 0.9943283796310425,
+        "duration_s": 0.8011875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1577.wav",
+        "label": "hey_grok",
+        "max_score": 0.9943063259124756,
+        "duration_s": 0.743125
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/841.wav",
+        "label": "hey_grok",
+        "max_score": 0.9943040609359741,
+        "duration_s": 0.7895625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/52.wav",
+        "label": "hey_grok",
+        "max_score": 0.9942946434020996,
+        "duration_s": 0.6966875
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1890.wav",
+        "label": "hey_grok",
+        "max_score": 0.9942566156387329,
+        "duration_s": 0.7663125
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/339.wav",
+        "label": "hey_grok",
+        "max_score": 0.9942464828491211,
+        "duration_s": 0.627
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1973.wav",
+        "label": "hey_grok",
+        "max_score": 0.9941977858543396,
+        "duration_s": 0.638625
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/995.wav",
+        "label": "hey_grok",
+        "max_score": 0.9941223859786987,
+        "duration_s": 0.743125
+      },
+      {
+        "path": "/Volumes/Untitled/microWakeWord-Trainer-AppleSilicon/openwakeword/output/hey_grok/hey_grok/positive_test/1190.wav",
+        "label": "hey_grok",
+        "max_score": 0.9939784407615662,
+        "duration_s": 0.7083125
+      }
+    ]
+  },
+  "type": "open_wake_word",
+  "trainer_revision": "d4329f76ecf09da7ca8fdf29b32f92f2a7f0d57b"
+}
