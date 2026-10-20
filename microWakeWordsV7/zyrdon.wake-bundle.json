@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "zyrdon",
+  "key": "zyrdon",
+  "created_at": "2026-10-20T07:02:52.899979+00:00",
+  "micro_wake_word": {
+    "manifest": "zyrdon.json",
+    "model": "zyrdon.tflite",
+    "manifest_sha256": "97eb00d08e8340dd170326e95dcf09f91dabdab7ab2bf168713847218f292fd9",
+    "model_sha256": "1a6ba93aa4100981021abc417dc06ce44a64ba0ea4734d743abc4996838c308f"
+  },
+  "open_wake_word": {
+    "metadata": "zyrdon.oww.json",
+    "metadata_sha256": "78909bd9ad6cda9e7a923af5f60032860069f6e1213b681e6f9a1d156e732b83",
+    "artifacts": {
+      "onnx": {
+        "file": "zyrdon.oww.onnx",
+        "sha256": "e65da2d19fd8ddd080ce056434158571dd6e6fe135abcf40b2a40e48e60526f1",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.89,
+    "recommended_confirmation_patience": 3
+  }
+}
