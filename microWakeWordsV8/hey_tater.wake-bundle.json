@@ -1,0 +1,124 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hey tater",
+  "key": "hey_tater",
+  "created_at": "2026-10-20T15:28:26.092812+00:00",
+  "updated_at": "2026-10-20T19:25:01.766628+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "hey tater",
+    "label": "Hey Tater",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hey_tater.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.98354,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-10-20T15:28:25.528537+00:00"
+    },
+    "model_sha256": "da78756afa3fa747c1774a8911c4edcc018952f92c4c81710b3a722f86ed877c",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hey_tater",
+    "phrase": "hey tater",
+    "created_at": "2026-10-20T15:28:36.494409+00:00",
+    "synced_at": "2026-10-20T16:12:30.088785+00:00",
+    "trainer_revision": "d4329f76ecf09da7ca8fdf29b32f92f2a7f0d57b",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_tater.oww.onnx",
+        "sha256": "a946113f6cd25b0c1ee9acf62b1eb84919347f058d7c29c9ae11689ba2a129e8",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.98,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.94,
+    "recommended_confirmation_patience": 3
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hey_tater",
+        "phrase": "hey tater",
+        "created_at": "2026-10-20T16:16:26.714546+00:00",
+        "synced_at": "2026-10-20T17:49:52.047565+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hey_tater.nww.cnn.onnx",
+        "model_sha256": "569b4fe3d28fe1dbe942c9dd38a9980d1e91e909b25c96d62743fe57a674d8e5",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2
+      },
+      "gru": {
+        "name": "hey_tater",
+        "phrase": "hey tater",
+        "created_at": "2026-10-20T17:49:54.695842+00:00",
+        "synced_at": "2026-10-20T19:25:01.706436+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "type": "nano_wake_word",
+        "model": "hey_tater.nww.gru.onnx",
+        "model_sha256": "48a47ca3a25ca9db032d9159085b8e6dc30165f7f0ca94af035f063b695d6220",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}

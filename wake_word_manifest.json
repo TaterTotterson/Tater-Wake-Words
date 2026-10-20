@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 862,
+      "count": 863,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 34,
+      "count": 35,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "nano_wake_word": {
       "label": "NanoWakeWord",
-      "count": 0,
+      "count": 1,
       "url_field": "bundle_url",
       "requires": [
         "nano_model"
@@ -26,7 +26,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 34,
+      "count": 35,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -34,7 +34,7 @@
     },
     "wake_word_bundle": {
       "label": "Wake Word Bundle",
-      "count": 34,
+      "count": 35,
       "url_field": "bundle_url"
     }
   },
@@ -73,9 +73,14 @@
       "key": "microWakeWordsV7",
       "label": "microWakeWordsV7",
       "count": 34
+    },
+    {
+      "key": "microWakeWordsV8",
+      "label": "microWakeWordsV8",
+      "count": 1
     }
   ],
-  "count": 862,
+  "count": 863,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -20309,6 +20314,78 @@
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.98434,
       "calibration_false_accepts_per_hour": 0.103409,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV8:hey_tater",
+      "source": "microWakeWordsV8",
+      "source_label": "microWakeWordsV8",
+      "slug": "hey_tater",
+      "name": "hey tater",
+      "label": "Hey Tater",
+      "path": "microWakeWordsV8/hey_tater.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV8/hey_tater.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.wake-bundle.json",
+      "model_path": "microWakeWordsV8/hey_tater.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.tflite",
+      "esphome_path": "microWakeWordsV8/hey_tater.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV8/hey_tater.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV8/hey_tater.nww.cnn.onnx",
+        "gru": "microWakeWordsV8/hey_tater.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.98,
+      "openwakeword_patience": 3,
+      "openwakeword_confirmation_threshold": 0.94,
+      "openwakeword_confirmation_patience": 3,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.99
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.98354,
+      "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     }
   ]
