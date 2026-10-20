@@ -14,15 +14,15 @@
 
 Tater wake-word catalog for Tater Native satellites.
 
-This repo stores ready-to-use wake-word packages:
+This repo stores ready-to-use wake-word packages. New V8 packages contain:
 
-- `.json` Tater Native microWakeWord metadata
+- `.wake-bundle.json` canonical Tater metadata for MWW, OWW, NWW-CNN, and NWW-GRU
 - `.esphome.json` ESPHome-compatible microWakeWord metadata
 - `.tflite` microWakeWord models
-- `.oww.json` openWakeWord metadata
 - `.oww.onnx` openWakeWord models
-- `.wake-bundle.json` matched MWW + OWW dual-model bundles
-- `wake_word_manifest.json` for MWW, OWW, and Dual catalog discovery
+- `.nww.cnn.onnx` NanoWakeWord CNN models
+- `.nww.gru.onnx` NanoWakeWord GRU models
+- `wake_word_manifest.json` for bundle and engine catalog discovery
 
 The historical catalog folders are seeded from the original Tater wake-word collection:
 
@@ -30,32 +30,34 @@ The historical catalog folders are seeded from the original Tater wake-word coll
 - `microWakeWordsV2`
 - `microWakeWordsV3`
 
-New issue-generated wake words are added to `microWakeWordsV7`. Versions 1–6
-remain available for existing MWW-only installations.
+New issue-generated wake words are added to `microWakeWordsV8`. Versions 1–7
+remain available for existing installations.
 
 ## Use A Wake Word
 
-Use the raw GitHub URL for a wake-word JSON file in Tater's MWW satellite
-settings, or use the matching `.wake-bundle.json` for an Echo satellite in
-dual wake-word mode.
+Use a V8 `.wake-bundle.json` URL in Tater. The same package supplies MWW, OWW,
+NWW-CNN, NWW-GRU, MWW+OWW, or MWW+NWW according to the selected detector mode.
+For ESPHome's `micro_wake_word`, use the matching `.esphome.json` URL.
 
 Example:
 
 ```text
-https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV1/hey_tater.json
+https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_tater.wake-bundle.json
 ```
 
-Tater Native firmware downloads the JSON and the linked `.tflite` model.
+Tater downloads the bundle and only the model files needed by each satellite.
 
-The catalog manifest exposes three views over the verified artifacts:
+The catalog manifest exposes verified views for:
 
-- **microWakeWord** uses each entry's Tater JSON URL.
-- **openWakeWord** uses the OWW model from each verified V7 bundle.
-- **Dual Wake Word** uses the matching MWW + OWW pair from that same bundle.
+- **microWakeWord**
+- **openWakeWord**
+- **NanoWakeWord** with CNN and GRU architectures
+- **Dual Wake Word**
+- **Wake Word Bundle**
 
-OWW and Dual catalogs start empty until the first complete V7 package is
-published. Tater fills their dropdowns automatically as the Apple trainer
-watcher adds verified wake words.
+V8 entries are listed only after the bundle and all four model files pass
+filename, size, and SHA-256 validation. Older catalog entries remain listed in
+their original formats.
 
 ## Request A Wake Word
 
@@ -67,11 +69,8 @@ mww: hey potato
 
 Only issues whose title starts with `mww:` are handled by automation.
 
-When the Apple trainer watcher completes successfully, it adds the MWW
-Tater JSON, ESPHome JSON, and TFLite model together with the OWW JSON, ONNX
-model, and matched dual-model bundle to `microWakeWordsV7`. It then updates the
-catalog manifest, comments with all artifact links, and closes the issue.
-
-The GitHub Actions workflow remains available for a manual emergency retry, but
-new issues are processed by the independent watcher so a runner connection loss
-cannot cancel an active local training process.
+When the Apple trainer watcher completes successfully, it adds the canonical
+bundle, ESPHome MWW JSON, MWW TFLite, OWW ONNX, NWW CNN ONNX, and NWW GRU ONNX
+to `microWakeWordsV8`. It then updates the catalog manifest, comments with all
+artifact links, and closes the issue. Issue processing is handled by the
+independent watcher on the training Mac.

@@ -116,10 +116,11 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertTrue(entry["openwakeword_model_url"].endswith("/hey_tater.oww.onnx"))
         self.assertEqual(entry["openwakeword_threshold"], 0.96)
         self.assertEqual(entry["openwakeword_confirmation_threshold"], 0.88)
-        self.assertEqual(catalog_manifest["schema_version"], 2)
+        self.assertEqual(catalog_manifest["schema_version"], 3)
         self.assertEqual(catalog_manifest["catalogs"]["micro_wake_word"]["count"], 1)
         self.assertEqual(catalog_manifest["catalogs"]["open_wake_word"]["count"], 1)
         self.assertEqual(catalog_manifest["catalogs"]["dual_wake_word"]["count"], 1)
+        self.assertEqual(catalog_manifest["catalogs"]["nano_wake_word"]["count"], 0)
         self.assertEqual(
             catalog_manifest["catalogs"]["open_wake_word"]["url_field"],
             "bundle_url",
@@ -138,8 +139,110 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertEqual(catalog_manifest["catalogs"]["micro_wake_word"]["count"], 0)
         self.assertEqual(catalog_manifest["catalogs"]["open_wake_word"]["count"], 0)
         self.assertEqual(catalog_manifest["catalogs"]["dual_wake_word"]["count"], 0)
+        self.assertEqual(catalog_manifest["catalogs"]["nano_wake_word"]["count"], 0)
 
-    def test_runner_requires_and_uploads_complete_dual_package_to_v7(self) -> None:
+    def test_manifest_exposes_verified_v8_bundle_and_nano_models(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            catalog = root / "microWakeWordsV8"
+            catalog.mkdir()
+            bundle_path = catalog / "hey_tater.wake-bundle.json"
+            esphome_path = catalog / "hey_tater.esphome.json"
+            mww_path = catalog / "hey_tater.tflite"
+            oww_path = catalog / "hey_tater.oww.onnx"
+            cnn_path = catalog / "hey_tater.nww.cnn.onnx"
+            gru_path = catalog / "hey_tater.nww.gru.onnx"
+            mww_path.write_bytes(b"mww-v8")
+            oww_path.write_bytes(b"oww-v8")
+            cnn_path.write_bytes(b"cnn-v8")
+            gru_path.write_bytes(b"gru-v8")
+            esphome_path.write_text(
+                json.dumps(
+                    {
+                        "type": "micro",
+                        "wake_word": "hey tater",
+                        "model": mww_path.name,
+                        "micro": {"probability_cutoff": 0.99},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            def artifact(path: Path, *, model: bool = False) -> dict[str, object]:
+                return {
+                    "model" if model else "file": path.name,
+                    "model_sha256" if model else "sha256": hashlib.sha256(
+                        path.read_bytes()
+                    ).hexdigest(),
+                    "model_size_bytes" if model else "size_bytes": path.stat().st_size,
+                }
+
+            bundle_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 3,
+                        "type": "tater_wake_word_bundle",
+                        "key": "hey_tater",
+                        "wake_word": "hey tater",
+                        "micro_wake_word": {
+                            "type": "micro",
+                            "label": "Hey Tater",
+                            **artifact(mww_path, model=True),
+                            "micro": {"probability_cutoff": 0.99, "sliding_window_size": 5},
+                        },
+                        "open_wake_word": {
+                            "artifacts": {"onnx": artifact(oww_path)},
+                            "recommended_threshold": 0.74,
+                            "recommended_patience": 3,
+                        },
+                        "nano_wake_word": {
+                            "default_architecture": "cnn",
+                            "variants": {
+                                "cnn": {
+                                    "architecture": "cnn",
+                                    **artifact(cnn_path, model=True),
+                                    "recommended_threshold": 0.99,
+                                    "recommended_patience": 3,
+                                },
+                                "gru": {
+                                    "architecture": "gru",
+                                    **artifact(gru_path, model=True),
+                                    "recommended_threshold": 0.98,
+                                    "recommended_patience": 2,
+                                },
+                            },
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with patch.object(manifest, "REPO_ROOT", root):
+                fields = manifest.bundle_model_fields(bundle_path)
+                entries = manifest.build_entries()
+                catalog_manifest = manifest.build_manifest()
+                cnn_path.write_bytes(b"damaged")
+                damaged_entries = manifest.build_entries()
+
+        self.assertEqual(fields["available_engines"], [
+            "micro_wake_word",
+            "open_wake_word",
+            "nano_wake_word",
+        ])
+        self.assertEqual(fields["nanowakeword_architectures"], ["cnn", "gru"])
+        self.assertEqual(
+            fields["supported_detector_modes"],
+            ["mww", "oww", "nww", "mww_oww", "mww_nww"],
+        )
+        self.assertEqual(len(entries), 1)
+        self.assertEqual(entries[0]["path"], "microWakeWordsV8/hey_tater.wake-bundle.json")
+        self.assertEqual(entries[0]["url"], entries[0]["bundle_url"])
+        self.assertTrue(entries[0]["nanowakeword_model_urls"]["cnn"].endswith(".nww.cnn.onnx"))
+        self.assertEqual(catalog_manifest["catalogs"]["nano_wake_word"]["count"], 1)
+        self.assertEqual(catalog_manifest["catalogs"]["wake_word_bundle"]["count"], 1)
+        self.assertEqual(damaged_entries, [])
+
+    def test_watcher_worker_publishes_complete_bundle_package_to_v8(self) -> None:
         runner = (REPO_ROOT / "scripts" / "train_issue_wake_word.sh").read_text(
             encoding="utf-8"
         )
@@ -155,8 +258,13 @@ class RunnerArtifactTests(unittest.TestCase):
         companion = (
             REPO_ROOT / "scripts" / "train_openwakeword_companion.py"
         ).read_text(encoding="utf-8")
+        nano_companion = (
+            REPO_ROOT / "scripts" / "train_nanowakeword_companion.py"
+        ).read_text(encoding="utf-8")
 
-        self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV7}"', runner)
+        self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV8}"', runner)
+        # The Actions workflow is an unused manual fallback. Production uses
+        # watcher.sh, which exports its own V8 destination.
         self.assertIn("CATALOG_DIR: microWakeWordsV7", workflow)
         self.assertIn('run-name: "mww #${{ inputs.issue_number', workflow)
         self.assertIn("workflow_dispatch:", workflow)
@@ -180,8 +288,10 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertIn('MWW_ARTIFACT_SLUG="$SAFE_WORD"', runner)
         self.assertIn('./train_microwakeword_macos.sh "$RAW_PHRASE"', runner)
         self.assertIn("python3 scripts/train_openwakeword_companion.py", runner)
+        self.assertIn("python3 scripts/train_nanowakeword_companion.py", runner)
+        self.assertIn("for architecture in cnn gru", runner)
         self.assertLess(
-            runner.index('data["website"]'),
+            runner.index('micro["website"]'),
             runner.index("python3 scripts/train_openwakeword_companion.py"),
         )
         self.assertGreaterEqual(runner.count("refresh_request_from_github"), 3)
@@ -191,20 +301,29 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertIn("clear_processing_label", runner)
         self.assertIn('$SAFE_WORD.esphome.json', runner)
         for artifact in (
-            '$SAFE_WORD.oww.json',
             '$SAFE_WORD.oww.onnx',
+            '$SAFE_WORD.nww.cnn.onnx',
+            '$SAFE_WORD.nww.gru.onnx',
             '$SAFE_WORD.wake-bundle.json',
-            '"$oww_metadata_path"',
             '"$oww_onnx_path"',
+            '"$nww_cnn_onnx_path"',
+            '"$nww_gru_onnx_path"',
             '"$bundle_path"',
         ):
             self.assertIn(artifact, runner)
         self.assertIn("ESPHome JSON package", runner)
-        self.assertIn("Matched dual-model bundle", runner)
-        self.assertIn("dual_package_valid", runner)
-        self.assertIn("failed filename, size, or SHA-256 validation", runner)
+        self.assertIn("Tater wake bundle", runner)
+        self.assertIn("bundle_package_valid", runner)
+        self.assertIn("failed engine, filename, size, or SHA-256 validation", runner)
+        self.assertNotIn('$SAFE_WORD.oww.json', runner)
+        self.assertNotIn('$SAFE_WORD.json', runner)
         self.assertIn("prepare_openwakeword_stage", companion)
         self.assertIn("publish_openwakeword_artifacts", companion)
+        self.assertIn("prepare_nanowakeword_stage", nano_companion)
+        self.assertIn("publish_nanowakeword_artifacts", nano_companion)
+        self.assertIn('data_dir / "generated_samples"', nano_companion)
+        self.assertIn('data_dir / "personal_samples"', nano_companion)
+        self.assertIn('data_dir / "negative_samples"', nano_companion)
         self.assertIn('$HOME/actions-runners/tater-wake-words', setup)
         self.assertIn('RUNNER_NAME="${RUNNER_NAME:-tater-wake-words}"', setup)
 

@@ -1,5 +1,5 @@
 name: Wake Word Request
-description: Request matched microWakeWord and openWakeWord models for Tater satellites.
+description: Request a complete MWW, OWW, and NWW wake bundle for Tater satellites.
 title: "mww: "
 labels: ["wake-word-request"]
 body:
@@ -11,7 +11,8 @@ body:
         Example: `mww: hey potato`
 
         The automation only trains issues whose title starts with `mww:`. A
-        successful request publishes MWW, OWW, and matched dual-model artifacts.
+        successful request publishes one Tater bundle with MWW, OWW, NWW-CNN,
+        and NWW-GRU, plus the MWW-only ESPHome package.
   - type: input
     id: phrase
     attributes:

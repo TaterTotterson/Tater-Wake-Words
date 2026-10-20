@@ -5,12 +5,14 @@ import argparse
 import importlib.util
 import os
 import subprocess
+import sys
 from pathlib import Path
 from types import ModuleType
 
 
 def load_openwakeword_stage(trainer_dir: Path) -> ModuleType:
-    module_path = trainer_dir.resolve() / "openwakeword_stage.py"
+    trainer_root = trainer_dir.resolve()
+    module_path = trainer_root / "openwakeword_stage.py"
     if not module_path.is_file():
         raise RuntimeError(
             f"The macOS trainer does not include openWakeWord support: {module_path}"
@@ -19,7 +21,12 @@ def load_openwakeword_stage(trainer_dir: Path) -> ModuleType:
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Could not load openWakeWord stage: {module_path}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    original_path = list(sys.path)
+    try:
+        sys.path.insert(0, str(trainer_root))
+        spec.loader.exec_module(module)
+    finally:
+        sys.path[:] = original_path
     return module
 
 
@@ -61,7 +68,7 @@ def train_companion(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Train and publish the OWW half of a Tater wake-word bundle."
+        description="Train and publish an OWW model into a Tater wake-word bundle."
     )
     parser.add_argument("--phrase", required=True)
     parser.add_argument("--safe-word", required=True)
@@ -77,7 +84,7 @@ def main() -> int:
         data_dir=args.data_dir,
         trained_dir=args.trained_dir,
     )
-    print(f"Published matched dual-model bundle: {bundle}", flush=True)
+    print(f"Published openWakeWord into bundle: {bundle}", flush=True)
     return 0
 
 

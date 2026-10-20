@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "repository": "TaterTotterson/Tater-Wake-Words",
   "ref": "main",
   "catalogs": {
@@ -16,6 +16,14 @@
         "dual_model"
       ]
     },
+    "nano_wake_word": {
+      "label": "NanoWakeWord",
+      "count": 0,
+      "url_field": "bundle_url",
+      "requires": [
+        "nano_model"
+      ]
+    },
     "dual_wake_word": {
       "label": "Dual Wake Word",
       "count": 34,
@@ -23,6 +31,11 @@
       "requires": [
         "dual_model"
       ]
+    },
+    "wake_word_bundle": {
+      "label": "Wake Word Bundle",
+      "count": 34,
+      "url_field": "bundle_url"
     }
   },
   "sources": [
