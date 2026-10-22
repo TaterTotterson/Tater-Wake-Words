@@ -1,0 +1,124 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "ok joana",
+  "key": "ok_joana",
+  "created_at": "2026-10-22T06:46:44.121729+00:00",
+  "updated_at": "2026-10-22T09:55:32.924030+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "ok joana",
+    "label": "Ok Joana",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "ok_joana.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.99,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.99,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.82,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99592,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-10-22T06:46:43.443928+00:00"
+    },
+    "model_sha256": "c542035ca9f1bfc0629554a2a8b609c7b5df89772aac230e69e37b305b8bd4f5",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "ok_joana",
+    "phrase": "ok joana",
+    "created_at": "2026-10-22T06:46:56.202894+00:00",
+    "synced_at": "2026-10-22T07:02:20.471194+00:00",
+    "trainer_revision": "6bba88e0fd2e2e949b9985d6d6974be455e21f65",
+    "artifacts": {
+      "onnx": {
+        "file": "ok_joana.oww.onnx",
+        "sha256": "ca3b0acbb4c9798da83c5a57242d89e1b48ace1bdae8cf3512002395f1176ee5",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.74,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.97,
+    "recommended_confirmation_patience": 3
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "ok_joana",
+        "phrase": "ok joana",
+        "created_at": "2026-10-22T07:04:28.939110+00:00",
+        "synced_at": "2026-10-22T08:20:54.550234+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "ok_joana.nww.cnn.onnx",
+        "model_sha256": "849ff3bd3794b93a678000562068525515051e8c702c457c920788a5b7cd6da5",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2
+      },
+      "gru": {
+        "name": "ok_joana",
+        "phrase": "ok joana",
+        "created_at": "2026-10-22T08:20:57.095917+00:00",
+        "synced_at": "2026-10-22T09:55:32.866659+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "type": "nano_wake_word",
+        "model": "ok_joana.nww.gru.onnx",
+        "model_sha256": "c62b7f6ba13d3a2f33371675f38d67176eb66ca4c52fca17dbe4e9916e775467",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
