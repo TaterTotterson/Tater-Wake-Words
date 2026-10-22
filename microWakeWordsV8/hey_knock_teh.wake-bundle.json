@@ -1,0 +1,144 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hey knock teh",
+  "key": "hey_knock_teh",
+  "created_at": "2026-10-22T13:23:50.100384+00:00",
+  "updated_at": "2026-10-22T17:54:16.053713+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "hey knock teh",
+    "label": "Hey Knock Teh",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hey_knock_teh.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99262,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-10-22T13:23:49.609724+00:00"
+    },
+    "model_sha256": "1bbfc6b77cbd7794af7351207494d95b76c2a7e1330409712ac0b0c967257cc8",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hey_knock_teh",
+    "phrase": "hey knock teh",
+    "created_at": "2026-10-22T13:24:25.449914+00:00",
+    "synced_at": "2026-10-22T14:05:04.404028+00:00",
+    "trainer_revision": "1774809eea3eb24ac15c2c3450281e4aa48c3a0f",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_knock_teh.oww.onnx",
+        "sha256": "7fc04dbc687eab436a6b90e046a6e758e93cfd1a3e55ecd04a60d5e2c6c181a1",
+        "size_bytes": 205430
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.95,
+    "recommended_confirmation_patience": 2
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hey_knock_teh",
+        "phrase": "hey knock teh",
+        "created_at": "2026-10-22T14:08:00.547264+00:00",
+        "synced_at": "2026-10-22T16:06:07.986960+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hey_knock_teh.nww.cnn.onnx",
+        "model_sha256": "6d3faf595e5391a220b66cc3d28adec30771a585daac993a78c9208f86038a05",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.998,
+          "negative_rate": 0.032,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7
+      },
+      "gru": {
+        "name": "hey_knock_teh",
+        "phrase": "hey knock teh",
+        "created_at": "2026-10-22T16:06:31.449352+00:00",
+        "synced_at": "2026-10-22T17:54:16.000324+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.984,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "type": "nano_wake_word",
+        "model": "hey_knock_teh.nww.gru.onnx",
+        "model_sha256": "b04f3cac3dded66af66de0a50ce4c2f3542a6d47262c86af0f6837b9caca5340",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
