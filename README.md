@@ -74,3 +74,13 @@ bundle, ESPHome MWW JSON, MWW TFLite, OWW ONNX, NWW CNN ONNX, and NWW GRU ONNX
 to `microWakeWordsV8`. It then updates the catalog manifest, comments with all
 artifact links, and closes the issue. Issue processing is handled by the
 independent watcher on the training Mac.
+
+## License
+
+Original code, metadata, and model artifacts produced and published by this
+project are available under the [MIT License](LICENSE).
+
+Historical model assets and third-party components remain subject to any
+applicable source licenses and are not relicensed where the project does not
+hold those rights. Wake-word phrases may contain third-party names or
+trademarks; inclusion in this catalog does not grant rights to use them.
