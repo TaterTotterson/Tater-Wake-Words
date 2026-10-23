@@ -21,3 +21,11 @@ body:
       placeholder: hey potato
     validations:
       required: false
+  - type: checkboxes
+    id: publication
+    attributes:
+      label: Publication agreement
+      description: "The generated wake-word models and metadata will be published in this repository."
+      options:
+        - label: I agree that the generated artifacts may be published under the MIT License.
+          required: true
