@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 869,
+      "count": 870,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 41,
+      "count": 42,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "nano_wake_word": {
       "label": "NanoWakeWord",
-      "count": 7,
+      "count": 8,
       "url_field": "bundle_url",
       "requires": [
         "nano_model"
@@ -26,7 +26,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 41,
+      "count": 42,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -34,7 +34,7 @@
     },
     "wake_word_bundle": {
       "label": "Wake Word Bundle",
-      "count": 41,
+      "count": 42,
       "url_field": "bundle_url"
     }
   },
@@ -77,10 +77,10 @@
     {
       "key": "microWakeWordsV8",
       "label": "microWakeWordsV8",
-      "count": 7
+      "count": 8
     }
   ],
-  "count": 869,
+  "count": 870,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -20313,6 +20313,78 @@
       "wake_sliding_window": 5,
       "close_miss_threshold": 0.78,
       "calibration_recall": 0.98434,
+      "calibration_false_accepts_per_hour": 0.103409,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV8:hey_alfred",
+      "source": "microWakeWordsV8",
+      "source_label": "microWakeWordsV8",
+      "slug": "hey_alfred",
+      "name": "Hey Alfred",
+      "label": "Hey Alfred",
+      "path": "microWakeWordsV8/hey_alfred.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV8/hey_alfred.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.wake-bundle.json",
+      "model_path": "microWakeWordsV8/hey_alfred.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.tflite",
+      "esphome_path": "microWakeWordsV8/hey_alfred.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV8/hey_alfred.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "gru",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV8/hey_alfred.nww.cnn.onnx",
+        "gru": "microWakeWordsV8/hey_alfred.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV8/hey_alfred.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.93,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.98,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.98
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.96,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.79,
+      "calibration_recall": 0.99404,
       "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
