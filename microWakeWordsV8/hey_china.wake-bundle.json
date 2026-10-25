@@ -1,0 +1,154 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Hey China",
+  "key": "hey_china",
+  "created_at": "2026-10-25T14:35:13.648694+00:00",
+  "updated_at": "2026-10-25T20:49:47.210734+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Hey China",
+    "label": "Hey China",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hey_china.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.97,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.97,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.8,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99636,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-10-25T14:35:12.963501+00:00"
+    },
+    "model_sha256": "88da9a6e40ef3371394f90db6817b9cb6ea3371d104fe7b94c79cab93d766207",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hey_china",
+    "phrase": "Hey China",
+    "created_at": "2026-10-25T14:35:24.860811+00:00",
+    "synced_at": "2026-10-25T16:00:57.634973+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_china.oww.onnx",
+        "sha256": "d99525322e049c1d6dc09b9fcb39f46289a47c8ea4da4b5768fdd0ee2e4d7135",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.64,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.92,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hey_china",
+        "phrase": "Hey China",
+        "created_at": "2026-10-25T16:03:21.570541+00:00",
+        "synced_at": "2026-10-25T18:16:45.124268+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hey_china.nww.cnn.onnx",
+        "model_sha256": "6a9521bb9f2ebc52225490f3594e0c5753af13d50091bc850d62d44bf0a14831",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.974,
+          "negative_rate": 0.016,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "hey_china",
+        "phrase": "Hey China",
+        "created_at": "2026-10-25T18:16:49.882956+00:00",
+        "synced_at": "2026-10-25T20:49:47.134190+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 1,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.988,
+          "negative_rate": 0.004,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 1
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "hey_china.nww.gru.onnx",
+        "model_sha256": "28a1084ccb196251b75a6e13c7ff55e6998a42ce29810850ab3c2bf9212c5953",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
