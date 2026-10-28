@@ -1,0 +1,154 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Kasandra",
+  "key": "kasandra",
+  "created_at": "2026-10-28T13:45:33.182615+00:00",
+  "updated_at": "2026-10-28T17:00:59.877391+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Kasandra",
+    "label": "Kasandra",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "kasandra.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.96,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.96,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.79,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99184,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-10-28T13:45:32.661603+00:00"
+    },
+    "model_sha256": "997dd990273ec159dd4cc45d41095bd422d301781c5156a28354eaa64f4a420b",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "kasandra",
+    "phrase": "Kasandra",
+    "created_at": "2026-10-28T13:45:45.237225+00:00",
+    "synced_at": "2026-10-28T14:22:00.012859+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "kasandra.oww.onnx",
+        "sha256": "ecff920883b275d68b17f576fb7b9f12c441f1aea35a09da049424e0793ecc42",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.9,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "kasandra",
+        "phrase": "Kasandra",
+        "created_at": "2026-10-28T14:24:58.991364+00:00",
+        "synced_at": "2026-10-28T15:10:01.472123+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "kasandra.nww.cnn.onnx",
+        "model_sha256": "f500e97865eb8857f20824acb19ec4b3c8f9018a3029d3e7afd0f005fe2990a8",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 1.0,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "kasandra",
+        "phrase": "Kasandra",
+        "created_at": "2026-10-28T15:10:04.177350+00:00",
+        "synced_at": "2026-10-28T17:00:59.819743+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.98,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.972,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "kasandra.nww.gru.onnx",
+        "model_sha256": "0e5fb179dbe2130548dfdcec192002d1b777b3fc794ec84c6e91336c6a88fd63",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
