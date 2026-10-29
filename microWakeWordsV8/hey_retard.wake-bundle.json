@@ -1,0 +1,154 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Hey retard",
+  "key": "hey_retard",
+  "created_at": "2026-10-29T10:43:20.093618+00:00",
+  "updated_at": "2026-10-29T15:49:16.036040+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Hey retard",
+    "label": "Hey Retard",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hey_retard.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.97,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.97,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.8,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99608,
+      "false_accepts_per_hour": 0.103409,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-10-29T10:43:19.484401+00:00"
+    },
+    "model_sha256": "2cf1e1d39696f77c3a756432e2e732aedfaa5d4e9e2b27be49e1fc23691a015b",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hey_retard",
+    "phrase": "Hey retard",
+    "created_at": "2026-10-29T10:43:29.768547+00:00",
+    "synced_at": "2026-10-29T12:02:23.228525+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_retard.oww.onnx",
+        "sha256": "a43630b5008685efbdfcfebb049f2485464b23657b4dba620b270192d83e9b39",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.55,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.92,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hey_retard",
+        "phrase": "Hey retard",
+        "created_at": "2026-10-29T12:05:13.900407+00:00",
+        "synced_at": "2026-10-29T14:01:00.359261+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hey_retard.nww.cnn.onnx",
+        "model_sha256": "0ebc441d0e85ee6721e07f5b53ba32eace89e2a1fb77ea8f29c501f04dc497e2",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.998,
+          "negative_rate": 0.028,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "hey_retard",
+        "phrase": "Hey retard",
+        "created_at": "2026-10-29T14:01:03.237239+00:00",
+        "synced_at": "2026-10-29T15:49:15.984139+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.98,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.974,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "hey_retard.nww.gru.onnx",
+        "model_sha256": "c31937ddf1f58ffc6cc29343d82ebfe2135f36aa97277f703ba6ab7f5e38e973",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
