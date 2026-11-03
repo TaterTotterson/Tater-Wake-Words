@@ -1,0 +1,154 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "klaudio",
+  "key": "klaudio",
+  "created_at": "2026-11-03T17:29:32.908032+00:00",
+  "updated_at": "2026-11-03T22:47:05.996784+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "klaudio",
+    "label": "Klaudio",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "klaudio.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.98,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.98,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.81,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.98022,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-03T17:29:32.211224+00:00"
+    },
+    "model_sha256": "4f2a0409b8aa9ee043141abd25cf3343fe74a3fee3591914ebc803ab962b4a3f",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "klaudio",
+    "phrase": "klaudio",
+    "created_at": "2026-11-03T17:29:46.680258+00:00",
+    "synced_at": "2026-11-03T18:55:06.284597+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "klaudio.oww.onnx",
+        "sha256": "2df284384c75a066b73ebbf991503828fc3065a120b78ba6bf25ebf7b330c58b",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.68,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "klaudio",
+        "phrase": "klaudio",
+        "created_at": "2026-11-03T18:57:32.913304+00:00",
+        "synced_at": "2026-11-03T20:54:22.438674+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "klaudio.nww.cnn.onnx",
+        "model_sha256": "1204f23728cc28e8fe46118ddac75351151bf892ed5a71a1216fb0c21bfdf7a3",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 1.0,
+          "negative_rate": 0.002,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "klaudio",
+        "phrase": "klaudio",
+        "created_at": "2026-11-03T20:54:25.162702+00:00",
+        "synced_at": "2026-11-03T22:47:05.939849+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.9,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.93,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "klaudio.nww.gru.onnx",
+        "model_sha256": "3eaf5c47a99033356fce33c918afd19d19ae63bf9778afdd1f3326a0edb59023",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
