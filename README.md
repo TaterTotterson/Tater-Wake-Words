@@ -84,3 +84,7 @@ Historical model assets and third-party components remain subject to any
 applicable source licenses and are not relicensed where the project does not
 hold those rights. Wake-word phrases may contain third-party names or
 trademarks; inclusion in this catalog does not grant rights to use them.
+
+## Trademarks
+
+The Tater name and logo are governed by the [Tater Trademark Policy](TRADEMARKS.md).
