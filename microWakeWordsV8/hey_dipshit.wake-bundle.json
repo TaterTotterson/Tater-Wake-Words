@@ -1,0 +1,154 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Hey dipshit",
+  "key": "hey_dipshit",
+  "created_at": "2026-11-05T09:16:28.351424+00:00",
+  "updated_at": "2026-11-05T14:52:30.741365+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Hey dipshit",
+    "label": "Hey Dipshit",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hey_dipshit.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99216,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-05T09:16:27.763255+00:00"
+    },
+    "model_sha256": "eeae8888110b81d2b5c8ce689a134cad4706aae55ea9fbf948d413a5282e0f33",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hey_dipshit",
+    "phrase": "Hey dipshit",
+    "created_at": "2026-11-05T09:16:37.842944+00:00",
+    "synced_at": "2026-11-05T10:54:59.175195+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_dipshit.oww.onnx",
+        "sha256": "29ad124234fd3554f249e2b13da4ffec8208307de56abcb5ce3bd5bacce2ef2d",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.69,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.96,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hey_dipshit",
+        "phrase": "Hey dipshit",
+        "created_at": "2026-11-05T10:57:16.313770+00:00",
+        "synced_at": "2026-11-05T12:58:19.879736+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hey_dipshit.nww.cnn.onnx",
+        "model_sha256": "ef835c88b1bcbcaeca36429c0c7683c6a5f754109323fa9ff8b32efe30a0d395",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.996,
+          "negative_rate": 0.02,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "hey_dipshit",
+        "phrase": "Hey dipshit",
+        "created_at": "2026-11-05T12:58:22.586484+00:00",
+        "synced_at": "2026-11-05T14:52:30.683154+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.98,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.956,
+          "negative_rate": 0.006,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "hey_dipshit.nww.gru.onnx",
+        "model_sha256": "e0d67b0afc9aaa2b5334ad135af1c0ef95429ced67d92cbb8bc1dda76c978c40",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
