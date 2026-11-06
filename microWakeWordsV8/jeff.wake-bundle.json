@@ -1,0 +1,154 @@
+{
+  "schema_version": 3,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "jeff",
+  "key": "jeff",
+  "created_at": "2026-11-05T17:08:27.614304+00:00",
+  "updated_at": "2026-11-06T00:30:41.778671+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "jeff",
+    "label": "Jeff",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "jeff.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.98174,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-05T17:08:26.935944+00:00"
+    },
+    "model_sha256": "8d14a1714147470357f5f3c0636990b57aa2600e30fbf6aa2984387804878f7c",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "jeff",
+    "phrase": "jeff",
+    "created_at": "2026-11-05T17:08:36.965232+00:00",
+    "synced_at": "2026-11-05T20:12:35.409360+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "jeff.oww.onnx",
+        "sha256": "14723e49e09bbaca72a012587099c5f57fac385b5fc152582fe0dd0d5d3e3144",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.9,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": false,
+    "quality_status": "low_quality"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "jeff",
+        "phrase": "jeff",
+        "created_at": "2026-11-05T20:14:52.919680+00:00",
+        "synced_at": "2026-11-05T22:08:39.462943+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "jeff.nww.cnn.onnx",
+        "model_sha256": "69f784b835636bb414e6a8b444779bacab20d2e2b8d05f9bdf4d74d93b783f60",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.9,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.936,
+          "negative_rate": 0.006,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "jeff",
+        "phrase": "jeff",
+        "created_at": "2026-11-05T22:08:42.162576+00:00",
+        "synced_at": "2026-11-06T00:30:41.730286+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 1,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.97,
+          "negative_rate": 0.012,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 1
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "jeff.nww.gru.onnx",
+        "model_sha256": "6f961a028f65d94d317d86bb572901f4331434b51eaeb8badfd949ffe87f2fb7",
+        "model_size_bytes": 863534
+      }
+    }
+  }
+}
