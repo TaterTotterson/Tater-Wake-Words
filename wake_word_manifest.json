@@ -32,6 +32,14 @@
         "dual_model"
       ]
     },
+    "wake_boundary": {
+      "label": "Wake Boundary",
+      "count": 0,
+      "url_field": "bundle_url",
+      "requires": [
+        "wake_boundary_available"
+      ]
+    },
     "wake_word_bundle": {
       "label": "Wake Word Bundle",
       "count": 79,

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV8}"
+CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV9}"
 LABEL_PROCESSING="${LABEL_PROCESSING:-mww-processing}"
 LABEL_DONE="${LABEL_DONE:-mww-added}"
 LABEL_FAILED="${LABEL_FAILED:-mww-failed}"
@@ -92,6 +92,7 @@ comment_wake_word_links() {
   local oww_model_url="$5"
   local nww_cnn_model_url="$6"
   local nww_gru_model_url="$7"
+  local boundary_model_url="$8"
   [[ -n "$ISSUE_NUMBER" ]] || return 0
   local body_file
   body_file="$(mktemp "${TMPDIR:-$BOOTSTRAP_TMPDIR}/tater-wake-comment.XXXXXX")"
@@ -103,8 +104,9 @@ comment_wake_word_links() {
     printf '%s\n' "- [MWW TFLite model](${mww_model_url})"
     printf '%s\n' "- [OWW ONNX model](${oww_model_url})"
     printf '%s\n' "- [NWW CNN ONNX model](${nww_cnn_model_url})"
-    printf '%s\n\n' "- [NWW GRU ONNX model](${nww_gru_model_url})"
-    printf "Use the wake bundle in Tater for MWW, OWW, NWW, or a supported dual-detector mode. Use the ESPHome JSON only with ESPHome micro_wake_word.\n"
+    printf '%s\n' "- [NWW GRU ONNX model](${nww_gru_model_url})"
+    printf '%s\n\n' "- [Wake-boundary TFLite model](${boundary_model_url})"
+    printf "Use the wake bundle in Tater for MWW, OWW, NWW, or a supported dual-detector mode. The included wake-boundary model locates the acoustic end of the phrase in every detector mode. Use the ESPHome JSON only with ESPHome micro_wake_word.\n"
   } > "$body_file"
   gh issue comment "$ISSUE_NUMBER" --body-file "$body_file" >/dev/null 2>&1 || true
   rm -f "$body_file"
@@ -220,10 +222,12 @@ tflite_path="$CATALOG_DIR/$SAFE_WORD.tflite"
 oww_onnx_path="$CATALOG_DIR/$SAFE_WORD.oww.onnx"
 nww_cnn_onnx_path="$CATALOG_DIR/$SAFE_WORD.nww.cnn.onnx"
 nww_gru_onnx_path="$CATALOG_DIR/$SAFE_WORD.nww.gru.onnx"
+boundary_tflite_path="$CATALOG_DIR/$SAFE_WORD.boundary.tflite"
 bundle_path="$CATALOG_DIR/$SAFE_WORD.wake-bundle.json"
 
 if [[ -f "$bundle_path" && -f "$esphome_json_path" && -f "$tflite_path" && \
-      -f "$oww_onnx_path" && -f "$nww_cnn_onnx_path" && -f "$nww_gru_onnx_path" ]] && \
+      -f "$oww_onnx_path" && -f "$nww_cnn_onnx_path" && -f "$nww_gru_onnx_path" && \
+      -f "$boundary_tflite_path" ]] && \
       bundle_package_valid "$bundle_path"; then
   log "Wake word already exists: $SAFE_WORD"
   python3 scripts/generate_wake_word_manifest.py
@@ -235,7 +239,8 @@ if [[ -f "$bundle_path" && -f "$esphome_json_path" && -f "$tflite_path" && \
     "${raw_base}/${tflite_path}" \
     "${raw_base}/${oww_onnx_path}" \
     "${raw_base}/${nww_cnn_onnx_path}" \
-    "${raw_base}/${nww_gru_onnx_path}"
+    "${raw_base}/${nww_gru_onnx_path}" \
+    "${raw_base}/${boundary_tflite_path}"
   gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
   gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
   exit 0
@@ -275,7 +280,8 @@ log "Using Piper-only TTS for the resource-limited automation runner"
 for artifact in \
   "$output_dir/$SAFE_WORD.wake-bundle.json" \
   "$output_dir/$SAFE_WORD.esphome.json" \
-  "$output_dir/$SAFE_WORD.tflite"; do
+  "$output_dir/$SAFE_WORD.tflite" \
+  "$output_dir/$SAFE_WORD.boundary.tflite"; do
   if [[ ! -f "$artifact" ]]; then
     echo "Trainer did not produce the required artifact: $artifact"
     exit 1
@@ -347,6 +353,7 @@ cp "$output_dir/$SAFE_WORD.tflite" "$tflite_path"
 cp "$output_dir/$SAFE_WORD.oww.onnx" "$oww_onnx_path"
 cp "$output_dir/$SAFE_WORD.nww.cnn.onnx" "$nww_cnn_onnx_path"
 cp "$output_dir/$SAFE_WORD.nww.gru.onnx" "$nww_gru_onnx_path"
+cp "$output_dir/$SAFE_WORD.boundary.tflite" "$boundary_tflite_path"
 cp "$output_dir/$SAFE_WORD.wake-bundle.json" "$bundle_path"
 
 if ! bundle_package_valid "$bundle_path"; then
@@ -362,6 +369,7 @@ git add \
   "$oww_onnx_path" \
   "$nww_cnn_onnx_path" \
   "$nww_gru_onnx_path" \
+  "$boundary_tflite_path" \
   "$bundle_path" \
   wake_word_manifest.json
 if git diff --cached --quiet; then
@@ -379,7 +387,8 @@ comment_wake_word_links \
   "${raw_base}/${tflite_path}" \
   "${raw_base}/${oww_onnx_path}" \
   "${raw_base}/${nww_cnn_onnx_path}" \
-  "${raw_base}/${nww_gru_onnx_path}"
+  "${raw_base}/${nww_gru_onnx_path}" \
+  "${raw_base}/${boundary_tflite_path}"
 gh issue edit "$ISSUE_NUMBER" --add-label "$LABEL_DONE" --remove-label "$LABEL_PROCESSING" >/dev/null 2>&1 || true
 gh issue close "$ISSUE_NUMBER" >/dev/null 2>&1 || true
 log "Completed issue #$ISSUE_NUMBER for $SAFE_WORD"

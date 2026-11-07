@@ -1,5 +1,5 @@
 name: Wake Word Request
-description: Request a complete MWW, OWW, and NWW wake bundle for Tater satellites.
+description: Request a complete MWW, OWW, NWW, and wake-boundary bundle for Tater satellites.
 title: "mww: "
 labels: ["wake-word-request"]
 body:
@@ -12,7 +12,8 @@ body:
 
         The automation only trains issues whose title starts with `mww:`. A
         successful request publishes one Tater bundle with MWW, OWW, NWW-CNN,
-        and NWW-GRU, plus the MWW-only ESPHome package.
+        NWW-GRU, and a per-word wake-boundary model, plus the MWW-only ESPHome
+        package.
   - type: input
     id: phrase
     attributes:

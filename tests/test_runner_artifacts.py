@@ -242,7 +242,92 @@ class RunnerArtifactTests(unittest.TestCase):
         self.assertEqual(catalog_manifest["catalogs"]["wake_word_bundle"]["count"], 1)
         self.assertEqual(damaged_entries, [])
 
-    def test_watcher_worker_publishes_complete_bundle_package_to_v8(self) -> None:
+    def test_manifest_exposes_verified_v9_boundary_model(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            catalog = root / "microWakeWordsV9"
+            catalog.mkdir()
+            bundle_path = catalog / "hey_tater.wake-bundle.json"
+            esphome_path = catalog / "hey_tater.esphome.json"
+            mww_path = catalog / "hey_tater.tflite"
+            oww_path = catalog / "hey_tater.oww.onnx"
+            cnn_path = catalog / "hey_tater.nww.cnn.onnx"
+            gru_path = catalog / "hey_tater.nww.gru.onnx"
+            boundary_path = catalog / "hey_tater.boundary.tflite"
+            for path, contents in (
+                (mww_path, b"mww-v9"),
+                (oww_path, b"oww-v9"),
+                (cnn_path, b"cnn-v9"),
+                (gru_path, b"gru-v9"),
+                (boundary_path, b"boundary-v9"),
+            ):
+                path.write_bytes(contents)
+            esphome_path.write_text(
+                json.dumps({"type": "micro", "model": mww_path.name}),
+                encoding="utf-8",
+            )
+
+            def artifact(path: Path, *, model: bool = False) -> dict[str, object]:
+                return {
+                    "model" if model else "file": path.name,
+                    "model_sha256" if model else "sha256": hashlib.sha256(
+                        path.read_bytes()
+                    ).hexdigest(),
+                    "model_size_bytes" if model else "size_bytes": path.stat().st_size,
+                }
+
+            bundle_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 4,
+                        "type": "tater_wake_word_bundle",
+                        "key": "hey_tater",
+                        "wake_word": "hey tater",
+                        "micro_wake_word": {"type": "micro", **artifact(mww_path, model=True)},
+                        "open_wake_word": {"artifacts": {"onnx": artifact(oww_path)}},
+                        "nano_wake_word": {
+                            "default_architecture": "cnn",
+                            "variants": {
+                                "cnn": {"architecture": "cnn", **artifact(cnn_path, model=True)},
+                                "gru": {"architecture": "gru", **artifact(gru_path, model=True)},
+                            },
+                        },
+                        "wake_boundary": {
+                            "type": "wake_word_end",
+                            "threshold": 0.82,
+                            "search_before_ms": 700,
+                            "search_after_ms": 120,
+                            "endpoint_offset_ms": 0,
+                            **artifact(boundary_path, model=True),
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with patch.object(manifest, "REPO_ROOT", root):
+                fields = manifest.bundle_model_fields(bundle_path)
+                catalog_manifest = manifest.build_manifest()
+                boundary_path.write_bytes(b"damaged")
+                damaged_entries = manifest.build_entries()
+                boundary_path.write_bytes(b"boundary-v9")
+                legacy_bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
+                legacy_bundle["schema_version"] = 3
+                bundle_path.write_text(json.dumps(legacy_bundle), encoding="utf-8")
+                legacy_v9_entries = manifest.build_entries()
+
+        self.assertTrue(fields["wake_boundary_available"])
+        self.assertEqual(fields["wake_boundary_threshold"], 0.82)
+        self.assertEqual(
+            fields["wake_boundary_model_path"],
+            "microWakeWordsV9/hey_tater.boundary.tflite",
+        )
+        self.assertTrue(fields["wake_boundary_model_url"].endswith(".boundary.tflite"))
+        self.assertEqual(catalog_manifest["catalogs"]["wake_boundary"]["count"], 1)
+        self.assertEqual(damaged_entries, [])
+        self.assertEqual(legacy_v9_entries, [])
+
+    def test_watcher_worker_publishes_complete_bundle_package_to_v9(self) -> None:
         runner = (REPO_ROOT / "scripts" / "train_issue_wake_word.sh").read_text(
             encoding="utf-8"
         )
@@ -262,10 +347,10 @@ class RunnerArtifactTests(unittest.TestCase):
             REPO_ROOT / "scripts" / "train_nanowakeword_companion.py"
         ).read_text(encoding="utf-8")
 
-        self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV8}"', runner)
-        # The Actions workflow is an unused manual fallback. Production uses
-        # watcher.sh, which exports its own V8 destination.
-        self.assertIn("CATALOG_DIR: microWakeWordsV7", workflow)
+        self.assertIn('CATALOG_DIR="${CATALOG_DIR:-microWakeWordsV9}"', runner)
+        # The Actions workflow is an unused manual fallback. Keep its package
+        # destination aligned with the production watcher.
+        self.assertIn("CATALOG_DIR: microWakeWordsV9", workflow)
         self.assertIn('run-name: "mww #${{ inputs.issue_number', workflow)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertNotIn("types: [opened, edited, reopened]", workflow)
@@ -304,15 +389,18 @@ class RunnerArtifactTests(unittest.TestCase):
             '$SAFE_WORD.oww.onnx',
             '$SAFE_WORD.nww.cnn.onnx',
             '$SAFE_WORD.nww.gru.onnx',
+            '$SAFE_WORD.boundary.tflite',
             '$SAFE_WORD.wake-bundle.json',
             '"$oww_onnx_path"',
             '"$nww_cnn_onnx_path"',
             '"$nww_gru_onnx_path"',
+            '"$boundary_tflite_path"',
             '"$bundle_path"',
         ):
             self.assertIn(artifact, runner)
         self.assertIn("ESPHome JSON package", runner)
         self.assertIn("Tater wake bundle", runner)
+        self.assertIn("Wake-boundary TFLite model", runner)
         self.assertIn("bundle_package_valid", runner)
         self.assertIn("failed engine, filename, size, or SHA-256 validation", runner)
         self.assertNotIn('$SAFE_WORD.oww.json', runner)

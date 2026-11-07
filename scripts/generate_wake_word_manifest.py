@@ -94,7 +94,7 @@ def _verified_adjacent_artifact(
 
 
 def bundle_model_fields(bundle_path: Path) -> dict[str, Any]:
-    """Validate and describe a complete schema-v3 Tater wake bundle."""
+    """Validate and describe a complete schema-v3 or schema-v4 Tater bundle."""
     suffix = ".wake-bundle.json"
     if not bundle_path.name.endswith(suffix):
         return {}
@@ -104,8 +104,10 @@ def bundle_model_fields(bundle_path: Path) -> dict[str, Any]:
     oww = bundle.get("open_wake_word") if isinstance(bundle.get("open_wake_word"), dict) else {}
     nano = bundle.get("nano_wake_word") if isinstance(bundle.get("nano_wake_word"), dict) else {}
     variants = nano.get("variants") if isinstance(nano.get("variants"), dict) else {}
+    schema_version = bundle.get("schema_version")
     if (
-        bundle.get("schema_version") != 3
+        schema_version not in {3, 4}
+        or (bundle_path.parent.name == "microWakeWordsV9" and schema_version != 4)
         or bundle.get("type") != "tater_wake_word_bundle"
         or str(bundle.get("key") or slug) != slug
         or not micro
@@ -166,6 +168,27 @@ def bundle_model_fields(bundle_path: Path) -> dict[str, Any]:
             return {}
         nano_paths[architecture] = variant_path
 
+    boundary_path: Path | None = None
+    boundary = (
+        bundle.get("wake_boundary")
+        if isinstance(bundle.get("wake_boundary"), dict)
+        else {}
+    )
+    if schema_version == 4:
+        boundary_path = _verified_adjacent_artifact(
+            bundle_path,
+            boundary,
+            filename_key="model",
+            sha256_key="model_sha256",
+            size_key="model_size_bytes",
+        )
+        if (
+            boundary.get("type") != "wake_word_end"
+            or boundary_path is None
+            or boundary_path.name != f"{slug}.boundary.tflite"
+        ):
+            return {}
+
     fields: dict[str, Any] = {
         "dual_model": True,
         "nano_model": True,
@@ -211,6 +234,24 @@ def bundle_model_fields(bundle_path: Path) -> dict[str, Any]:
         architecture: optional_number(variants[architecture].get("recommended_patience"))
         for architecture in nano_paths
     }
+    if boundary_path is not None:
+        fields.update(
+            {
+                "wake_boundary_available": True,
+                "wake_boundary_model_path": boundary_path.relative_to(REPO_ROOT).as_posix(),
+                "wake_boundary_model_url": raw_url(boundary_path),
+                "wake_boundary_threshold": optional_number(boundary.get("threshold")),
+                "wake_boundary_search_before_ms": optional_number(
+                    boundary.get("search_before_ms")
+                ),
+                "wake_boundary_search_after_ms": optional_number(
+                    boundary.get("search_after_ms")
+                ),
+                "wake_boundary_endpoint_offset_ms": optional_number(
+                    boundary.get("endpoint_offset_ms")
+                ),
+            }
+        )
     return fields
 
 
@@ -451,6 +492,10 @@ def build_manifest() -> dict[str, Any]:
         entry for entry in entries
         if entry.get("nano_model") and entry.get("bundle_url")
     ]
+    boundary_entries = [
+        entry for entry in entries
+        if entry.get("wake_boundary_available") and entry.get("bundle_url")
+    ]
     bundle_entries = [entry for entry in entries if entry.get("bundle_url")]
     sources = []
     for source_dir in source_dirs():
@@ -484,6 +529,12 @@ def build_manifest() -> dict[str, Any]:
                 "count": len(paired_entries),
                 "url_field": "bundle_url",
                 "requires": ["dual_model"],
+            },
+            "wake_boundary": {
+                "label": "Wake Boundary",
+                "count": len(boundary_entries),
+                "url_field": "bundle_url",
+                "requires": ["wake_boundary_available"],
             },
             "wake_word_bundle": {
                 "label": "Wake Word Bundle",
