@@ -25,8 +25,8 @@ body:
   - type: checkboxes
     id: publication
     attributes:
-      label: Publication agreement
-      description: "The generated wake-word models and metadata will be published in this repository."
+      label: The Tater Totterson pact
+      description: "Tater Totterson trains these wake-word bundles for free—no subscription and no potato tax. Generated models and metadata are published publicly under the MIT License."
       options:
-        - label: I agree that the generated artifacts may be published under the MIT License.
+        - label: I solemnly swear to keep my wallet closed and my tots crispy—no paying for wake-word training, now or ever.
           required: true
