@@ -10,10 +10,18 @@ DEFAULT_TRAINER_DIR="${TATER_WAKE_TRAINER_DIR:-${EXTERNAL_ROOT}/microWakeWord-Tr
 DEFAULT_TMP_ROOT="${TATER_WAKE_TMP_ROOT:-${EXTERNAL_ROOT}/tater-wake-tmp}"
 REQUESTED_ISSUE_NUMBER="${WAKE_WORD_ISSUE_NUMBER:-}"
 BOOTSTRAP_TMPDIR="${RUNNER_TEMP:-${TMPDIR:-/tmp}}"
+PUBLISH_DEFERRED_EXIT=75
 
 ISSUE_NUMBER=""
 SAFE_WORD=""
 RAW_PHRASE=""
+CURRENT_STAGE="initialization"
+REPORT_FAILURE=1
+
+if [[ -n "${MW_JOB_LOG:-}" ]]; then
+  mkdir -p "$(dirname "$MW_JOB_LOG")"
+  exec > >(tee -a "$MW_JOB_LOG") 2>&1
+fi
 
 log() {
   printf "%s [tater-wake-word] %s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
@@ -134,8 +142,8 @@ mark_failed() {
 on_exit() {
   local rc=$?
   trap - EXIT
-  if [[ $rc -ne 0 ]]; then
-    mark_failed "Wake-word training failed for \`${SAFE_WORD:-unknown}\`. Check the workflow logs for details."
+  if [[ $rc -ne 0 && $REPORT_FAILURE -eq 1 ]]; then
+    mark_failed "Wake-word training failed for \`${SAFE_WORD:-unknown}\` during ${CURRENT_STAGE}. Check the watcher log for issue #${ISSUE_NUMBER:-unknown} for details."
   fi
   exit "$rc"
 }
@@ -197,6 +205,7 @@ if [[ ! -x "$trainer_dir/train_microwakeword_macos.sh" ]]; then
 fi
 
 if git -C "$trainer_dir" remote get-url origin >/dev/null 2>&1; then
+  CURRENT_STAGE="refreshing the trainer checkout"
   log "Refreshing the external macOS trainer checkout"
   git -C "$trainer_dir" fetch --quiet origin main
   git -C "$trainer_dir" merge --ff-only FETCH_HEAD
@@ -265,6 +274,7 @@ log "Training '$RAW_PHRASE' as '$SAFE_WORD' with $trainer_dir"
 log "Using external temp root: $DEFAULT_TMP_ROOT"
 log "Using persistent trainer data: $trainer_data_dir"
 log "Using Piper-only TTS for the resource-limited automation runner"
+CURRENT_STAGE="training the microWakeWord and wake-boundary models"
 (
   cd "$trainer_dir"
   MWW_TTS_MODE=piper \
@@ -277,6 +287,7 @@ log "Using Piper-only TTS for the resource-limited automation runner"
     ./train_microwakeword_macos.sh "$RAW_PHRASE"
 )
 
+CURRENT_STAGE="validating the microWakeWord and wake-boundary artifacts"
 for artifact in \
   "$output_dir/$SAFE_WORD.wake-bundle.json" \
   "$output_dir/$SAFE_WORD.esphome.json" \
@@ -309,6 +320,7 @@ esphome["website"] = "https://github.com/TaterTotterson/Tater-Wake-Words"
 esphome_path.write_text(json.dumps(esphome, indent=2) + "\n", encoding="utf-8")
 PY
 
+CURRENT_STAGE="training the openWakeWord model"
 log "Training the matched openWakeWord ONNX companion"
 python3 scripts/train_openwakeword_companion.py \
   --phrase "$RAW_PHRASE" \
@@ -317,6 +329,7 @@ python3 scripts/train_openwakeword_companion.py \
   --data-dir "$trainer_data_dir" \
   --trained-dir "$output_dir"
 
+CURRENT_STAGE="validating the openWakeWord artifacts"
 for artifact in \
   "$output_dir/$SAFE_WORD.oww.onnx" \
   "$output_dir/$SAFE_WORD.wake-bundle.json"; do
@@ -328,6 +341,7 @@ done
 
 for architecture in cnn gru; do
   architecture_label="$(printf '%s' "$architecture" | tr '[:lower:]' '[:upper:]')"
+  CURRENT_STAGE="training the NanoWakeWord ${architecture_label} model"
   log "Training the NanoWakeWord $architecture_label model with the shared TTS, positive, and negative samples"
   python3 scripts/train_nanowakeword_companion.py \
     --phrase "$RAW_PHRASE" \
@@ -338,6 +352,7 @@ for architecture in cnn gru; do
     --trained-dir "$output_dir"
 done
 
+CURRENT_STAGE="validating the NanoWakeWord artifacts"
 for artifact in \
   "$output_dir/$SAFE_WORD.nww.cnn.onnx" \
   "$output_dir/$SAFE_WORD.nww.gru.onnx" \
@@ -356,6 +371,7 @@ cp "$output_dir/$SAFE_WORD.nww.gru.onnx" "$nww_gru_onnx_path"
 cp "$output_dir/$SAFE_WORD.boundary.tflite" "$boundary_tflite_path"
 cp "$output_dir/$SAFE_WORD.wake-bundle.json" "$bundle_path"
 
+CURRENT_STAGE="validating the complete wake-word package"
 if ! bundle_package_valid "$bundle_path"; then
   echo "Published wake bundle failed engine, filename, size, or SHA-256 validation."
   exit 1
@@ -375,10 +391,20 @@ git add \
 if git diff --cached --quiet; then
   log "No catalog changes to commit."
 else
+  CURRENT_STAGE="publishing the wake-word catalog"
   git commit -m "Add wake word: $SAFE_WORD"
-  git push
+  if ! git push; then
+    # Another watcher can legitimately advance main while this model trains.
+    # Leave the request in processing and let watcher.sh merge the generated
+    # manifest, publish both additions, then run this script's lightweight
+    # already-exists path to post links and close the issue.
+    REPORT_FAILURE=0
+    log "Catalog changed during training; deferring publish recovery to the watcher"
+    exit "$PUBLISH_DEFERRED_EXIT"
+  fi
 fi
 
+CURRENT_STAGE="finalizing the GitHub issue"
 raw_base="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main"
 comment_wake_word_links \
   "Wake Word Added" \
