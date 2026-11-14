@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "sol",
+  "key": "sol",
+  "created_at": "2026-11-14T04:03:49.812229+00:00",
+  "updated_at": "2026-11-14T12:33:29.390690+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "sol",
+    "label": "Sol",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "sol.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.99,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.99,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.82,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.98506,
+      "false_accepts_per_hour": 0.103409,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-14T04:03:49.102675+00:00"
+    },
+    "model_sha256": "d3e40a2469f29e1bbd8e1e70205ec1688cea72644753a265cd0b5f33c8ede391",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "sol",
+    "phrase": "sol",
+    "created_at": "2026-11-14T04:04:02.041361+00:00",
+    "synced_at": "2026-11-14T07:09:01.311431+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "sol.oww.onnx",
+        "sha256": "b4003a8af0137f968bb6c3b5647afd0a72517764a5ccb62b8912bf6cee98ddf1",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.68,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.63,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": false,
+    "quality_status": "low_quality"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "sol",
+        "phrase": "sol",
+        "created_at": "2026-11-14T07:11:30.559716+00:00",
+        "synced_at": "2026-11-14T10:17:09.135924+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 2,
+        "model": "sol.nww.cnn.onnx",
+        "model_sha256": "a86919463d8baf81d2b827ee84e9807680e2e67d739d19c747970e5ba318c1d0",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.0,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 2
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": false,
+        "quality_status": "low_quality"
+      },
+      "gru": {
+        "name": "sol",
+        "phrase": "sol",
+        "created_at": "2026-11-14T10:17:11.925969+00:00",
+        "synced_at": "2026-11-14T12:33:29.337854+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 1,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.974,
+          "negative_rate": 0.002,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 1
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "sol.nww.gru.onnx",
+        "model_sha256": "f5d0fa99dfb4fdb6d8ae2a47148a0ec7de261c3c0f912c77bf8e908559ca11f7",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "sol.boundary.tflite",
+    "model_sha256": "d5f2889c77d8863d13b1af18b1ad45a51521818d8d0637f595e1c200a0a48754",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.66,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.96242,
+      "false_accepts_per_hour": 0.206815,
+      "ambient_hours": 9.670467
+    }
+  }
+}
