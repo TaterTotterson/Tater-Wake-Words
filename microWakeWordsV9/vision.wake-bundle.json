@@ -3,8 +3,8 @@
   "type": "tater_wake_word_bundle",
   "wake_word": "Vision",
   "key": "vision",
-  "created_at": "2026-11-16T20:29:58.304226+00:00",
-  "updated_at": "2026-11-17T06:05:45.659043+00:00",
+  "created_at": "2026-11-16T20:13:15.516275+00:00",
+  "updated_at": "2026-11-17T00:58:59.287383+00:00",
   "micro_wake_word": {
     "type": "micro",
     "wake_word": "Vision",
@@ -20,7 +20,7 @@
     "quantization": "int8",
     "sample_rate": 16000,
     "micro": {
-      "probability_cutoff": 0.96,
+      "probability_cutoff": 0.97,
       "sliding_window_size": 5,
       "feature_step_size": 10,
       "tensor_arena_size": 30000,
@@ -28,9 +28,9 @@
     },
     "tater_native": {
       "format_version": 1,
-      "wake_threshold": 0.96,
+      "wake_threshold": 0.97,
       "wake_sliding_window": 5,
-      "close_miss_threshold": 0.79,
+      "close_miss_threshold": 0.8,
       "frontend": {
         "name": "tflm_microfrontend",
         "sample_rate": 16000,
@@ -49,40 +49,40 @@
     "calibration": {
       "target_false_accepts_per_hour": 0.25,
       "selected_false_accepts_per_hour_limit": 0.25,
-      "recall": 0.9871,
-      "false_accepts_per_hour": 0.0,
+      "recall": 0.97498,
+      "false_accepts_per_hour": 0.103409,
       "ambient_hours": 9.670378,
       "positive_dataset": "validation",
       "ambient_dataset": "validation_ambient",
       "positive_tracks": 50000,
       "ambient_tracks": 4,
-      "generated_at": "2026-11-16T20:29:57.776101+00:00"
+      "generated_at": "2026-11-16T20:13:15.045124+00:00"
     },
-    "model_sha256": "68d45ac9c9340f8cb766a496c03737ebd0dff0158add2004c94fc44bba42fa00",
+    "model_sha256": "1d7a5b93a7b33d07c086bcf273e2901db77d43854a9b8b88cb0c2adf8ce3813f",
     "model_size_bytes": 137984
   },
   "open_wake_word": {
     "type": "open_wake_word",
     "model_name": "vision",
     "phrase": "Vision",
-    "created_at": "2026-11-16T20:30:09.831833+00:00",
-    "synced_at": "2026-11-16T23:44:24.077944+00:00",
+    "created_at": "2026-11-16T20:13:20.791490+00:00",
+    "synced_at": "2026-11-16T21:28:59.417395+00:00",
     "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
     "artifacts": {
       "onnx": {
         "file": "vision.oww.onnx",
-        "sha256": "7bad715d15b9d419451fa2530b7e5f65e56d78cb347673e139943c062a1f61fa",
+        "sha256": "525130b2ede0701af4040a1057d3d82181a85302fc1912d61c78e622f8d0c800",
         "size_bytes": 415224
       }
     },
     "recommended_threshold": 0.5,
     "recommended_patience": 2,
-    "recommended_confirmation_threshold": 0.9,
+    "recommended_confirmation_threshold": 0.95,
     "recommended_confirmation_patience": 2,
     "confirmation_required": true,
     "quality_evaluated": true,
-    "quality_passed": false,
-    "quality_status": "low_quality"
+    "quality_passed": true,
+    "quality_status": "passed"
   },
   "nano_wake_word": {
     "default_architecture": "cnn",
@@ -91,25 +91,25 @@
         "type": "nano_wake_word",
         "name": "vision",
         "phrase": "Vision",
-        "created_at": "2026-11-16T23:46:55.148857+00:00",
-        "synced_at": "2026-11-17T02:59:57.041483+00:00",
+        "created_at": "2026-11-16T21:30:45.276651+00:00",
+        "synced_at": "2026-11-16T22:53:23.906233+00:00",
         "model_type": "cnn",
         "architecture": "cnn",
         "steps": 50000,
         "layer_size": 32,
         "hard_negative_samples": 3000,
-        "quality_retries_used": 2,
+        "quality_retries_used": 1,
         "model": "vision.nww.cnn.onnx",
-        "model_sha256": "7b271a2ae303b57d1737fb769fa2e96d754286b5c529e3606b9ee908badb1921",
+        "model_sha256": "58b10db9f05b2683e69ef20090271d7c4fbe8c573d0b709d29995b8c37bfcb26",
         "model_size_bytes": 1695949,
-        "recommended_threshold": 0.96,
+        "recommended_threshold": 0.9,
         "recommended_patience": 2,
         "quality_summary": {
-          "recall": 0.956,
-          "negative_rate": 0.0,
+          "recall": 0.906,
+          "negative_rate": 0.002,
           "positive_count": 500,
           "negative_count": 500,
-          "sample_partition": 2
+          "sample_partition": 1
         },
         "validated_existing_candidate": false,
         "seed": 42,
@@ -121,19 +121,19 @@
       "gru": {
         "name": "vision",
         "phrase": "Vision",
-        "created_at": "2026-11-17T03:00:24.545348+00:00",
-        "synced_at": "2026-11-17T06:05:45.607904+00:00",
+        "created_at": "2026-11-16T22:53:26.235022+00:00",
+        "synced_at": "2026-11-17T00:58:59.238443+00:00",
         "model_type": "gru",
         "architecture": "gru",
         "steps": 50000,
         "layer_size": 128,
         "hard_negative_samples": 3000,
         "quality_retries_used": 2,
-        "recommended_threshold": 0.97,
+        "recommended_threshold": 0.9,
         "recommended_patience": 2,
         "quality_summary": {
-          "recall": 0.952,
-          "negative_rate": 0.002,
+          "recall": 0.01,
+          "negative_rate": 0.0,
           "positive_count": 500,
           "negative_count": 500,
           "sample_partition": 2
@@ -142,11 +142,11 @@
         "seed": 42,
         "loss_bias": 0.75,
         "quality_evaluated": true,
-        "quality_passed": true,
-        "quality_status": "passed",
+        "quality_passed": false,
+        "quality_status": "low_quality",
         "type": "nano_wake_word",
         "model": "vision.nww.gru.onnx",
-        "model_sha256": "2bc58adaec4f30c2d25985b82d5293b6d5e426e92a5036785faa6e3f55d67572",
+        "model_sha256": "191d84b810e9ca77ad10def95672d2790404028e9eb1faf6c125c9d3245af83c",
         "model_size_bytes": 863534
       }
     }
@@ -154,12 +154,12 @@
   "wake_boundary": {
     "type": "wake_word_end",
     "model": "vision.boundary.tflite",
-    "model_sha256": "be924ee3ed26e1e7b58978f43540d6f7a278b414676dfeb4baa83105842d06d7",
+    "model_sha256": "0f413e9e90f02f35c1823c61080df8cb359d3b4b5a2ea963006f9944ad4424c5",
     "model_size_bytes": 137984,
     "model_format": "tflite_stream_state_internal_quant",
     "quantization": "int8",
     "sample_rate": 16000,
-    "threshold": 0.74,
+    "threshold": 0.91,
     "tensor_arena_size": 65536,
     "frontend": {
       "name": "tflm_microfrontend",
@@ -176,8 +176,8 @@
     "endpoint_offset_ms": 0,
     "training_strategy": "endpoint_hard_negative_v1",
     "quality_summary": {
-      "recall": 0.98828,
-      "false_accepts_per_hour": 0.413631,
+      "recall": 0.98286,
+      "false_accepts_per_hour": 0.206815,
       "ambient_hours": 9.670467
     }
   }

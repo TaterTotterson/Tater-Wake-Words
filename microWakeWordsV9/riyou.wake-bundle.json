@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Riyou",
+  "key": "riyou",
+  "created_at": "2026-11-17T20:56:50.613499+00:00",
+  "updated_at": "2026-11-18T00:25:57.349887+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Riyou",
+    "label": "Riyou",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "riyou.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.97582,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-17T20:56:50.022753+00:00"
+    },
+    "model_sha256": "db40af5e7d2c5dcb95169997e66f890c0cc417f9a159d15545ba4f112ba3c337",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "riyou",
+    "phrase": "Riyou",
+    "created_at": "2026-11-17T20:56:56.137568+00:00",
+    "synced_at": "2026-11-17T21:40:00.358663+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "riyou.oww.onnx",
+        "sha256": "6d47829a8f2182de338e18e20da57a8adbc7f209759c3fb007cf8394026a867d",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.84,
+    "recommended_patience": 3,
+    "recommended_confirmation_threshold": 0.99,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "riyou",
+        "phrase": "Riyou",
+        "created_at": "2026-11-17T21:41:48.444259+00:00",
+        "synced_at": "2026-11-17T22:54:47.834587+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "riyou.nww.cnn.onnx",
+        "model_sha256": "149e46682f417bdbd409655bf9bea0175b53d0c276ae33112dedb2c6e653999a",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.986,
+          "negative_rate": 0.002,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "riyou",
+        "phrase": "Riyou",
+        "created_at": "2026-11-17T22:54:50.353276+00:00",
+        "synced_at": "2026-11-18T00:25:57.301878+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 1,
+        "recommended_threshold": 0.97,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.954,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 1
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "riyou.nww.gru.onnx",
+        "model_sha256": "c6b895eef55086914ea242e60a2d564327fc308c90cdddfc77bfb71515756ac7",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "riyou.boundary.tflite",
+    "model_sha256": "0ae9b1a77bf1a103733aff6372b7c4dba59ce02d6d5efed9e64a6e8cfc2d757e",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.69,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.9658,
+      "false_accepts_per_hour": 0.413631,
+      "ambient_hours": 9.670467
+    }
+  }
+}

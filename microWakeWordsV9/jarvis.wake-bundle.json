@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Jarvis",
+  "key": "jarvis",
+  "created_at": "2026-11-18T02:57:46.050520+00:00",
+  "updated_at": "2026-11-18T06:11:01.000367+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Jarvis",
+    "label": "Jarvis",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "jarvis.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99178,
+      "false_accepts_per_hour": 0.103409,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-18T02:57:45.526382+00:00"
+    },
+    "model_sha256": "7e80c9366d1c53ccc73347b8dac493b5f9f81d0b034581d6a6af29db06457ac8",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "jarvis",
+    "phrase": "Jarvis",
+    "created_at": "2026-11-18T02:57:51.586942+00:00",
+    "synced_at": "2026-11-18T03:39:42.947557+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "jarvis.oww.onnx",
+        "sha256": "fb4d467e196a0be4f5687a58d5cd2ea314be7e5b5df95a722007b1486ae220db",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.89,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.99,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "jarvis",
+        "phrase": "Jarvis",
+        "created_at": "2026-11-18T03:41:33.142084+00:00",
+        "synced_at": "2026-11-18T04:55:50.730690+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "jarvis.nww.cnn.onnx",
+        "model_sha256": "e2bca3fdeabde9c463fe8465bbf1740beac77cff530ef4a0c67350ca22ff7d93",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.994,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "jarvis",
+        "phrase": "Jarvis",
+        "created_at": "2026-11-18T04:55:53.357028+00:00",
+        "synced_at": "2026-11-18T06:11:00.944718+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.98,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.95,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "jarvis.nww.gru.onnx",
+        "model_sha256": "c7e0118b43571e7bd5190b605b30a1460aee922b991b0e6759d02316efdb00b8",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "jarvis.boundary.tflite",
+    "model_sha256": "d488fbff070fc89788354902e669b2ab71ee4cd7f91e5372318a1e481fccf40a",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.86,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.98466,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670467
+    }
+  }
+}

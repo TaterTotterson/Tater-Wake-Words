@@ -5,12 +5,12 @@
   "catalogs": {
     "micro_wake_word": {
       "label": "microWakeWord",
-      "count": 957,
+      "count": 964,
       "url_field": "url"
     },
     "open_wake_word": {
       "label": "openWakeWord",
-      "count": 129,
+      "count": 136,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -18,7 +18,7 @@
     },
     "nano_wake_word": {
       "label": "NanoWakeWord",
-      "count": 95,
+      "count": 102,
       "url_field": "bundle_url",
       "requires": [
         "nano_model"
@@ -26,7 +26,7 @@
     },
     "dual_wake_word": {
       "label": "Dual Wake Word",
-      "count": 129,
+      "count": 136,
       "url_field": "bundle_url",
       "requires": [
         "dual_model"
@@ -34,7 +34,7 @@
     },
     "wake_boundary": {
       "label": "Wake Boundary",
-      "count": 50,
+      "count": 57,
       "url_field": "bundle_url",
       "requires": [
         "wake_boundary_available"
@@ -42,7 +42,7 @@
     },
     "wake_word_bundle": {
       "label": "Wake Word Bundle",
-      "count": 129,
+      "count": 136,
       "url_field": "bundle_url"
     }
   },
@@ -90,10 +90,10 @@
     {
       "key": "microWakeWordsV9",
       "label": "microWakeWordsV9",
-      "count": 50
+      "count": 57
     }
   ],
-  "count": 957,
+  "count": 964,
   "entries": [
     {
       "id": "microWakeWordsV1:achim",
@@ -23649,6 +23649,85 @@
       "minimum_esphome_version": "2024.7.0"
     },
     {
+      "id": "microWakeWordsV9:anatole",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "anatole",
+      "name": "Anatole",
+      "label": "Anatole",
+      "path": "microWakeWordsV9/anatole.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/anatole.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.wake-bundle.json",
+      "model_path": "microWakeWordsV9/anatole.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.tflite",
+      "esphome_path": "microWakeWordsV9/anatole.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/anatole.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/anatole.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/anatole.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.5,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.94,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.9
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/anatole.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/anatole.boundary.tflite",
+      "wake_boundary_threshold": 0.94,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.99132,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
       "id": "microWakeWordsV9:athos",
       "source": "microWakeWordsV9",
       "source_label": "microWakeWordsV9",
@@ -24041,6 +24120,85 @@
       "close_miss_threshold": 0.8,
       "calibration_recall": 0.97944,
       "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV9:dreeka",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "dreeka",
+      "name": "dreeka",
+      "label": "Dreeka",
+      "path": "microWakeWordsV9/dreeka.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/dreeka.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.wake-bundle.json",
+      "model_path": "microWakeWordsV9/dreeka.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.tflite",
+      "esphome_path": "microWakeWordsV9/dreeka.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/dreeka.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/dreeka.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/dreeka.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.86,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.98,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.95
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/dreeka.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/dreeka.boundary.tflite",
+      "wake_boundary_threshold": 0.5,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.97,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.8,
+      "calibration_recall": 0.99126,
+      "calibration_false_accepts_per_hour": 0.206817,
       "minimum_esphome_version": "2024.7.0"
     },
     {
@@ -25940,6 +26098,85 @@
       "minimum_esphome_version": "2024.7.0"
     },
     {
+      "id": "microWakeWordsV9:jarvis",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "jarvis",
+      "name": "Jarvis",
+      "label": "Jarvis",
+      "path": "microWakeWordsV9/jarvis.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/jarvis.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.wake-bundle.json",
+      "model_path": "microWakeWordsV9/jarvis.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.tflite",
+      "esphome_path": "microWakeWordsV9/jarvis.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/jarvis.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/jarvis.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/jarvis.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.89,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.99,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.98
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/jarvis.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/jarvis.boundary.tflite",
+      "wake_boundary_threshold": 0.86,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.99178,
+      "calibration_false_accepts_per_hour": 0.103409,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
       "id": "microWakeWordsV9:juliet",
       "source": "microWakeWordsV9",
       "source_label": "microWakeWordsV9",
@@ -26253,6 +26490,164 @@
       "close_miss_threshold": 0.82,
       "calibration_recall": 0.99246,
       "calibration_false_accepts_per_hour": 0.206817,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV9:kyro",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "kyro",
+      "name": "Kyro",
+      "label": "Kyro",
+      "path": "microWakeWordsV9/kyro.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/kyro.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.wake-bundle.json",
+      "model_path": "microWakeWordsV9/kyro.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.tflite",
+      "esphome_path": "microWakeWordsV9/kyro.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/kyro.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/kyro.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/kyro.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.5,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.92,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.96
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/kyro.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/kyro.boundary.tflite",
+      "wake_boundary_threshold": 0.61,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.97638,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
+      "id": "microWakeWordsV9:marcel_jan",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "marcel_jan",
+      "name": "marcel jan",
+      "label": "Marcel Jan",
+      "path": "microWakeWordsV9/marcel_jan.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/marcel_jan.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.wake-bundle.json",
+      "model_path": "microWakeWordsV9/marcel_jan.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.tflite",
+      "esphome_path": "microWakeWordsV9/marcel_jan.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/marcel_jan.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "gru",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/marcel_jan.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/marcel_jan.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.5,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.99,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.99
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/marcel_jan.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/marcel_jan.boundary.tflite",
+      "wake_boundary_threshold": 0.91,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.99664,
+      "calibration_false_accepts_per_hour": 0.0,
       "minimum_esphome_version": "2024.7.0"
     },
     {
@@ -27046,6 +27441,85 @@
       "minimum_esphome_version": "2024.7.0"
     },
     {
+      "id": "microWakeWordsV9:riyou",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "riyou",
+      "name": "Riyou",
+      "label": "Riyou",
+      "path": "microWakeWordsV9/riyou.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/riyou.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.wake-bundle.json",
+      "model_path": "microWakeWordsV9/riyou.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.tflite",
+      "esphome_path": "microWakeWordsV9/riyou.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/riyou.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/riyou.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/riyou.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.84,
+      "openwakeword_patience": 3,
+      "openwakeword_confirmation_threshold": 0.99,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.97
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/riyou.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/riyou.boundary.tflite",
+      "wake_boundary_threshold": 0.69,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.97582,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
       "id": "microWakeWordsV9:sandi",
       "source": "microWakeWordsV9",
       "source_label": "microWakeWordsV9",
@@ -27283,6 +27757,85 @@
       "minimum_esphome_version": "2024.7.0"
     },
     {
+      "id": "microWakeWordsV9:ultron",
+      "source": "microWakeWordsV9",
+      "source_label": "microWakeWordsV9",
+      "slug": "ultron",
+      "name": "Ultron",
+      "label": "Ultron",
+      "path": "microWakeWordsV9/ultron.wake-bundle.json",
+      "url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.wake-bundle.json",
+      "download_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.wake-bundle.json",
+      "dual_model": true,
+      "nano_model": true,
+      "available_engines": [
+        "micro_wake_word",
+        "open_wake_word",
+        "nano_wake_word"
+      ],
+      "supported_detector_modes": [
+        "mww",
+        "oww",
+        "nww",
+        "mww_oww",
+        "mww_nww"
+      ],
+      "bundle_path": "microWakeWordsV9/ultron.wake-bundle.json",
+      "bundle_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.wake-bundle.json",
+      "model_path": "microWakeWordsV9/ultron.tflite",
+      "model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.tflite",
+      "esphome_path": "microWakeWordsV9/ultron.esphome.json",
+      "esphome_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.esphome.json",
+      "openwakeword_model_path": "microWakeWordsV9/ultron.oww.onnx",
+      "openwakeword_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.oww.onnx",
+      "nanowakeword_architectures": [
+        "cnn",
+        "gru"
+      ],
+      "nanowakeword_default_architecture": "cnn",
+      "nanowakeword_model_paths": {
+        "cnn": "microWakeWordsV9/ultron.nww.cnn.onnx",
+        "gru": "microWakeWordsV9/ultron.nww.gru.onnx"
+      },
+      "nanowakeword_model_urls": {
+        "cnn": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.nww.cnn.onnx",
+        "gru": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.nww.gru.onnx"
+      },
+      "openwakeword_threshold": 0.5,
+      "openwakeword_patience": 2,
+      "openwakeword_confirmation_threshold": 0.99,
+      "openwakeword_confirmation_patience": 2,
+      "nanowakeword_thresholds": {
+        "cnn": 0.99,
+        "gru": 0.98
+      },
+      "nanowakeword_patience": {
+        "cnn": 2,
+        "gru": 2
+      },
+      "wake_boundary_available": true,
+      "wake_boundary_model_path": "microWakeWordsV9/ultron.boundary.tflite",
+      "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/ultron.boundary.tflite",
+      "wake_boundary_threshold": 0.5,
+      "wake_boundary_search_before_ms": 700,
+      "wake_boundary_search_after_ms": 120,
+      "wake_boundary_endpoint_offset_ms": 0,
+      "author": "Tater Totterson",
+      "model_format": "tflite_stream_state_internal_quant",
+      "quantization": "int8",
+      "sample_rate": 16000,
+      "version": 2,
+      "trained_languages": [
+        "en"
+      ],
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "calibration_recall": 0.99702,
+      "calibration_false_accepts_per_hour": 0.0,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    {
       "id": "microWakeWordsV9:violet",
       "source": "microWakeWordsV9",
       "source_label": "microWakeWordsV9",
@@ -27408,11 +27961,11 @@
       },
       "openwakeword_threshold": 0.5,
       "openwakeword_patience": 2,
-      "openwakeword_confirmation_threshold": 0.9,
+      "openwakeword_confirmation_threshold": 0.95,
       "openwakeword_confirmation_patience": 2,
       "nanowakeword_thresholds": {
-        "cnn": 0.96,
-        "gru": 0.97
+        "cnn": 0.9,
+        "gru": 0.9
       },
       "nanowakeword_patience": {
         "cnn": 2,
@@ -27421,7 +27974,7 @@
       "wake_boundary_available": true,
       "wake_boundary_model_path": "microWakeWordsV9/vision.boundary.tflite",
       "wake_boundary_model_url": "https://raw.githubusercontent.com/TaterTotterson/Tater-Wake-Words/main/microWakeWordsV9/vision.boundary.tflite",
-      "wake_boundary_threshold": 0.74,
+      "wake_boundary_threshold": 0.91,
       "wake_boundary_search_before_ms": 700,
       "wake_boundary_search_after_ms": 120,
       "wake_boundary_endpoint_offset_ms": 0,
@@ -27433,11 +27986,11 @@
       "trained_languages": [
         "en"
       ],
-      "wake_threshold": 0.96,
+      "wake_threshold": 0.97,
       "wake_sliding_window": 5,
-      "close_miss_threshold": 0.79,
-      "calibration_recall": 0.9871,
-      "calibration_false_accepts_per_hour": 0.0,
+      "close_miss_threshold": 0.8,
+      "calibration_recall": 0.97498,
+      "calibration_false_accepts_per_hour": 0.103409,
       "minimum_esphome_version": "2024.7.0"
     },
     {

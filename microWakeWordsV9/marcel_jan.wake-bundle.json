@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "marcel jan",
+  "key": "marcel_jan",
+  "created_at": "2026-11-18T08:47:02.144781+00:00",
+  "updated_at": "2026-11-18T12:09:05.609522+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "marcel jan",
+    "label": "Marcel Jan",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "marcel_jan.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99664,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-18T08:47:01.593337+00:00"
+    },
+    "model_sha256": "4b6ae1eeb582ef4756ced42d6b7e7c512562183ff0a6ca1a21ed7616ddfcadd2",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "marcel_jan",
+    "phrase": "marcel jan",
+    "created_at": "2026-11-18T08:47:07.724135+00:00",
+    "synced_at": "2026-11-18T09:35:20.683657+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "marcel_jan.oww.onnx",
+        "sha256": "e766fcf536bb406ae7446819e2ae9175faeab72c40e741925894272569d23556",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.99,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "marcel_jan",
+        "phrase": "marcel jan",
+        "created_at": "2026-11-18T09:37:19.996623+00:00",
+        "synced_at": "2026-11-18T10:51:26.991444+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "marcel_jan.nww.cnn.onnx",
+        "model_sha256": "2d8dbb201aeffaac721d98bc38751743da9d2a3f53f4333d5f5af14647f62261",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.994,
+          "negative_rate": 0.028,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "marcel_jan",
+        "phrase": "marcel jan",
+        "created_at": "2026-11-18T10:51:29.626957+00:00",
+        "synced_at": "2026-11-18T12:09:05.561432+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.974,
+          "negative_rate": 0.002,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "marcel_jan.nww.gru.onnx",
+        "model_sha256": "568298f6bcc2df9d9d42f8456ad7ccd2166ac3660ff44135f71126617d40cb8e",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "marcel_jan.boundary.tflite",
+    "model_sha256": "4b59ca3e48692e348d9f5370efb59305b65075c616c803808846ef91323ba44f",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.91,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.99468,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670467
+    }
+  }
+}
