@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Okay Misstress",
+  "key": "okay_misstress",
+  "created_at": "2026-11-20T09:18:24.023041+00:00",
+  "updated_at": "2026-11-20T12:48:51.400976+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Okay Misstress",
+    "label": "Okay Misstress",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "okay_misstress.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.96,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.96,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.79,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99266,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-20T09:18:23.470185+00:00"
+    },
+    "model_sha256": "f4e0488155bc8e84efe82d3df041739c4d70e13608ed3000d8203063927f5244",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "okay_misstress",
+    "phrase": "Okay Misstress",
+    "created_at": "2026-11-20T09:18:29.550269+00:00",
+    "synced_at": "2026-11-20T10:14:17.705589+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "okay_misstress.oww.onnx",
+        "sha256": "d9b2d3f73bb1425d2057619341a7c021b356a101a2d94c09423fe07a3d2044a3",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.85,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.99,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "okay_misstress",
+        "phrase": "Okay Misstress",
+        "created_at": "2026-11-20T10:16:12.685265+00:00",
+        "synced_at": "2026-11-20T11:30:28.337247+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "okay_misstress.nww.cnn.onnx",
+        "model_sha256": "393f64da3797a6cc5ce7fb3b8dfab6e4b73ed6018e672b55f623b976d08e97ec",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.988,
+          "negative_rate": 0.028,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "okay_misstress",
+        "phrase": "Okay Misstress",
+        "created_at": "2026-11-20T11:30:30.809737+00:00",
+        "synced_at": "2026-11-20T12:48:51.344693+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.98,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.978,
+          "negative_rate": 0.002,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "okay_misstress.nww.gru.onnx",
+        "model_sha256": "7f3203fea06c600b22700998e0840b6efc24a44498ba2984164a076afc077121",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "okay_misstress.boundary.tflite",
+    "model_sha256": "9678d600fae0b4a9cee8d75e377e73b015d2cc6a1bcef4fbe5e52b9fe0e37e11",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.99,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.99368,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670467
+    }
+  }
+}
