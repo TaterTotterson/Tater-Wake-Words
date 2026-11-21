@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "mo zhet",
+  "key": "mo_zhet",
+  "created_at": "2026-11-20T21:36:19.323972+00:00",
+  "updated_at": "2026-11-21T00:55:57.192057+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "mo zhet",
+    "label": "Mo Zhet",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "mo_zhet.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.98498,
+      "false_accepts_per_hour": 0.103409,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-20T21:36:18.723023+00:00"
+    },
+    "model_sha256": "ed65d2225e129d36fcb0761aa081de20e14fd4c4e324d101480aace695f40598",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "mo_zhet",
+    "phrase": "mo zhet",
+    "created_at": "2026-11-20T21:36:24.883060+00:00",
+    "synced_at": "2026-11-20T22:22:41.980282+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "mo_zhet.oww.onnx",
+        "sha256": "8d247a3442ef870015a0d6fee83bd9ae54bec3090def7b660f341e371e443747",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.5,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.89,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "mo_zhet",
+        "phrase": "mo zhet",
+        "created_at": "2026-11-20T22:24:33.062612+00:00",
+        "synced_at": "2026-11-20T23:39:08.697907+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "mo_zhet.nww.cnn.onnx",
+        "model_sha256": "f65e6bb8133e233e5cacb25461e2c6cc5b8558acbeab8be45837700315977125",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.98,
+          "negative_rate": 0.002,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "mo_zhet",
+        "phrase": "mo zhet",
+        "created_at": "2026-11-20T23:39:11.171023+00:00",
+        "synced_at": "2026-11-21T00:55:57.133724+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.97,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.962,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "mo_zhet.nww.gru.onnx",
+        "model_sha256": "efa6c1ab2ffc588e1f3b072b317c3f9e985444a56f5ac36dc8ebcbf6f573d860",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "mo_zhet.boundary.tflite",
+    "model_sha256": "3199b52396b51ab78ebc08d0c4db748eb538a98eb16d6e49a53ef641944be0ab",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.84,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.99008,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670467
+    }
+  }
+}
