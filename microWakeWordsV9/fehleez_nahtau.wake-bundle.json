@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "feh-leez nah-tau",
+  "key": "fehleez_nahtau",
+  "created_at": "2026-11-21T04:55:25.374652+00:00",
+  "updated_at": "2026-11-21T10:17:53.497046+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "feh-leez nah-tau",
+    "label": "Feh-Leez Nah-Tau",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "fehleez_nahtau.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.99024,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-21T04:55:24.667719+00:00"
+    },
+    "model_sha256": "366e869c2876f0b27c484b4aadf7a9a2cc0647bb835f5634e978d5a90ee179f6",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "fehleez_nahtau",
+    "phrase": "feh-leez nah-tau",
+    "created_at": "2026-11-21T04:55:38.008585+00:00",
+    "synced_at": "2026-11-21T06:27:39.460780+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "fehleez_nahtau.oww.onnx",
+        "sha256": "50c7c00fd10a70b873e8f159aa7f77f788ef8c047cc375c1eb92e817d1ee2f51",
+        "size_bytes": 611832
+      }
+    },
+    "recommended_threshold": 0.64,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.97,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "fehleez_nahtau",
+        "phrase": "feh-leez nah-tau",
+        "created_at": "2026-11-21T06:30:35.737956+00:00",
+        "synced_at": "2026-11-21T08:27:12.056432+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "fehleez_nahtau.nww.cnn.onnx",
+        "model_sha256": "1b8f4865db62fa1019acc490689e2dcf7ed0f8efd39df621f6c7ff41400f6018",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 1.0,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "fehleez_nahtau",
+        "phrase": "feh-leez nah-tau",
+        "created_at": "2026-11-21T08:27:15.639177+00:00",
+        "synced_at": "2026-11-21T10:17:53.447500+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 1.0,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "fehleez_nahtau.nww.gru.onnx",
+        "model_sha256": "18670126d85faa1ecd50ef07bab2bfe4be4d53170c0709ab811041b80c9f24b6",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "fehleez_nahtau.boundary.tflite",
+    "model_sha256": "24c72ffb867fdfc03b1e8c26bd51a4c57f7136ebbcbdcd9cca692e8ba8913564",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.98,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.98268,
+      "false_accepts_per_hour": 0.206815,
+      "ambient_hours": 9.670467
+    }
+  }
+}
