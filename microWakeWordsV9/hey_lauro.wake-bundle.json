@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "Hey Lauro",
+  "key": "hey_lauro",
+  "created_at": "2026-11-24T22:18:39.089721+00:00",
+  "updated_at": "2026-11-25T01:59:26.485259+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "Hey Lauro",
+    "label": "Hey Lauro",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hey_lauro.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.95,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.95,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.78,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.97372,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-24T22:18:38.504016+00:00"
+    },
+    "model_sha256": "0ac51fd70e023e08633efd6f13cc6d6d4c2209ff8f53e6ae222ecafd609cc45a",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hey_lauro",
+    "phrase": "Hey Lauro",
+    "created_at": "2026-11-24T22:18:44.651125+00:00",
+    "synced_at": "2026-11-24T23:16:11.501905+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "hey_lauro.oww.onnx",
+        "sha256": "2aea1a37c733c71374daa5c7642c62022eaa78b2dd1c6bbfa27c60d6865bb459",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.82,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.95,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "cnn",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hey_lauro",
+        "phrase": "Hey Lauro",
+        "created_at": "2026-11-24T23:18:02.843065+00:00",
+        "synced_at": "2026-11-25T00:39:31.723575+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hey_lauro.nww.cnn.onnx",
+        "model_sha256": "78f798b997129ef1bd105ed2c44c43ffa717d62f524116087f8ed86bc36456c8",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.996,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "hey_lauro",
+        "phrase": "Hey Lauro",
+        "created_at": "2026-11-25T00:39:34.214501+00:00",
+        "synced_at": "2026-11-25T01:59:26.432034+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.96,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.966,
+          "negative_rate": 0.006,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "hey_lauro.nww.gru.onnx",
+        "model_sha256": "4126122bb465ee4de7b8b6c2ea28e7298e2c69ec73fa20e750d04b2bc9035bf9",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "hey_lauro.boundary.tflite",
+    "model_sha256": "d7c0c5daa7ba9781ee62d742797007e431ff0bee43f7a4789892860301a98b60",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.89,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.98444,
+      "false_accepts_per_hour": 0.413631,
+      "ambient_hours": 9.670467
+    }
+  }
+}
