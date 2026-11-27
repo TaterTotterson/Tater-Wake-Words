@@ -1,0 +1,184 @@
+{
+  "schema_version": 4,
+  "type": "tater_wake_word_bundle",
+  "wake_word": "hangup nabu",
+  "key": "hangup_nabu",
+  "created_at": "2026-11-26T20:34:52.362074+00:00",
+  "updated_at": "2026-11-26T23:57:30.321281+00:00",
+  "micro_wake_word": {
+    "type": "micro",
+    "wake_word": "hangup nabu",
+    "label": "Hangup Nabu",
+    "author": "Tater Totterson",
+    "website": "https://github.com/TaterTotterson/Tater-Wake-Words",
+    "model": "hangup_nabu.tflite",
+    "trained_languages": [
+      "en"
+    ],
+    "version": 2,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "micro": {
+      "probability_cutoff": 0.99,
+      "sliding_window_size": 5,
+      "feature_step_size": 10,
+      "tensor_arena_size": 30000,
+      "minimum_esphome_version": "2024.7.0"
+    },
+    "tater_native": {
+      "format_version": 1,
+      "wake_threshold": 0.99,
+      "wake_sliding_window": 5,
+      "close_miss_threshold": 0.82,
+      "frontend": {
+        "name": "tflm_microfrontend",
+        "sample_rate": 16000,
+        "feature_duration_ms": 30,
+        "feature_step_ms": 10,
+        "feature_size": 40,
+        "input_feature_frames": 2,
+        "lower_band_limit": 125.0,
+        "upper_band_limit": 7500.0
+      },
+      "recommended_for": [
+        "tater-native-satellite",
+        "voice-pe"
+      ]
+    },
+    "calibration": {
+      "target_false_accepts_per_hour": 0.25,
+      "selected_false_accepts_per_hour_limit": 0.25,
+      "recall": 0.9906,
+      "false_accepts_per_hour": 0.0,
+      "ambient_hours": 9.670378,
+      "positive_dataset": "validation",
+      "ambient_dataset": "validation_ambient",
+      "positive_tracks": 50000,
+      "ambient_tracks": 4,
+      "generated_at": "2026-11-26T20:34:51.856355+00:00"
+    },
+    "model_sha256": "b63c264ef7041db42a02741d1b5508ce3854eb3f199f76402177c5589ddb06e5",
+    "model_size_bytes": 137984
+  },
+  "open_wake_word": {
+    "type": "open_wake_word",
+    "model_name": "hangup_nabu",
+    "phrase": "hangup nabu",
+    "created_at": "2026-11-26T20:34:57.800493+00:00",
+    "synced_at": "2026-11-26T21:24:44.746897+00:00",
+    "trainer_revision": "4bfce98b8dc27b197f149243d99621f1c6d75314",
+    "artifacts": {
+      "onnx": {
+        "file": "hangup_nabu.oww.onnx",
+        "sha256": "b020d979da4dd977799b3d9aeb648ba9b77832d387a0dcb3c932f06a8866ca4f",
+        "size_bytes": 415224
+      }
+    },
+    "recommended_threshold": 0.87,
+    "recommended_patience": 2,
+    "recommended_confirmation_threshold": 0.98,
+    "recommended_confirmation_patience": 2,
+    "confirmation_required": true,
+    "quality_evaluated": true,
+    "quality_passed": true,
+    "quality_status": "passed"
+  },
+  "nano_wake_word": {
+    "default_architecture": "gru",
+    "variants": {
+      "cnn": {
+        "type": "nano_wake_word",
+        "name": "hangup_nabu",
+        "phrase": "hangup nabu",
+        "created_at": "2026-11-26T21:26:36.165418+00:00",
+        "synced_at": "2026-11-26T22:41:55.050598+00:00",
+        "model_type": "cnn",
+        "architecture": "cnn",
+        "steps": 50000,
+        "layer_size": 32,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "model": "hangup_nabu.nww.cnn.onnx",
+        "model_sha256": "b9f644b85c024e52b276599120d3f66f607f205243412ded3800548847a1c74b",
+        "model_size_bytes": 1695949,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 1.0,
+          "negative_rate": 0.018,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.7,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed"
+      },
+      "gru": {
+        "name": "hangup_nabu",
+        "phrase": "hangup nabu",
+        "created_at": "2026-11-26T22:41:57.465786+00:00",
+        "synced_at": "2026-11-26T23:57:30.270160+00:00",
+        "model_type": "gru",
+        "architecture": "gru",
+        "steps": 50000,
+        "layer_size": 128,
+        "hard_negative_samples": 3000,
+        "quality_retries_used": 0,
+        "recommended_threshold": 0.99,
+        "recommended_patience": 2,
+        "quality_summary": {
+          "recall": 0.986,
+          "negative_rate": 0.0,
+          "positive_count": 500,
+          "negative_count": 500,
+          "sample_partition": 0
+        },
+        "validated_existing_candidate": false,
+        "seed": 42,
+        "loss_bias": 0.75,
+        "quality_evaluated": true,
+        "quality_passed": true,
+        "quality_status": "passed",
+        "type": "nano_wake_word",
+        "model": "hangup_nabu.nww.gru.onnx",
+        "model_sha256": "350d63200272de0bc72133f026ea65d9aad9153c3ce7440a5b8030e2e5f8a8cc",
+        "model_size_bytes": 863534
+      }
+    }
+  },
+  "wake_boundary": {
+    "type": "wake_word_end",
+    "model": "hangup_nabu.boundary.tflite",
+    "model_sha256": "3b073759894774fb7483e2de2cdea4910ff0fffe792f19e2c795cf4a54747ab5",
+    "model_size_bytes": 137984,
+    "model_format": "tflite_stream_state_internal_quant",
+    "quantization": "int8",
+    "sample_rate": 16000,
+    "threshold": 0.79,
+    "tensor_arena_size": 65536,
+    "frontend": {
+      "name": "tflm_microfrontend",
+      "sample_rate": 16000,
+      "feature_duration_ms": 30,
+      "feature_step_ms": 10,
+      "feature_size": 40,
+      "input_feature_frames": 2,
+      "lower_band_limit": 125.0,
+      "upper_band_limit": 7500.0
+    },
+    "search_before_ms": 700,
+    "search_after_ms": 120,
+    "endpoint_offset_ms": 0,
+    "training_strategy": "endpoint_hard_negative_v1",
+    "quality_summary": {
+      "recall": 0.98626,
+      "false_accepts_per_hour": 0.103408,
+      "ambient_hours": 9.670467
+    }
+  }
+}
